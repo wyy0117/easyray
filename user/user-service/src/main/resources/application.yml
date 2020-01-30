@@ -1,10 +1,14 @@
+#server port
+server:
+  port: ${random.int[1000,10000]}
+
 #db config
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost/easyry?useUnicode=true&characterEncoding=utf8
-    username: easyry
-    password: easyry
+    url: jdbc:mysql://localhost/easyray?useUnicode=true&characterEncoding=utf8
+    username: easyray
+    password: easyray
     type: com.alibaba.druid.pool.DruidDataSource
 
 #dubbo config
@@ -15,5 +19,18 @@ dubbo:
     name: dubbo
   registry:
     address: zookeeper://localhost:2181
-server:
-  port: ${random.int[1000,10000]}
+
+#mp config
+mybatis-plus:
+  configuration:
+    map-underscore-to-camel-case: false
+
+#admin config
+admin:
+  username: admin
+  password: admin
+
+#log
+logging:
+  file:
+    path: .

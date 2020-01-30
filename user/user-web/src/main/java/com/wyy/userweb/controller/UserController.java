@@ -2,10 +2,15 @@ package com.wyy.userweb.controller;
 
 
 import com.alibaba.dubbo.config.annotation.Reference;
+import com.wyy.easyry.service.UserCheckPermission;
+import com.wyy.easyry.service.UserLocalService;
 import com.wyy.easyry.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.lang.reflect.Proxy;
 
 /**
  * <p>
@@ -20,11 +25,15 @@ import org.springframework.web.bind.annotation.RestController;
 public class UserController {
 
     @Reference
+    private UserLocalService userLocalService;
+
+    @Reference
     private UserService userService;
 
     @GetMapping("/hello")
     public String hello() {
-        userService.findByUsername("123");
+//        userLocalService.findByUsername("123");
+        userService.findByUsername("456");
         return "hello";
     }
 

@@ -6,3 +6,5 @@ dubbo:
     name: dubbo
   registry:
     address: zookeeper://localhost:2181
+  consumer:
+    retries: -1

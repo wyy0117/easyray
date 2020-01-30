@@ -4,11 +4,9 @@ import com.wyy.baseapi.service.BaseService;
 import com.wyy.easyry.entity.User;
 
 /**
- * @Date: 20-1-26
+ * @Date: 20-1-27
  * @Author: wyy
  */
-public interface UserService extends BaseService<User, Long> {
-
-    public User findByUsername(String username);
+public interface UserService extends UserLocalService, BaseService<User> {
 
 }

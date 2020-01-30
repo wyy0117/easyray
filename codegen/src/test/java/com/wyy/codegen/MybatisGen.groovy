@@ -14,7 +14,7 @@ import org.junit.Test
 class MybatisGen {
     @Test
     void userGen() {
-        gen('/home/wyy/github/easyry/user/user-service/src/main/java', 'com.wyy.userservice', 'sys_', 'sys_user')
+        gen('/home/wyy/cache/temp', 'com.wyy.userservice', 'sys_', 'sys_user')
     }
 
     private void gen(String path, String packageName, String tablePrefix, String... tableName) {
