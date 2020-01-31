@@ -36,15 +36,12 @@
         <zookeeper.version>3.5.6</zookeeper.version>
         <dubbo.version>2.6.7</dubbo.version>
         <servlet-api.version>4.0.1</servlet-api.version>
+        <swagger.version>2.9.2</swagger.version>
     </properties>
 
     <dependencyManagement>
 
         <dependencies>
-            <dependency>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-starter</artifactId>
-            </dependency>
 
             <dependency>
                 <groupId>org.springframework.boot</groupId>
@@ -142,6 +139,18 @@
                 <artifactId>javax.servlet-api</artifactId>
                 <version>${servlet-api.version}</version>
             </dependency>
+
+            <dependency>
+                <groupId>io.springfox</groupId>
+                <artifactId>springfox-swagger2</artifactId>
+                <version>${swagger.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.springfox</groupId>
+                <artifactId>springfox-swagger-ui</artifactId>
+                <version>${swagger.version}</version>
+            </dependency>
+
         </dependencies>
 
     </dependencyManagement>

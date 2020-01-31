@@ -1,6 +1,7 @@
 package com.wyy.userservice.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.wyy.baseapi.exception.NoPermissionException;
 import com.wyy.easyry.entity.User;
 import com.wyy.easyry.service.UserCheckPermission;
 import com.wyy.userservice.mapper.UserMapper;
@@ -20,5 +21,10 @@ public class UserCheckPermissionImpl extends ServiceImpl<UserMapper, User> imple
     @Override
     public User fetchByUsername(String username) {
         return null;
+    }
+
+    @Override
+    public void testException() throws NoPermissionException {
+        
     }
 }

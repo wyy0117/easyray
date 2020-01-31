@@ -1,7 +1,6 @@
 package com.wyy.userservice.service.impl;
 
 import com.alibaba.dubbo.config.annotation.Service;
-import com.wyy.easyry.entity.User;
 import com.wyy.easyry.service.UserService;
 import org.springframework.stereotype.Component;
 
@@ -13,8 +12,4 @@ import org.springframework.stereotype.Component;
 @Component
 public class UserServiceImpl extends UserLocalServiceImpl implements UserService {
 
-    @Override
-    public User findByUsername(String username) {
-        return super.findByUsername(username);
-    }
 }

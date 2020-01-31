@@ -31,7 +31,6 @@ class UserLocalServiceApplicationTests {
 
     @Test
     void testApi() {
-        userService.findByUsername("123");
     }
 
 

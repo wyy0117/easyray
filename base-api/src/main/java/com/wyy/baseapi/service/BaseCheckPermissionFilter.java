@@ -19,7 +19,6 @@ public abstract class BaseCheckPermissionFilter<P extends BaseCheckerPermission>
 
     @Override
     public Result invoke(Invoker<?> invoker, Invocation invocation) throws RpcException {
-        System.out.println("BaseCheckPermissionFilter.invoke");
         try {
             P checkPermission = getCheckPermission();
             Method method = checkPermission.getClass().getMethod(invocation.getMethodName(), invocation.getParameterTypes());

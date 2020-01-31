@@ -2,15 +2,15 @@ package com.wyy.userweb.controller;
 
 
 import com.alibaba.dubbo.config.annotation.Reference;
-import com.wyy.easyry.service.UserCheckPermission;
+import com.wyy.auth.annotation.EasyNoAuth;
+import com.wyy.baseapi.exception.EasyCustomException;
+import com.wyy.baseapi.exception.EntityNotExistException;
+import com.wyy.baseapi.exception.NoPermissionException;
 import com.wyy.easyry.service.UserLocalService;
 import com.wyy.easyry.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.lang.reflect.Proxy;
 
 /**
  * <p>
@@ -31,12 +31,11 @@ public class UserController {
     private UserService userService;
 
     @GetMapping("/hello")
-    public String hello() {
-//        userLocalService.findByUsername("123");
-        userService.findByUsername("456");
+    @EasyNoAuth
+    public String hello() throws EntityNotExistException, NoPermissionException, EasyCustomException {
+//        User user = userLocalService.fetchByUsername("456");
+        userLocalService.testException();
         return "hello";
     }
-
-
 }
 
