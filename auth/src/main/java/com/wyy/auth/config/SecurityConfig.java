@@ -1,6 +1,8 @@
 package com.wyy.auth.config;
 
 import com.wyy.auth.annotation.EasyNoAuth;
+import com.wyy.auth.filter.JWTTokenFilter;
+import com.wyy.auth.filter.JwtLoginFilter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -60,7 +62,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         ExpressionUrlAuthorizationConfigurer<HttpSecurity>.ExpressionInterceptUrlRegistry requests = http.authorizeRequests();
         requests.antMatchers(HttpMethod.OPTIONS, "/**").permitAll()// 跨域预检请求
                 // 登录URL
-                .antMatchers("/login").permitAll()
+                .antMatchers("/user/login").permitAll()
                 // swagger
                 .antMatchers("/swagger**/**").permitAll()
                 .antMatchers("/webjars/**").permitAll()
@@ -68,9 +70,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         Set<String> allNoAuthMethod = findAllNoAuthMethod();
         log.debug("these url need no auth : {}", allNoAuthMethod);
         requests.antMatchers(allNoAuthMethod.toArray(new String[0])).permitAll();
+        http.addFilter(new JwtLoginFilter(authenticationManagerBean()));
+        http.addFilter(new JWTTokenFilter(authenticationManagerBean()));
         // 其他所有请求需要身份认证
-        requests.anyRequest().authenticated()
-                .and().formLogin().loginProcessingUrl("/login");
+        requests.anyRequest().authenticated();
     }
 
     private Set<String> findAllNoAuthMethod() throws ClassNotFoundException {
@@ -96,7 +99,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                             path = urlPrefix + (path.startsWith("/") ? path : "/" + path);
                             ignoreAuthUriList.add(path);
                         }
-
                         continue;
                     }
                     GetMapping getMapping = method.getAnnotation(GetMapping.class);

@@ -4,6 +4,7 @@ import com.wyy.auth.entity.UserDetailsImpl;
 import com.wyy.easyry.entity.User;
 import com.wyy.easyry.service.UserLocalService;
 import jdk.nashorn.internal.ir.annotations.Reference;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -17,6 +18,7 @@ import org.springframework.stereotype.Component;
 public class UserDetailServiceImpl implements UserDetailsService {
 
     @Reference
+    @Lazy
     private UserLocalService userLocalService;
 
     @Override
