@@ -1,5 +1,6 @@
 package com.wyy.userservice.init;
 
+import com.wyy.baseapi.init.IEasyIniter;
 import com.wyy.easyry.entity.User;
 import com.wyy.easyry.service.UserLocalService;
 import org.slf4j.Logger;
@@ -7,7 +8,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.ApplicationArguments;
-import org.springframework.boot.ApplicationRunner;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 
@@ -16,9 +16,9 @@ import org.springframework.stereotype.Component;
  * @Author: wyy
  */
 @Component
-public class InitUsers implements ApplicationRunner {
+public class UsersIniter implements IEasyIniter {
 
-    private Logger log = LoggerFactory.getLogger(InitUsers.class);
+    private Logger log = LoggerFactory.getLogger(UsersIniter.class);
 
     @Value("${admin.username}")
     private String username;
@@ -28,12 +28,13 @@ public class InitUsers implements ApplicationRunner {
     @Autowired
     private UserLocalService userLocalService;
 
-    @Autowired
-    private BCryptPasswordEncoder bCryptPasswordEncoder;
+    @Override
+    public int getOrder() {
+        return 0;
+    }
 
     @Override
-    public void run(ApplicationArguments args) throws Exception {
-
+    public void init(ApplicationArguments args) {
         log.debug("init users");
 
         User admin = userLocalService.fetchByUsername(username);
@@ -42,7 +43,7 @@ public class InitUsers implements ApplicationRunner {
             User user = new User();
             user.setUsername(username);
             user.setFullName(username);
-            user.setPassword(bCryptPasswordEncoder.encode(password));
+            user.setPassword(new BCryptPasswordEncoder().encode(password));
             userLocalService.save(user);
         }
     }

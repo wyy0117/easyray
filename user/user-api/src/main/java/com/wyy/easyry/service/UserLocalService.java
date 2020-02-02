@@ -1,8 +1,8 @@
 package com.wyy.easyry.service;
 
-import com.wyy.baseapi.exception.EasyCustomException;
-import com.wyy.baseapi.exception.EntityNotExistException;
-import com.wyy.baseapi.exception.NoPermissionException;
+import com.wyy.common.exception.EasyCustomException;
+import com.wyy.common.exception.EntityNotExistException;
+import com.wyy.common.exception.NoPermissionException;
 import com.wyy.baseapi.service.BaseLocalService;
 import com.wyy.easyry.entity.User;
 

@@ -1,4 +1,4 @@
-package com.wyy.baseapi.customexception;
+package com.wyy.common.exception.filter;
 
 import java.io.Serializable;
 

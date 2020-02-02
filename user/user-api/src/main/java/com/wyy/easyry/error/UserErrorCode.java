@@ -1,6 +1,6 @@
 package com.wyy.easyry.error;
 
-import com.wyy.baseapi.customexception.ICustomErrorCode;
+import com.wyy.common.exception.filter.ICustomErrorCode;
 
 /**
  * @Date: 20-1-31

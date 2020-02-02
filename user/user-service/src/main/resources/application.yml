@@ -20,11 +20,6 @@ dubbo:
   registry:
     address: zookeeper://localhost:2181
 
-#mp config
-mybatis-plus:
-  configuration:
-    map-underscore-to-camel-case: false
-
 #admin config
 admin:
   username: admin

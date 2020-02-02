@@ -2,10 +2,9 @@ package com.wyy.userweb.controller;
 
 
 import com.alibaba.dubbo.config.annotation.Reference;
-import com.wyy.auth.annotation.EasyNoAuth;
-import com.wyy.baseapi.exception.EasyCustomException;
-import com.wyy.baseapi.exception.EntityNotExistException;
-import com.wyy.baseapi.exception.NoPermissionException;
+import com.wyy.common.exception.EasyCustomException;
+import com.wyy.common.exception.EntityNotExistException;
+import com.wyy.common.exception.NoPermissionException;
 import com.wyy.easyry.service.UserLocalService;
 import com.wyy.easyry.service.UserService;
 import org.springframework.web.bind.annotation.GetMapping;

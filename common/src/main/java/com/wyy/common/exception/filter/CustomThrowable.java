@@ -1,4 +1,4 @@
-package com.wyy.baseapi.customexception;
+package com.wyy.common.exception.filter;
 
 /**
  * @Date: 20-1-31

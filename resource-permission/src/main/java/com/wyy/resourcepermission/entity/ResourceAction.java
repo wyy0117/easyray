@@ -1,15 +1,13 @@
-package com.wyy.resourcepermission;
+package com.wyy.resourcepermission.entity;
 
-import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 
 /**
  * @Date: 20-1-27
  * @Author: wyy
  */
-@TableName("sys_resourceAction")
+@TableName("sys_resource_action")
 public class ResourceAction {
-    @TableId
     private Long id;
     private String name;
     private String action;
