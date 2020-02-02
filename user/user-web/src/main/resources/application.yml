@@ -9,3 +9,9 @@ dubbo:
   consumer:
     retries: -1
     timeout: -1
+spring:
+  http:
+    encoding:
+      charset: utf-8
+      force: true
+      enabled: true

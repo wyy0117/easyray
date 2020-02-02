@@ -1,11 +1,11 @@
 package com.wyy.auth.filter;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 import com.wyy.auth.entity.JwtToken;
 import com.wyy.auth.entity.Login;
 import com.wyy.auth.entity.UserDetailsImpl;
 import com.wyy.auth.util.JwtTokenUtil;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -23,6 +23,7 @@ import java.util.ArrayList;
  * @Author: wyy
  */
 public class JwtLoginFilter extends AbstractLoginFilter {
+
     public JwtLoginFilter(AuthenticationManager authenticationManager) {
         super(authenticationManager);
     }
@@ -31,20 +32,15 @@ public class JwtLoginFilter extends AbstractLoginFilter {
     public Authentication checkLogin(HttpServletRequest request, HttpServletResponse response) {
 
         // 从输入流中获取到登录的信息
-        try {
-            Login login = new ObjectMapper().readValue(request.getInputStream(), Login.class);
-            return super.authenticationManager.authenticate(
-                    new UsernamePasswordAuthenticationToken(login.getUsername(), login.getPassword(), new ArrayList<>())
-            );
-        } catch (IOException e) {
-            e.printStackTrace();
-            return null;
-        }
+        Login login = super.loginThreadLocal.get();
+        return super.authenticationManager.authenticate(
+                new UsernamePasswordAuthenticationToken(login.getUsername(), login.getPassword(), new ArrayList<>())
+        );
     }
 
     @Override
     public void afterChecked(HttpServletRequest request, HttpServletResponse response, FilterChain chain, Authentication authResult) throws IOException {
-        Login login = new ObjectMapper().readValue(request.getInputStream(), Login.class);
+        Login login = super.loginThreadLocal.get();
         UserDetailsImpl userDetails = (UserDetailsImpl) authResult.getPrincipal();
         String token = JwtTokenUtil.createToken(userDetails.getUser(), login.getRememberMe());
 

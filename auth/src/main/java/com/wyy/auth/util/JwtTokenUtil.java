@@ -6,6 +6,7 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import org.apache.commons.lang3.time.DateUtils;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
 
 import java.util.Date;
 import java.util.HashMap;
@@ -15,20 +16,36 @@ import java.util.Map;
  * @Date: 20-2-1
  * @Author: wyy
  */
+@Component
 public class JwtTokenUtil {
 
-    @Value("${jwt.rememberMe}:false")
     public static boolean rememberMe;
 
-    @Value("${jwt.secret}:easyray")
     public static String jwtSecret;
 
-    @Value("${jwt.expiration}:3600")
     public static int jwtExpiration;
 
-    @Value(("${jwt.rememberMeExpiration}:86400"))
     public static int jwtRememberMeExpiration;
 
+    @Value("${jwt.rememberMe:false}")
+    public void setRememberMe(boolean rememberMe) {
+        JwtTokenUtil.rememberMe = rememberMe;
+    }
+
+    @Value("${jwt.secret:easyray}")
+    public void setJwtSecret(String jwtSecret) {
+        JwtTokenUtil.jwtSecret = jwtSecret;
+    }
+
+    @Value("${jwt.expiration:3600}")
+    public void setJwtExpiration(int jwtExpiration) {
+        JwtTokenUtil.jwtExpiration = jwtExpiration;
+    }
+
+    @Value(("${jwt.rememberMeExpiration:86400}"))
+    public void setJwtRememberMeExpiration(int jwtRememberMeExpiration) {
+        JwtTokenUtil.jwtRememberMeExpiration = jwtRememberMeExpiration;
+    }
 
     public static final String USERID = "userId";
     public static final String USERNAME = "username";

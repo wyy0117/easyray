@@ -31,7 +31,6 @@ import java.util.Set;
  * @Date: 20-1-30
  * @Author: wyy
  */
-@Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {

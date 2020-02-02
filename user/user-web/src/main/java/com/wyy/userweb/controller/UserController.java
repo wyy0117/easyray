@@ -31,7 +31,6 @@ public class UserController {
     private UserService userService;
 
     @GetMapping("/hello")
-    @EasyNoAuth
     public String hello() throws EntityNotExistException, NoPermissionException, EasyCustomException {
 //        User user = userLocalService.fetchByUsername("456");
         userLocalService.testException();

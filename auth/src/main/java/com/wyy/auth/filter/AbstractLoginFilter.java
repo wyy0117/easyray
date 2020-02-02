@@ -1,5 +1,7 @@
 package com.wyy.auth.filter;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.wyy.auth.entity.Login;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
@@ -21,6 +23,8 @@ import java.io.IOException;
  */
 public abstract class AbstractLoginFilter extends UsernamePasswordAuthenticationFilter {
 
+    protected ThreadLocal<Login> loginThreadLocal = new ThreadLocal<>();
+
     /**
      * 这里有个坑，super.getAuthenticationManager() 为null，所以要从WebSecurityConfigurerAdapter的super.getAuthenticationManager()中取
      */
@@ -32,7 +36,12 @@ public abstract class AbstractLoginFilter extends UsernamePasswordAuthentication
 
     @Override
     public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException {
-
+        try {
+            Login login = new ObjectMapper().readValue(request.getInputStream(), Login.class);
+            loginThreadLocal.set(login);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         return checkLogin(request, response);
     }
 
