@@ -1,1 +1,1 @@
-userCheckPermissionFilter=com.wyy.userservice.service.impl.UserCheckPermissionFilter
+userCheckPermissionFilter=com.easyray.userservice.service.impl.UserCheckPermissionFilter
