@@ -12,7 +12,7 @@ public interface IEasyIniter extends Comparable<IEasyIniter> {
 
     public int getOrder();
 
-    public void init(ApplicationArguments args) throws IOException, DocumentException;
+    public void init(ApplicationArguments args) throws IOException;
 
     @Override
     default int compareTo(IEasyIniter o) {

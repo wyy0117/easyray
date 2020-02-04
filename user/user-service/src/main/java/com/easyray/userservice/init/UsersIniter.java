@@ -1,5 +1,6 @@
 package com.easyray.userservice.init;
 
+import com.easyray.baseapi.idgenerator.service.IdService;
 import com.easyray.baseapi.init.IEasyIniter;
 import com.easyray.userapi.entity.User;
 import com.easyray.userapi.service.UserLocalService;
@@ -27,6 +28,8 @@ public class UsersIniter implements IEasyIniter {
 
     @Autowired
     private UserLocalService userLocalService;
+    @Autowired
+    private IdService idService;
 
     @Override
     public int getOrder() {
@@ -40,7 +43,7 @@ public class UsersIniter implements IEasyIniter {
         User admin = userLocalService.fetchByUsername(username);
         if (admin == null) {
             log.debug("add user {}", username);
-            User user = new User();
+            User user = new User(idService.nextId(User.class.getName()));
             user.setUsername(username);
             user.setFullName(username);
             user.setPassword(new BCryptPasswordEncoder().encode(password));

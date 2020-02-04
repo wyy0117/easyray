@@ -12,8 +12,8 @@ import java.util.Set;
 public class MergeUtil<T> {
 
     public static class MergeResult<T> {
-        private List<T> needAdd;
-        private List<T> needDelete;
+        private List<T> needAdd = new ArrayList<>();
+        private List<T> needDelete = new ArrayList<>();
 
         public MergeResult() {
         }

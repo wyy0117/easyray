@@ -1,6 +1,7 @@
 package com.easyray.resourcepermission.init;
 
 import com.easyray.baseapi.init.IEasyIniter;
+import com.easyray.common.util.MergeUtil;
 import com.easyray.resourcepermission.entity.ResourceAction;
 import com.easyray.resourcepermission.entity.ResourceActionVersion;
 import com.easyray.resourcepermission.entity.xml.ResourceActionXML;
@@ -20,6 +21,7 @@ import org.springframework.stereotype.Component;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @Date: 20-2-2
@@ -49,7 +51,7 @@ public class ResourceActionIniter implements IEasyIniter {
     @Override
     public void init(ApplicationArguments args) throws IOException {
 
-        ClassPathResource classPathResource = new ClassPathResource("permission/resource-permission.xml");
+        ClassPathResource classPathResource = new ClassPathResource("permission/resource-action.xml");
         InputStream inputStream = classPathResource.getInputStream();
         try {
             ResourceActionsXML resourceActionsXML = XMLUtil.readResourceAction(inputStream);
@@ -65,7 +67,11 @@ public class ResourceActionIniter implements IEasyIniter {
                     for (ResourceActionXML resourceActionXML : resourceActionXMLList) {
                         String entityName = resourceActionXML.getEntityName();
                         List<ResourceAction> resourceActionList = resourceActionLocalService.fetchByEntityName(entityName);
+                        List<String> dbActionList = resourceActionList.stream().map(ResourceAction::getAction).collect(Collectors.toList());
+                        MergeUtil.MergeResult<String> mergeResult = new MergeUtil<String>().merge(dbActionList, resourceActionXML.getActionKeys());
+                        if (mergeResult.getNeedAdd().size() > 0) {//有需要新增的
 
+                        }
                     }
                 }
             }

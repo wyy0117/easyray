@@ -12,6 +12,13 @@ public class ResourcePermissionVersion extends BaseEntity<Long> {
     private String module;
     private String version;
 
+    public ResourcePermissionVersion(Long id) {
+        super(id);
+    }
+
+    public ResourcePermissionVersion() {
+    }
+
     @Override
     public String toString() {
         return "ResourcePermissionVersion{" +

@@ -13,6 +13,13 @@ public class ResourceActionVersion extends BaseEntity<Long> {
     private String module;
     private String version;
 
+    public ResourceActionVersion(Long id) {
+        super(id);
+    }
+
+    public ResourceActionVersion() {
+    }
+
     @Override
     public String toString() {
         return "ResourceActionVersion{" +

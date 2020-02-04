@@ -1,5 +1,8 @@
 package com.easyray.baseapi.entity;
 
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
+
 import java.util.Date;
 
 /**
@@ -8,15 +11,22 @@ import java.util.Date;
  */
 
 /**
- *
  * @param <T> 主键类型
  */
 public abstract class BaseEntity<T> {
+    @TableId(type = IdType.INPUT)
     private T id;
     private long userId;
     private String fullName;
     private Date createDate;
     private Date modifiedDate;
+
+    public BaseEntity() {
+    }
+
+    public BaseEntity(T id) {
+        this.id = id;
+    }
 
     @Override
     public String toString() {

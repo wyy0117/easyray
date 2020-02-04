@@ -1,8 +1,8 @@
 package com.easyray.userapi.entity;
 
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.easyray.baseapi.entity.BaseEntity;
 
-import java.io.Serializable;
 import java.util.Date;
 
 /**
@@ -14,17 +14,11 @@ import java.util.Date;
  * @since 2020-01-26
  */
 @TableName("sys_user")
-public class User implements Serializable {
-
-    private static final long serialVersionUID = 1L;
-
-    private Long id;
+public class User extends BaseEntity<Long> {
 
     private String username;
 
     private String password;
-
-    private String fullName;
 
     private String phone;
 
@@ -46,13 +40,18 @@ public class User implements Serializable {
 
     private Date modifiedDate;
 
+    public User(Long id) {
+        super(id);
+    }
+
+    public User() {
+    }
+
     @Override
     public String toString() {
         return "User{" +
-                "id=" + id +
-                ", username='" + username + '\'' +
+                "username='" + username + '\'' +
                 ", password='" + password + '\'' +
-                ", fullName='" + fullName + '\'' +
                 ", phone='" + phone + '\'' +
                 ", email='" + email + '\'' +
                 ", openId=" + openId +
@@ -63,20 +62,7 @@ public class User implements Serializable {
                 ", status=" + status +
                 ", createDate=" + createDate +
                 ", modifiedDate=" + modifiedDate +
-                '}';
-    }
-
-    public static long getSerialVersionUID() {
-        return serialVersionUID;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public User setId(Long id) {
-        this.id = id;
-        return this;
+                "} " + super.toString();
     }
 
     public String getUsername() {
@@ -94,15 +80,6 @@ public class User implements Serializable {
 
     public User setPassword(String password) {
         this.password = password;
-        return this;
-    }
-
-    public String getFullName() {
-        return fullName;
-    }
-
-    public User setFullName(String fullName) {
-        this.fullName = fullName;
         return this;
     }
 
@@ -178,19 +155,23 @@ public class User implements Serializable {
         return this;
     }
 
+    @Override
     public Date getCreateDate() {
         return createDate;
     }
 
+    @Override
     public User setCreateDate(Date createDate) {
         this.createDate = createDate;
         return this;
     }
 
+    @Override
     public Date getModifiedDate() {
         return modifiedDate;
     }
 
+    @Override
     public User setModifiedDate(Date modifiedDate) {
         this.modifiedDate = modifiedDate;
         return this;

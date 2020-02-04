@@ -1,1 +1,1 @@
-提供基础api，与框架强相关
+提供基础api，与springboot，dubbo，mybatis-plus强相关
