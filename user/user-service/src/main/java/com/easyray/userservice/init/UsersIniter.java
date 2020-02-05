@@ -4,10 +4,10 @@ import com.easyray.baseapi.idgenerator.service.IdService;
 import com.easyray.baseapi.init.IEasyIniter;
 import com.easyray.userapi.entity.User;
 import com.easyray.userapi.service.UserLocalService;
+import com.easyray.userservice.autoconfig.UserConfigurationProperties;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
@@ -21,10 +21,8 @@ public class UsersIniter implements IEasyIniter {
 
     private Logger log = LoggerFactory.getLogger(UsersIniter.class);
 
-    @Value("${admin.username}")
-    private String username;
-    @Value("${admin.password}")
-    private String password;
+    @Autowired
+    private UserConfigurationProperties userConfigurationProperties;
 
     @Autowired
     private UserLocalService userLocalService;
@@ -40,13 +38,13 @@ public class UsersIniter implements IEasyIniter {
     public void init(ApplicationArguments args) {
         log.debug("init users");
 
-        User admin = userLocalService.fetchByUsername(username);
+        User admin = userLocalService.fetchByUsername(userConfigurationProperties.getUsername());
         if (admin == null) {
-            log.debug("add user {}", username);
+            log.debug("add user {}", userConfigurationProperties.getUsername());
             User user = new User(idService.nextId(User.class.getName()));
-            user.setUsername(username);
-            user.setFullName(username);
-            user.setPassword(new BCryptPasswordEncoder().encode(password));
+            user.setUsername(userConfigurationProperties.getUsername());
+            user.setFullName(userConfigurationProperties.getUsername());
+            user.setPassword(new BCryptPasswordEncoder().encode(userConfigurationProperties.getPassword()));
             userLocalService.save(user);
         }
     }

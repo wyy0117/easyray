@@ -21,9 +21,10 @@ dubbo:
     address: zookeeper://localhost:2181
 
 #admin config
-admin:
-  username: admin
-  password: admin
+user:
+  admin:
+    username: admin
+    password: admin
 
 #log
 logging:

@@ -1,11 +1,12 @@
 package com.easyray.auth.util;
 
+import com.easyray.auth.autoconfig.JWTConfigurationProperties;
 import com.easyray.userapi.entity.User;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import org.apache.commons.lang3.time.DateUtils;
-import org.springframework.beans.factory.annotation.Value;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 import java.util.Date;
@@ -19,32 +20,10 @@ import java.util.Map;
 @Component
 public class JwtTokenUtil {
 
-    public static boolean rememberMe;
+    private static JWTConfigurationProperties jwtConfigurationProperties;
 
-    public static String jwtSecret;
-
-    public static int jwtExpiration;
-
-    public static int jwtRememberMeExpiration;
-
-    @Value("${jwt.rememberMe:false}")
-    public void setRememberMe(boolean rememberMe) {
-        JwtTokenUtil.rememberMe = rememberMe;
-    }
-
-    @Value("${jwt.secret:easyray}")
-    public void setJwtSecret(String jwtSecret) {
-        JwtTokenUtil.jwtSecret = jwtSecret;
-    }
-
-    @Value("${jwt.expiration:3600}")
-    public void setJwtExpiration(int jwtExpiration) {
-        JwtTokenUtil.jwtExpiration = jwtExpiration;
-    }
-
-    @Value(("${jwt.rememberMeExpiration:86400}"))
-    public void setJwtRememberMeExpiration(int jwtRememberMeExpiration) {
-        JwtTokenUtil.jwtRememberMeExpiration = jwtRememberMeExpiration;
+    public void setJwtConfigurationProperties(@Qualifier("jwtConfigurationProperties") JWTConfigurationProperties jwtConfigurationProperties) {
+        JwtTokenUtil.jwtConfigurationProperties = jwtConfigurationProperties;
     }
 
     public static final String USERID = "userId";
@@ -54,7 +33,7 @@ public class JwtTokenUtil {
 
     public static String createToken(User user) {
 
-        return createToken(user, rememberMe);
+        return createToken(user, jwtConfigurationProperties.isRememberMe());
     }
 
     public static String createToken(User user, Boolean rememberMe) {
@@ -69,17 +48,17 @@ public class JwtTokenUtil {
         String token = Jwts.builder()
                 .setClaims(claims)
                 .setExpiration(DateUtils.addSeconds(new Date(), expiration))
-                .signWith(SignatureAlgorithm.HS512, jwtSecret)
+                .signWith(SignatureAlgorithm.HS512, jwtConfigurationProperties.getSecret())
                 .compact();
 
         return token;
     }
 
     public static int getExpiration(Boolean rememberMe) {
-        int expiration = jwtExpiration;
+        int expiration = jwtConfigurationProperties.getExpiration();
 
         if (rememberMe != null && rememberMe) {
-            expiration = jwtRememberMeExpiration;
+            expiration = jwtConfigurationProperties.getRememberMeExpiration();
         }
         return expiration;
     }
@@ -96,7 +75,7 @@ public class JwtTokenUtil {
 
     private static Claims getTokenBody(String token) {
         return Jwts.parser()
-                .setSigningKey(jwtSecret)
+                .setSigningKey(jwtConfigurationProperties.getSecret())
                 .parseClaimsJws(token)
                 .getBody();
     }

@@ -2,6 +2,8 @@ package com.easyray.baseapi.entity;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
+import com.wyy.actable.annotation.Column;
+import com.wyy.actable.constants.MySqlTypeConstant;
 
 import java.util.Date;
 
@@ -15,10 +17,15 @@ import java.util.Date;
  */
 public abstract class BaseEntity<T> {
     @TableId(type = IdType.INPUT)
+    @Column(name = "id", type = MySqlTypeConstant.BIGINT, length = 20, isNull = false, isKey = true)
     private T id;
+    @Column(name = "user_id", type = MySqlTypeConstant.BIGINT, length = 20, isNull = false)
     private long userId;
+    @Column(name = "full_name", type = MySqlTypeConstant.VARCHAR, length = 75, isNull = false)
     private String fullName;
+    @Column(name = "create_date", type = MySqlTypeConstant.DATETIME, isNull = false)
     private Date createDate;
+    @Column(name = "modified_date", type = MySqlTypeConstant.DATETIME)
     private Date modifiedDate;
 
     public BaseEntity() {

@@ -2,6 +2,7 @@ package com.easyray.resourcepermission.init;
 
 import com.easyray.baseapi.init.IEasyIniter;
 import com.easyray.common.util.MergeUtil;
+import com.easyray.resourcepermission.autoconfig.ResourcePermissionConfigurationProperties;
 import com.easyray.resourcepermission.entity.ResourceAction;
 import com.easyray.resourcepermission.entity.ResourceActionVersion;
 import com.easyray.resourcepermission.entity.xml.ResourceActionXML;
@@ -13,7 +14,6 @@ import com.easyray.resourcepermission.service.ResourcePermissionVersionLocalServ
 import com.easyray.resourcepermission.util.XMLUtil;
 import org.dom4j.DocumentException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Component;
@@ -30,8 +30,8 @@ import java.util.stream.Collectors;
 @Component
 public class ResourceActionIniter implements IEasyIniter {
 
-    @Value("${resource-permission.fileName:permission/resource-permission.xml}")
-    private String resourcePermissionFileName;
+    @Autowired
+    private ResourcePermissionConfigurationProperties resourcePermissionConfigurationProperties;
 
     @Autowired
     private ResourceActionVersionLocalService resourceActionVersionLocalService;
