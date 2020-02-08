@@ -10,5 +10,11 @@ import java.util.List;
  * @Author: wyy
  */
 public interface ResourceActionLocalService extends BaseLocalService<ResourceAction> {
-    public List<ResourceAction> fetchByEntityName(String entityName);
+    public List<ResourceAction> fetchByName(String entityName);
+
+    public void deleteByNameAndActions(String entityName, List<String> actionList);
+
+    public int countByName(String entityName);
+
+    public List<ResourceAction> fetchByNameAndActions(String entityName, List<String>actionList);
 }

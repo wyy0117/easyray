@@ -1,5 +1,7 @@
 package com.easyray.baseapi.init;
 
+import com.easyray.common.exception.EasyCustomException;
+import com.easyray.common.exception.EntityNotExistException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,22 +26,27 @@ public class EasyInitConfig implements ApplicationRunner {
     @Autowired
     private ApplicationContext applicationContext;
 
-    public List<IEasyIniter> getIniters() {
-        Map<String, IEasyIniter> iEasyIniterMap = applicationContext.getBeansOfType(IEasyIniter.class);
+    public List<IEasyInit> getInits() {
+        Map<String, IEasyInit> iEasyIniterMap = applicationContext.getBeansOfType(IEasyInit.class);
         return new ArrayList<>(iEasyIniterMap.values());
     }
 
     @Override
     public void run(ApplicationArguments args) throws Exception {
 
-        List<IEasyIniter> initerList = getIniters();
-        if (initerList.size() > 1) {
-            Collections.sort(initerList);
+        List<IEasyInit> initList = getInits();
+        if (initList.size() > 1) {
+            Collections.sort(initList);
         }
 
-        for (IEasyIniter iEasyIniter : initerList) {
-            log.debug("{} initing...", iEasyIniter);
-            iEasyIniter.init(args);
+        for (IEasyInit iEasyInit : initList) {
+            log.debug("{} initing...", iEasyInit);
+            try {
+                iEasyInit.init(args);
+            } catch (EntityNotExistException | EasyCustomException e) {
+                e.printStackTrace();
+                throw new Exception(e);
+            }
         }
 
     }

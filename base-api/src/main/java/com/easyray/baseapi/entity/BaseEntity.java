@@ -1,11 +1,10 @@
 package com.easyray.baseapi.entity;
 
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableId;
 import com.wyy.actable.annotation.Column;
-import com.wyy.actable.constants.MySqlTypeConstant;
 
 import java.util.Date;
+
+import static com.wyy.actable.constants.MySqlDataType.*;
 
 /**
  * @Date: 20-1-26
@@ -15,44 +14,31 @@ import java.util.Date;
 /**
  * @param <T> 主键类型
  */
-public abstract class BaseEntity<T> {
-    @TableId(type = IdType.INPUT)
-    @Column(name = "id", type = MySqlTypeConstant.BIGINT, length = 20, isNull = false, isKey = true)
-    private T id;
-    @Column(name = "user_id", type = MySqlTypeConstant.BIGINT, length = 20, isNull = false)
+public abstract class BaseEntity<T> extends PrimeKeyEntity<T> {
+    @Column(name = "user_id", type = BIGINT, length = 20, nullable = false)
     private long userId;
-    @Column(name = "full_name", type = MySqlTypeConstant.VARCHAR, length = 75, isNull = false)
+    @Column(name = "full_name", type = VARCHAR, length = 20, nullable = false)
     private String fullName;
-    @Column(name = "create_date", type = MySqlTypeConstant.DATETIME, isNull = false)
+    @Column(name = "create_date", type = DATETIME, nullable = false)
     private Date createDate;
-    @Column(name = "modified_date", type = MySqlTypeConstant.DATETIME)
+    @Column(name = "modified_date", type = DATETIME)
     private Date modifiedDate;
 
     public BaseEntity() {
     }
 
     public BaseEntity(T id) {
-        this.id = id;
+        super(id);
     }
 
     @Override
     public String toString() {
         return "BaseEntity{" +
-                "id=" + id +
                 ", userId=" + userId +
                 ", fullName='" + fullName + '\'' +
                 ", createDate=" + createDate +
                 ", modifiedDate=" + modifiedDate +
                 '}';
-    }
-
-    public T getId() {
-        return id;
-    }
-
-    public BaseEntity<T> setId(T id) {
-        this.id = id;
-        return this;
     }
 
     public long getUserId() {

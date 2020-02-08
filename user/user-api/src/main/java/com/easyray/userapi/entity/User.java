@@ -2,8 +2,12 @@ package com.easyray.userapi.entity;
 
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.easyray.baseapi.entity.BaseEntity;
+import com.wyy.actable.annotation.Column;
+import com.wyy.actable.annotation.Table;
 
 import java.util.Date;
+
+import static com.wyy.actable.constants.MySqlDataType.*;
 
 /**
  * <p>
@@ -14,31 +18,43 @@ import java.util.Date;
  * @since 2020-01-26
  */
 @TableName("sys_user")
+@Table(name = "sys_user")
 public class User extends BaseEntity<Long> {
 
+    @Column(name = "username", type = VARCHAR, length = 20, nullable = false, comment = "用户的登录名")
     private String username;
 
+    @Column(name = "password", type = VARCHAR, length = 75, nullable = false)
     private String password;
 
+    @Column(name = "phone", type = VARCHAR, length = 10)
     private String phone;
 
+    @Column(name = "email", type = VARCHAR, length = 75)
     private String email;
 
-    private Long openId;
+    @Column(name = "open_id", type = VARCHAR, length = 75)
+    private String openId;
 
+    @Column(name = "union_id", type = VARCHAR, length = 75)
     private Long unionId;
 
+    @Column(name = "portrait_id", type = BIGINT, length = 20)
     private Long portraitId;
 
+    @Column(name = "job_title", type = VARCHAR, length = 75)
     private String jobTitle;
 
+    @Column(name = "address", type = VARCHAR, length = 75)
     private String address;
-
+    /**
+     * 0：新注册未激活，1：已激活可正常使用，2：被锁定，暂时无法使用，3：已删除
+     */
+    @Column(name = "status", type = INT, length = 1, defaultValue = "0", comment = "账号状态")
     private Long status;
 
-    private Date createDate;
-
-    private Date modifiedDate;
+    @Column(name = "birthday", type = DATETIME)
+    private Date birthday = new Date(0);
 
     public User(Long id) {
         super(id);
@@ -54,14 +70,13 @@ public class User extends BaseEntity<Long> {
                 ", password='" + password + '\'' +
                 ", phone='" + phone + '\'' +
                 ", email='" + email + '\'' +
-                ", openId=" + openId +
+                ", openId='" + openId + '\'' +
                 ", unionId=" + unionId +
                 ", portraitId=" + portraitId +
                 ", jobTitle='" + jobTitle + '\'' +
                 ", address='" + address + '\'' +
                 ", status=" + status +
-                ", createDate=" + createDate +
-                ", modifiedDate=" + modifiedDate +
+                ", birthday=" + birthday +
                 "} " + super.toString();
     }
 
@@ -101,14 +116,6 @@ public class User extends BaseEntity<Long> {
         return this;
     }
 
-    public Long getOpenId() {
-        return openId;
-    }
-
-    public User setOpenId(Long openId) {
-        this.openId = openId;
-        return this;
-    }
 
     public Long getUnionId() {
         return unionId;
@@ -155,25 +162,21 @@ public class User extends BaseEntity<Long> {
         return this;
     }
 
-    @Override
-    public Date getCreateDate() {
-        return createDate;
+    public String getOpenId() {
+        return openId;
     }
 
-    @Override
-    public User setCreateDate(Date createDate) {
-        this.createDate = createDate;
+    public User setOpenId(String openId) {
+        this.openId = openId;
         return this;
     }
 
-    @Override
-    public Date getModifiedDate() {
-        return modifiedDate;
+    public Date getBirthday() {
+        return birthday;
     }
 
-    @Override
-    public User setModifiedDate(Date modifiedDate) {
-        this.modifiedDate = modifiedDate;
+    public User setBirthday(Date birthday) {
+        this.birthday = birthday;
         return this;
     }
 }

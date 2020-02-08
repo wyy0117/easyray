@@ -10,5 +10,6 @@ import java.util.List;
  * @Author: wyy
  */
 public interface ResourcePermissionLocalService extends BaseLocalService<ResourcePermission> {
-    public List<ResourcePermission> fetchByEntityName(String entityName);
+    public List<ResourcePermission> fetchByName(String name);
+    public ResourcePermission fetchByNameAndRoleId(String name, long roleId);
 }

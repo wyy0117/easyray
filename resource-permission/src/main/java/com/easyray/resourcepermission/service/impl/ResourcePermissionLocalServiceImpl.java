@@ -16,7 +16,12 @@ import java.util.List;
 @Component
 public class ResourcePermissionLocalServiceImpl extends ServiceImpl<ResourcePermissionMapper, ResourcePermission> implements ResourcePermissionLocalService {
     @Override
-    public List<ResourcePermission> fetchByEntityName(String entityName) {
-        return list(new QueryWrapper<ResourcePermission>().eq("entity_name", entityName));
+    public List<ResourcePermission> fetchByName(String name) {
+        return list(new QueryWrapper<ResourcePermission>().eq("name", name));
+    }
+
+    @Override
+    public ResourcePermission fetchByNameAndRoleId(String entityName, long roleId) {
+        return getOne(new QueryWrapper<ResourcePermission>().eq("name", entityName).eq("role_id", roleId));
     }
 }

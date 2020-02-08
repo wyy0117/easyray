@@ -1,0 +1,24 @@
+#db config
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost/easyray?useUnicode=true&characterEncoding=utf8
+    username: easyray
+    password: easyray
+    type: com.alibaba.druid.pool.DruidDataSource
+
+#actable config
+actable:
+  database:
+    type: mysql
+  model:
+    pack: com.easyray
+  create:
+    mode: update
+  execute:
+    sql: true
+
+#log
+logging:
+  file:
+    path: .

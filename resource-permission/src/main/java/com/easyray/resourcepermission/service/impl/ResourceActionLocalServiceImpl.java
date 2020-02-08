@@ -17,7 +17,23 @@ import java.util.List;
 public class ResourceActionLocalServiceImpl extends ServiceImpl<ResourceActionMapper, ResourceAction> implements ResourceActionLocalService {
 
     @Override
-    public List<ResourceAction> fetchByEntityName(String entityName) {
-        return list(new QueryWrapper<ResourceAction>().eq("entity_name", entityName));
+    public List<ResourceAction> fetchByName(String name) {
+        return list(new QueryWrapper<ResourceAction>().eq("name", name));
+    }
+
+    @Override
+    public void deleteByNameAndActions(String name, List<String> actionList) {
+
+        remove(new QueryWrapper<ResourceAction>().eq("name", name).in("action", actionList));
+    }
+
+    @Override
+    public int countByName(String name) {
+        return count(new QueryWrapper<ResourceAction>().eq("name", name));
+    }
+
+    @Override
+    public List<ResourceAction> fetchByNameAndActions(String name, List<String> actionList) {
+        return list(new QueryWrapper<ResourceAction>().eq("name", name).in("action", actionList));
     }
 }

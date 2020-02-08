@@ -1,15 +1,22 @@
 package com.easyray.resourcepermission.entity;
 
 import com.baomidou.mybatisplus.annotation.TableName;
-import com.easyray.baseapi.entity.BaseEntity;
+import com.easyray.baseapi.entity.PrimeKeyEntity;
+import com.wyy.actable.annotation.Column;
+import com.wyy.actable.annotation.Table;
+
+import static com.wyy.actable.constants.MySqlDataType.VARCHAR;
 
 /**
  * @Date: 20-2-3
  * @Author: wyy
  */
 @TableName("sys_resource_permission_version")
-public class ResourcePermissionVersion extends BaseEntity<Long> {
+@Table(name = "sys_resource_permission_version")
+public class ResourcePermissionVersion extends PrimeKeyEntity<Long> {
+    @Column(name = "module", type = VARCHAR, length = 20, nullable = false)
     private String module;
+    @Column(name = "version", type = VARCHAR, length = 20, nullable = false)
     private String version;
 
     public ResourcePermissionVersion(Long id) {
@@ -22,9 +29,9 @@ public class ResourcePermissionVersion extends BaseEntity<Long> {
     @Override
     public String toString() {
         return "ResourcePermissionVersion{" +
-                "module='" + module + '\'' +
+                ", module='" + module + '\'' +
                 ", version='" + version + '\'' +
-                "} " + super.toString();
+                '}';
     }
 
     public String getModule() {
