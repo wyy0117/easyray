@@ -86,7 +86,8 @@ public class InitResourcePermission implements IEasyInit {
                         .setName(resourcePermissionXML.getEntityName())
                         .setScope(resourcePermissionXML.getScope())
                         .setRoleId(role.getId())
-                        .setActionIds(actionIds);
+                        .setActionIds(actionIds)
+                        .setPrimKey("");
                 resourcePermissionLocalService.save(resourcePermission);
             }
         } else if (!resourcePermissionVersion.getVersion().equals(resourcePermissionsXML.getVersion())) {//版本有变化

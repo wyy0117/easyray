@@ -3,7 +3,8 @@ package com.easyray.auth.filter;
 import com.easyray.auth.util.JwtTokenUtil;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.web.AuthenticationEntryPoint;
+import org.springframework.security.core.Authentication;
+import org.springframework.stereotype.Component;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -16,17 +17,12 @@ import java.util.ArrayList;
  */
 public class JWTTokenFilter extends AbstractTokenFilter {
 
-
     public JWTTokenFilter(AuthenticationManager authenticationManager) {
         super(authenticationManager);
     }
 
-    public JWTTokenFilter(AuthenticationManager authenticationManager, AuthenticationEntryPoint authenticationEntryPoint) {
-        super(authenticationManager, authenticationEntryPoint);
-    }
-
     @Override
-    public UsernamePasswordAuthenticationToken checkToken(HttpServletRequest request, HttpServletResponse response) {
+    public Authentication checkToken(HttpServletRequest request, HttpServletResponse response) {
         String token = request.getHeader(JwtTokenUtil.TOKEN_HEADER);
         if (token == null) {
             Cookie[] cookies = request.getCookies();

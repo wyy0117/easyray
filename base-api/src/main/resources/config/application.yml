@@ -6,6 +6,22 @@ spring:
     username: easyray
     password: easyray
     type: com.alibaba.druid.pool.DruidDataSource
+  http:
+    encoding:
+      charset: utf-8
+      force: true
+      enabled: true
+
+#dubbo config
+dubbo:
+  protocol:
+    name: dubbo
+    port: -1
+  registry:
+    address: zookeeper://localhost:2181
+  consumer:
+    retries: -1
+    timeout: -1
 
 #actable config
 actable:

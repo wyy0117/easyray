@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpMethod;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -68,8 +69,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         Set<String> allNoAuthMethod = findAllNoAuthMethod();
         log.debug("these url need no auth : {}", allNoAuthMethod);
         requests.antMatchers(allNoAuthMethod.toArray(new String[0])).permitAll();
-        http.addFilter(new JwtLoginFilter(authenticationManagerBean()));
-        http.addFilter(new JWTTokenFilter(authenticationManagerBean()));
+        AuthenticationManager authenticationManager = authenticationManagerBean();
+        http.addFilter(new JwtLoginFilter(authenticationManager));
+        http.addFilter(new JWTTokenFilter(authenticationManager));
         // 其他所有请求需要身份认证
         requests.anyRequest().authenticated();
     }

@@ -1,17 +1,3 @@
-#dubbo config
 dubbo:
   application:
     name: user-web
-  protocol:
-    name: dubbo
-  registry:
-    address: zookeeper://localhost:2181
-  consumer:
-    retries: -1
-    timeout: -1
-spring:
-  http:
-    encoding:
-      charset: utf-8
-      force: true
-      enabled: true

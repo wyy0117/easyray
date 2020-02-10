@@ -1,20 +1,12 @@
 #server port
 server:
   port: ${random.int[1000,9999]}
-
-#dubbo config
 dubbo:
   application:
-    name: user-service
-  protocol:
-    name: dubbo
-    port: -1
-  registry:
-    address: zookeeper://localhost:2181
+    name: user-provider
 
-
-#admin config
-user:
-  admin:
-    username: admin
-    password: admin
+spring:
+  security:
+    user:
+      name: admin
+      password: admin

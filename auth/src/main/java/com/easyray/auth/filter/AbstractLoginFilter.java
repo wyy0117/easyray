@@ -1,8 +1,7 @@
 package com.easyray.auth.filter;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.easyray.auth.entity.Login;
-import org.springframework.security.authentication.AuthenticationManager;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
@@ -24,15 +23,6 @@ import java.io.IOException;
 public abstract class AbstractLoginFilter extends UsernamePasswordAuthenticationFilter {
 
     protected ThreadLocal<Login> loginThreadLocal = new ThreadLocal<>();
-
-    /**
-     * 这里有个坑，super.getAuthenticationManager() 为null，所以要从WebSecurityConfigurerAdapter的super.getAuthenticationManager()中取
-     */
-    protected AuthenticationManager authenticationManager;
-
-    public AbstractLoginFilter(AuthenticationManager authenticationManager) {
-        this.authenticationManager = authenticationManager;
-    }
 
     @Override
     public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException {

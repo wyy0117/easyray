@@ -4,10 +4,9 @@ import com.alibaba.dubbo.config.annotation.Reference;
 import com.easyray.baseapi.constant.InitOrderConstant;
 import com.easyray.baseapi.init.IEasyInit;
 import com.easyray.idgenerator.service.IdService;
-import com.easyray.roleapi.constant.RoleTypeConstant;
+import com.easyray.roleapi.constant.RoleNameConstant;
 import com.easyray.roleapi.entity.Role;
 import com.easyray.roleapi.service.RoleLocalService;
-import com.easyray.userapi.entity.User;
 import com.easyray.userapi.service.UserLocalService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
@@ -22,7 +21,7 @@ import java.util.Date;
 @Component
 public class InitRoles implements IEasyInit {
 
-    private String[] roles = {RoleTypeConstant.ADMINISTRATOR};
+    private String[] roles = {RoleNameConstant.ADMINISTRATOR};
     @Autowired
     private RoleLocalService roleLocalService;
     @Autowired

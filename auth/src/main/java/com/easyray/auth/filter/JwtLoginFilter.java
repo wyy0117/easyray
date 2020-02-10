@@ -1,10 +1,10 @@
 package com.easyray.auth.filter;
 
-import com.google.gson.Gson;
 import com.easyray.auth.entity.JwtToken;
 import com.easyray.auth.entity.Login;
 import com.easyray.auth.entity.UserDetailsImpl;
 import com.easyray.auth.util.JwtTokenUtil;
+import com.google.gson.Gson;
 import org.springframework.http.MediaType;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -23,16 +23,17 @@ import java.util.ArrayList;
  */
 public class JwtLoginFilter extends AbstractLoginFilter {
 
+    private AuthenticationManager authenticationManager;
+
     public JwtLoginFilter(AuthenticationManager authenticationManager) {
-        super(authenticationManager);
+        this.authenticationManager = authenticationManager;
     }
 
     @Override
     public Authentication checkLogin(HttpServletRequest request, HttpServletResponse response) {
-
         // 从输入流中获取到登录的信息
         Login login = super.loginThreadLocal.get();
-        return super.authenticationManager.authenticate(
+        return authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(login.getUsername(), login.getPassword(), new ArrayList<>())
         );
     }

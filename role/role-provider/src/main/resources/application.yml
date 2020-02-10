@@ -5,9 +5,4 @@ server:
 #dubbo config
 dubbo:
   application:
-    name: role-service
-  protocol:
-    name: dubbo
-    port: -1
-  registry:
-    address: zookeeper://localhost:2181
+    name: role-provider

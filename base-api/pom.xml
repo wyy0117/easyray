@@ -38,10 +38,7 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot</artifactId>
         </dependency>
-<!--        <dependency>-->
-<!--            <groupId>com.alibaba</groupId>-->
-<!--            <artifactId>dubbo</artifactId>-->
-<!--        </dependency>-->
+
         <dependency>
             <groupId>com.wyy</groupId>
             <artifactId>actable</artifactId>

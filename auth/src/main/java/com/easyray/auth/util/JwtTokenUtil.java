@@ -6,9 +6,10 @@ import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import org.apache.commons.lang3.time.DateUtils;
-import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.PostConstruct;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -22,9 +23,11 @@ public class JwtTokenUtil {
 
     private static JWTConfigurationProperties jwtConfigurationProperties;
 
-    public void setJwtConfigurationProperties(@Qualifier("jwtConfigurationProperties") JWTConfigurationProperties jwtConfigurationProperties) {
+    @Autowired
+    public void setJwtConfigurationProperties(JWTConfigurationProperties jwtConfigurationProperties) {
         JwtTokenUtil.jwtConfigurationProperties = jwtConfigurationProperties;
     }
+
 
     public static final String USERID = "userId";
     public static final String USERNAME = "username";
