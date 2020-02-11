@@ -15,4 +15,9 @@ public class RoleTypeConstant {
      * 站点角色
      */
     public static final int GROUP_ROLE = 2;
+
+    /**
+     * 范围角色
+     */
+    public static final int RANGE_ROLE = 3;
 }

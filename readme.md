@@ -30,7 +30,7 @@
         <version>1.0.0</version>
     </dependency>
     ```
-1. service模块修改pom修改parent
+1. provider模块修改pom修改parent
     ```
      <parent>
         <artifactId>user</artifactId>
@@ -38,7 +38,7 @@
         <version>1.0.0</version>
     </parent>
     ```    
-1. service模块修改依赖
+1. provider模块修改依赖
     ```
     <dependency>
         <!-- Import dependency management from Spring Boot -->
@@ -92,7 +92,7 @@
         <artifactId>mybatis-plus-boot-starter</artifactId>
     </dependency>
     ```   
-1. service模块添加组件扫描
+1. provider模块添加组件扫描
     ```
     @SpringBootApplication(scanBasePackages = {"com.wyy.*", "com.easyray.*"})
     @EnableDubbo(scanBasePackages = "com.easyray.*")

@@ -1,24 +1,26 @@
 package com.easyray.resourcepermission.init;
 
+import com.alibaba.dubbo.config.annotation.Reference;
 import com.easyray.baseapi.constant.InitOrderConstant;
 import com.easyray.baseapi.init.IEasyInit;
 import com.easyray.common.util.MergeUtil;
-import com.easyray.idgenerator.service.IdService;
+import com.easyray.idgeneratorapi.service.IdService;
 import com.easyray.resourcepermission.autoconfig.ResourcePermissionConfigurationProperties;
 import com.easyray.resourcepermission.entity.ResourceAction;
 import com.easyray.resourcepermission.entity.ResourceActionVersion;
 import com.easyray.resourcepermission.entity.xml.ResourceActionXML;
 import com.easyray.resourcepermission.entity.xml.ResourceActionsXML;
-import com.easyray.resourcepermission.service.ResourceActionLocalService;
-import com.easyray.resourcepermission.service.ResourceActionVersionLocalService;
-import com.easyray.resourcepermission.service.ResourcePermissionLocalService;
-import com.easyray.resourcepermission.service.ResourcePermissionVersionLocalService;
+import com.easyray.resourcepermission.service.ResourceActionLocalProvider;
+import com.easyray.resourcepermission.service.ResourceActionVersionLocalProvider;
+import com.easyray.resourcepermission.service.ResourcePermissionLocalProvider;
+import com.easyray.resourcepermission.service.ResourcePermissionVersionLocalProvider;
 import com.easyray.resourcepermission.util.XMLUtil;
 import org.dom4j.DocumentException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -30,22 +32,23 @@ import java.util.stream.Collectors;
  * @Author: wyy
  */
 @Component
+@Transactional
 public class InitResourceAction implements IEasyInit {
 
     @Autowired
     private ResourcePermissionConfigurationProperties resourcePermissionConfigurationProperties;
 
     @Autowired
-    private ResourceActionVersionLocalService resourceActionVersionLocalService;
+    private ResourceActionVersionLocalProvider resourceActionVersionLocalService;
     @Autowired
-    private ResourcePermissionVersionLocalService resourcePermissionVersionLocalService;
+    private ResourcePermissionVersionLocalProvider resourcePermissionVersionLocalService;
 
     @Autowired
-    private ResourceActionLocalService resourceActionLocalService;
+    private ResourceActionLocalProvider resourceActionLocalService;
     @Autowired
-    private ResourcePermissionLocalService resourcePermissionLocalService;
+    private ResourcePermissionLocalProvider resourcePermissionLocalService;
 
-    @Autowired
+    @Reference
     private IdService idService;
 
     @Override
@@ -111,7 +114,7 @@ public class InitResourceAction implements IEasyInit {
         actionList = actionList.stream().distinct().collect(Collectors.toList());
         for (int i = 0; i < actionList.size(); i++) {
             String action = actionList.get(i);
-            ResourceAction resourceAction = new ResourceAction(idService.nextId(entityName))
+            ResourceAction resourceAction = new ResourceAction(idService.nextId(ResourceAction.class.getName()))
                     .setName(entityName)
                     .setAction(action)
                     .setBitwiseValue(((int) Math.pow(2.0, ((double) actionSize++))));

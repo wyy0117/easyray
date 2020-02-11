@@ -11,6 +11,7 @@
         <module>auth</module>
         <module>idgenerator</module>
         <module>role</module>
+        <module>team</module>
     </modules>
     <parent>
         <groupId>org.springframework.boot</groupId>
@@ -200,7 +201,11 @@
                 <artifactId>actable</artifactId>
                 <version>${actable.version}</version>
             </dependency>
-
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-tx</artifactId>
+                <version>${spring-framework.version}</version>
+            </dependency>
         </dependencies>
 
     </dependencyManagement>

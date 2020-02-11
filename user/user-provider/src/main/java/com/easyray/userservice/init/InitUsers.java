@@ -1,13 +1,15 @@
 package com.easyray.userservice.init;
 
+import com.alibaba.dubbo.config.annotation.Reference;
 import com.easyray.baseapi.constant.InitOrderConstant;
 import com.easyray.baseapi.init.IEasyInit;
-import com.easyray.idgenerator.service.IdService;
+import com.easyray.idgeneratorapi.service.IdService;
 import com.easyray.userapi.entity.User;
-import com.easyray.userapi.service.UserLocalService;
+import com.easyray.userapi.service.UserLocalProvider;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.autoconfigure.security.SecurityProperties;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -28,8 +30,9 @@ public class InitUsers implements IEasyInit {
     private SecurityProperties securityProperties;
 
     @Autowired
-    private UserLocalService userLocalService;
-    @Autowired
+    @Qualifier("userLocalProviderImpl")
+    private UserLocalProvider userLocalService;
+    @Reference
     private IdService idService;
 
     @Override

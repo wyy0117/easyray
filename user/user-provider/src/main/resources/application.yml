@@ -1,12 +1,13 @@
 #server port
 server:
   port: ${random.int[1000,9999]}
-dubbo:
-  application:
-    name: user-provider
 
 spring:
   security:
     user:
       name: admin
       password: admin
+
+dubbo:
+  application:
+    name: @project.name@

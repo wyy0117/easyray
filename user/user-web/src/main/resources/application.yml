@@ -1,3 +1,5 @@
 dubbo:
   application:
-    name: user-web
+    name: @project.name@
+server:
+  port: 7000

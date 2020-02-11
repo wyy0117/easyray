@@ -11,7 +11,7 @@ import java.text.SimpleDateFormat
 class CodeGen {
     @Test
     void gen() {
-        String entity = "Team"
+        String entity = "IdSequence"
         String basePath = CodeGen.classLoader.getResource(".").path
         List<String> pathList = basePath.split("/") as List
         pathList = pathList.subList(0, pathList.size() - 2)
@@ -20,8 +20,8 @@ class CodeGen {
         genCode(entity, basePath, "META-INF/dubbo")
         genCode(entity, basePath, "entity")
         genCode(entity, basePath, "mapper")
-        genCode(entity, basePath, "service")
-        genCode(entity, basePath, "service/impl")
+        genCode(entity, basePath, "provider")
+        genCode(entity, basePath, "provider/impl")
         genCode(entity, basePath, "error")
     }
 

@@ -7,8 +7,8 @@ import com.easyray.common.exception.EasyCustomException;
 import com.easyray.common.exception.EntityNotExistException;
 import com.easyray.common.exception.NoPermissionException;
 import com.easyray.userapi.entity.User;
-import com.easyray.userapi.service.UserLocalService;
-import com.easyray.userapi.service.UserService;
+import com.easyray.userapi.service.UserLocalProvider;
+import com.easyray.userapi.service.UserProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -27,10 +27,10 @@ import org.springframework.web.bind.annotation.RestController;
 public class UserController {
 
     @Reference
-    private UserLocalService userLocalService;
+    private UserLocalProvider userLocalService;
 
     @Reference
-    private UserService userService;
+    private UserProvider userService;
 
     @Autowired
     private SpringSecurityThreadLocal springSecurityThreadLocal;

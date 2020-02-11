@@ -6,7 +6,7 @@ import com.easyray.baseapi.init.IEasyInit;
 import com.easyray.common.exception.EasyCustomException;
 import com.easyray.common.exception.EntityNotExistException;
 import com.easyray.common.exception.filter.CustomThrowable;
-import com.easyray.idgenerator.service.IdService;
+import com.easyray.idgeneratorapi.service.IdService;
 import com.easyray.resourcepermission.autoconfig.ResourcePermissionConfigurationProperties;
 import com.easyray.resourcepermission.entity.ResourceAction;
 import com.easyray.resourcepermission.entity.ResourcePermission;
@@ -14,17 +14,18 @@ import com.easyray.resourcepermission.entity.ResourcePermissionVersion;
 import com.easyray.resourcepermission.entity.xml.ResourcePermissionXML;
 import com.easyray.resourcepermission.entity.xml.ResourcePermissionsXML;
 import com.easyray.resourcepermission.error.ResourcePermissionErrorCode;
-import com.easyray.resourcepermission.service.ResourceActionLocalService;
-import com.easyray.resourcepermission.service.ResourcePermissionLocalService;
-import com.easyray.resourcepermission.service.ResourcePermissionVersionLocalService;
+import com.easyray.resourcepermission.service.ResourceActionLocalProvider;
+import com.easyray.resourcepermission.service.ResourcePermissionLocalProvider;
+import com.easyray.resourcepermission.service.ResourcePermissionVersionLocalProvider;
 import com.easyray.resourcepermission.util.XMLUtil;
 import com.easyray.roleapi.entity.Role;
 import com.easyray.roleapi.error.RoleErrorCode;
-import com.easyray.roleapi.service.RoleLocalService;
+import com.easyray.roleapi.provider.RoleLocalProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.io.InputStream;
 import java.util.List;
@@ -35,20 +36,21 @@ import java.util.stream.Collectors;
  * @Author: wyy
  */
 @Component
+@Transactional
 public class InitResourcePermission implements IEasyInit {
 
     @Autowired
     private ResourcePermissionConfigurationProperties resourcePermissionConfigurationProperties;
     @Autowired
-    private ResourcePermissionVersionLocalService resourcePermissionVersionLocalService;
-    @Autowired
+    private ResourcePermissionVersionLocalProvider resourcePermissionVersionLocalService;
+    @Reference
     private IdService idService;
     @Reference(check = false)
-    private RoleLocalService roleLocalService;
+    private RoleLocalProvider roleLocalService;
     @Autowired
-    private ResourceActionLocalService resourceActionLocalService;
+    private ResourceActionLocalProvider resourceActionLocalService;
     @Autowired
-    private ResourcePermissionLocalService resourcePermissionLocalService;
+    private ResourcePermissionLocalProvider resourcePermissionLocalService;
 
     @Override
     public int getOrder() {

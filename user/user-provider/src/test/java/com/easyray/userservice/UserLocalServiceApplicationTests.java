@@ -1,19 +1,21 @@
 package com.easyray.userservice;
 
-import com.easyray.userapi.service.UserLocalService;
-import com.easyray.userapi.service.UserService;
+import com.easyray.userapi.service.UserLocalProvider;
+import com.easyray.userapi.service.UserProvider;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
 class UserLocalServiceApplicationTests {
 
     @Autowired
-    private UserLocalService userLocalService;
+    @Qualifier("userLocalProviderImpl")
+    private UserLocalProvider userLocalService;
 
     @Autowired
-    private UserService userService;
+    private UserProvider userService;
 
     @Test
     void addUser() {

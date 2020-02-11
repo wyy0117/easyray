@@ -39,7 +39,7 @@
         </dependency>
         <dependency>
             <groupId>com.wyy</groupId>
-            <artifactId>idgenerator</artifactId>
+            <artifactId>idgenerator-api</artifactId>
             <version>1.0.0</version>
         </dependency>
         <dependency>

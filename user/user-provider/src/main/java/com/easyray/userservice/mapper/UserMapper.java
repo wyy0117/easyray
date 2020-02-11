@@ -1,6 +1,5 @@
 package com.easyray.userservice.mapper;
 
-
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.easyray.userapi.entity.User;
 import org.apache.ibatis.annotations.Mapper;

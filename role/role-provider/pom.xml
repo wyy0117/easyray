@@ -67,7 +67,7 @@
         </dependency>
         <dependency>
             <groupId>com.wyy</groupId>
-            <artifactId>idgenerator</artifactId>
+            <artifactId>idgenerator-api</artifactId>
             <version>1.0.0</version>
         </dependency>
         <dependency>
@@ -76,11 +76,6 @@
             <version>1.0.0</version>
         </dependency>
 
-        <dependency>
-            <groupId>com.wyy</groupId>
-            <artifactId>user-api</artifactId>
-            <version>1.0.0</version>
-        </dependency>
     </dependencies>
 
     <build>

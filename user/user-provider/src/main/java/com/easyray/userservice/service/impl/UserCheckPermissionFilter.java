@@ -1,7 +1,7 @@
 package com.easyray.userservice.service.impl;
 
 import com.alibaba.dubbo.config.spring.ServiceBean;
-import com.easyray.baseapi.service.BaseCheckPermissionFilter;
+import com.easyray.baseapi.provider.BaseCheckPermissionFilter;
 import com.easyray.userapi.service.UserCheckPermission;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Component;

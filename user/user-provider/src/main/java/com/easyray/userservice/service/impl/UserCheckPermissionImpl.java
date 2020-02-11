@@ -25,6 +25,6 @@ public class UserCheckPermissionImpl extends ServiceImpl<UserMapper, User> imple
 
     @Override
     public void testException() throws NoPermissionException {
-        
+
     }
 }
