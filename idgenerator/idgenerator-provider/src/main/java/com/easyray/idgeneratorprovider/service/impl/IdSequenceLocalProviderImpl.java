@@ -19,4 +19,13 @@ public class IdSequenceLocalProviderImpl extends ServiceImpl<IdSequenceMapper, I
     public IdSequence fetchByEntityName(String entityName) {
         return getOne(new QueryWrapper<IdSequence>().eq("entity_name", entityName), false);
     }
+
+    /**
+     * @param id
+     * @return
+     */
+    @Override
+    public IdSequence fetchById(long id) {
+        return getById(id);
+    }
 }

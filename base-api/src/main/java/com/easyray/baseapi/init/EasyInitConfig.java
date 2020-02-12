@@ -21,7 +21,6 @@ import java.util.Map;
  * @Author: wyy
  */
 @Configuration
-@Transactional
 public class EasyInitConfig implements ApplicationRunner {
     private Logger log = LoggerFactory.getLogger(EasyInitConfig.class);
 

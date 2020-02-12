@@ -44,7 +44,7 @@
         </dependency>
         <dependency>
             <groupId>com.wyy</groupId>
-            <artifactId>role-api</artifactId>
+            <artifactId>system-api</artifactId>
             <version>1.0.0</version>
         </dependency>
     </dependencies>

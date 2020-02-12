@@ -6,5 +6,7 @@ package com.easyray.idgeneratorapi.service;
  */
 public interface IdService {
 
+    public void init();
+
     public long nextId(String entityName);
 }

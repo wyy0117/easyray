@@ -39,14 +39,14 @@ public class InitResourceAction implements IEasyInit {
     private ResourcePermissionConfigurationProperties resourcePermissionConfigurationProperties;
 
     @Autowired
-    private ResourceActionVersionLocalProvider resourceActionVersionLocalService;
+    private ResourceActionVersionLocalProvider resourceActionVersionLocalProvider;
     @Autowired
-    private ResourcePermissionVersionLocalProvider resourcePermissionVersionLocalService;
+    private ResourcePermissionVersionLocalProvider resourcePermissionVersionLocalProvider;
 
     @Autowired
-    private ResourceActionLocalProvider resourceActionLocalService;
+    private ResourceActionLocalProvider resourceActionLocalProvider;
     @Autowired
-    private ResourcePermissionLocalProvider resourcePermissionLocalService;
+    private ResourcePermissionLocalProvider resourcePermissionLocalProvider;
 
     @Reference
     private IdService idService;
@@ -66,12 +66,12 @@ public class InitResourceAction implements IEasyInit {
             String version = resourceActionsXML.getVersion();
             String module = resourceActionsXML.getModule();
 
-            ResourceActionVersion resourceActionVersion = resourceActionVersionLocalService.fetchByModule(module);
+            ResourceActionVersion resourceActionVersion = resourceActionVersionLocalProvider.fetchByModule(module);
             if (resourceActionVersion == null) {//第一次添加
                 resourceActionVersion = new ResourceActionVersion(idService.nextId(ResourceActionVersion.class.getName()));
                 resourceActionVersion.setModule(resourceActionsXML.getModule())
                         .setVersion(resourceActionsXML.getVersion());
-                resourceActionVersionLocalService.save(resourceActionVersion);
+                resourceActionVersionLocalProvider.save(resourceActionVersion);
                 List<ResourceActionXML> resourceActionXMLList = resourceActionsXML.getResourceActionXMLList();
                 for (ResourceActionXML resourceActionXML : resourceActionXMLList) {
                     List<String> actionKeys = resourceActionXML.getActionKeys();
@@ -80,19 +80,19 @@ public class InitResourceAction implements IEasyInit {
             } else {//已经有了，
                 if (!resourceActionVersion.getVersion().equals(version)) {//版本发生了变化，需要最新的结果
                     resourceActionVersion.setVersion(version);
-                    resourceActionVersionLocalService.saveOrUpdate(resourceActionVersion);
+                    resourceActionVersionLocalProvider.saveOrUpdate(resourceActionVersion);
 
                     List<ResourceActionXML> resourceActionXMLList = resourceActionsXML.getResourceActionXMLList();
                     for (ResourceActionXML resourceActionXML : resourceActionXMLList) {
                         String entityName = resourceActionXML.getEntityName();
-                        List<ResourceAction> resourceActionList = resourceActionLocalService.fetchByName(entityName);
+                        List<ResourceAction> resourceActionList = resourceActionLocalProvider.fetchByName(entityName);
                         List<String> dbActionList = resourceActionList.stream().map(ResourceAction::getAction).collect(Collectors.toList());
                         MergeUtil.MergeResult<String> mergeResult = new MergeUtil<String>().merge(dbActionList, resourceActionXML.getActionKeys());
                         if (mergeResult.getNeedDelete().size() > 0) {//有需要删除的
                             deleteResourceAction(mergeResult.getNeedDelete(), entityName);
                         }
                         if (mergeResult.getNeedAdd().size() > 0) {//有需要新增的
-                            addResourceAction(mergeResult.getNeedAdd(), entityName, resourceActionLocalService.countByName(entityName) + 1);
+                            addResourceAction(mergeResult.getNeedAdd(), entityName, resourceActionLocalProvider.countByName(entityName) + 1);
                         }
                     }
 
@@ -118,11 +118,11 @@ public class InitResourceAction implements IEasyInit {
                     .setName(entityName)
                     .setAction(action)
                     .setBitwiseValue(((int) Math.pow(2.0, ((double) actionSize++))));
-            resourceActionLocalService.save(resourceAction);
+            resourceActionLocalProvider.save(resourceAction);
         }
     }
 
     private void deleteResourceAction(List<String> actionList, String entityName) {
-        resourceActionLocalService.deleteByNameAndActions(entityName, actionList);
+        resourceActionLocalProvider.deleteByNameAndActions(entityName, actionList);
     }
 }

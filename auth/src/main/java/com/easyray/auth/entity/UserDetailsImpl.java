@@ -1,6 +1,6 @@
 package com.easyray.auth.entity;
 
-import com.easyray.userapi.entity.User;
+import com.easyray.systemapi.entity.User;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 

@@ -3,15 +3,14 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <modules>
-        <module>user</module>
         <module>codegen</module>
         <module>base-api</module>
         <module>resource-permission</module>
         <module>common</module>
         <module>auth</module>
         <module>idgenerator</module>
-        <module>role</module>
         <module>team</module>
+        <module>system</module>
     </modules>
     <parent>
         <groupId>org.springframework.boot</groupId>
@@ -54,6 +53,15 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-starter-web</artifactId>
                 <version>${springboot.version}</version>
+            </dependency>
+
+            <dependency>
+                <!-- Import dependency management from Spring Boot -->
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-dependencies</artifactId>
+                <version>${springboot.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
             </dependency>
 
             <dependency>

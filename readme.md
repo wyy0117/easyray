@@ -31,13 +31,6 @@
     </dependency>
     ```
 1. provider模块修改pom修改parent
-    ```
-     <parent>
-        <artifactId>user</artifactId>
-        <groupId>com.wyy</groupId>
-        <version>1.0.0</version>
-    </parent>
-    ```    
 1. provider模块修改依赖
     ```
     <dependency>

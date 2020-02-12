@@ -5,12 +5,11 @@ import com.easyray.auth.service.impl.SpringSecurityThreadLocal;
 import com.easyray.common.exception.EntityNotExistException;
 import com.easyray.common.exception.filter.CustomThrowable;
 import com.easyray.common.util.ApplicationContextUtil;
-import com.easyray.userapi.entity.User;
+import com.easyray.systemapi.entity.User;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
-import org.springframework.web.filter.OncePerRequestFilter;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;

@@ -38,3 +38,5 @@ actable:
 logging:
   file:
     path: .
+  level:
+    com.easyray: debug

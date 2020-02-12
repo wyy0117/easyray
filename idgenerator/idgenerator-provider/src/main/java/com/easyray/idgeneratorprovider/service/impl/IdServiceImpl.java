@@ -32,9 +32,12 @@ public class IdServiceImpl implements IdService {
 
     @Autowired
     private IdSequenceLocalProvider idSequenceLocalProvider;
+    @Autowired
+    private IdService idService;
 
     @PostConstruct
-    private void init() {
+    @Override
+    public void init() {
         log.debug("IdServiceImpl.init");
         List<IdSequence> idSequenceList = idSequenceLocalProvider.list();
         for (IdSequence idSequence : idSequenceList) {
@@ -48,13 +51,13 @@ public class IdServiceImpl implements IdService {
         Long currentId = entityName_current_map.get(entityName);
         long returnId;
         if (currentId == null) {//entityName第一次生成id，需要写入数据库，写入map
-            IdSequence idSequence = new IdSequence(System.currentTimeMillis());
+            returnId = minId;
+            IdSequence idSequence = new IdSequence(idService.nextId(IdSequence.class.getName()));
             idSequence.setEntityName(entityName)
                     .setValue(minId + skipNum);
             idSequenceLocalProvider.save(idSequence);
-            entityName_max_map.put(entityName, idSequence.getValue() + skipNum);
-            entityName_current_map.put(entityName, idSequence.getValue());
-            returnId = idSequence.getValue();
+            entityName_max_map.put(entityName, returnId + skipNum);
+            entityName_current_map.put(entityName, returnId);
         } else {//已经写入过数据库
             returnId = currentId + 1;
             entityName_current_map.put(entityName, returnId);

@@ -2,8 +2,8 @@ package com.easyray.auth.service.impl;
 
 import com.alibaba.dubbo.config.annotation.Reference;
 import com.easyray.common.exception.EntityNotExistException;
-import com.easyray.userapi.entity.User;
-import com.easyray.userapi.service.UserLocalProvider;
+import com.easyray.systemapi.entity.User;
+import com.easyray.systemapi.service.UserLocalProvider;
 import org.springframework.stereotype.Component;
 
 /**
@@ -14,7 +14,7 @@ import org.springframework.stereotype.Component;
 public class SpringSecurityThreadLocal {
 
     @Reference(check = false)
-    private UserLocalProvider userLocalService;
+    private UserLocalProvider userLocalProvider;
     private ThreadLocal<User> threadLocal = new ThreadLocal<>();
 
     public void setUser(User user) {
@@ -22,7 +22,7 @@ public class SpringSecurityThreadLocal {
     }
 
     public void setUser(String username) throws EntityNotExistException {
-        setUser(userLocalService.findByUsername(username));
+        setUser(userLocalProvider.findByUsername(username));
     }
 
     public User getUser() {

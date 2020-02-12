@@ -10,4 +10,6 @@ import com.easyray.idgeneratorapi.entity.IdSequence;
 public interface IdSequenceLocalProvider extends BaseLocalProvider<IdSequence> {
 
     public IdSequence fetchByEntityName(String entityName);
+
+    public IdSequence fetchById(long id);
 }

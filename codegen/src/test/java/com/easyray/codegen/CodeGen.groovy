@@ -11,7 +11,7 @@ import java.text.SimpleDateFormat
 class CodeGen {
     @Test
     void gen() {
-        String entity = "IdSequence"
+        String entity = "UserGroupRole"
         String basePath = CodeGen.classLoader.getResource(".").path
         List<String> pathList = basePath.split("/") as List
         pathList = pathList.subList(0, pathList.size() - 2)
@@ -30,6 +30,15 @@ class CodeGen {
         File resFolder = new File(basePath + "/${folderName}")
         if (!resFolder.exists()) {
             resFolder.mkdirs()
+        } else {
+            resFolder.listFiles(new FileFilter() {
+                @Override
+                boolean accept(File pathname) {
+                    return pathname.isFile()
+                }
+            }).each {
+                it.delete()
+            }
         }
 
         srcFolder.listFiles(new FileFilter() {

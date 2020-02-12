@@ -18,9 +18,9 @@ import com.easyray.resourcepermission.service.ResourceActionLocalProvider;
 import com.easyray.resourcepermission.service.ResourcePermissionLocalProvider;
 import com.easyray.resourcepermission.service.ResourcePermissionVersionLocalProvider;
 import com.easyray.resourcepermission.util.XMLUtil;
-import com.easyray.roleapi.entity.Role;
-import com.easyray.roleapi.error.RoleErrorCode;
-import com.easyray.roleapi.provider.RoleLocalProvider;
+import com.easyray.systemapi.entity.Role;
+import com.easyray.systemapi.error.RoleErrorCode;
+import com.easyray.systemapi.service.RoleLocalProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.core.io.ClassPathResource;
@@ -42,15 +42,15 @@ public class InitResourcePermission implements IEasyInit {
     @Autowired
     private ResourcePermissionConfigurationProperties resourcePermissionConfigurationProperties;
     @Autowired
-    private ResourcePermissionVersionLocalProvider resourcePermissionVersionLocalService;
+    private ResourcePermissionVersionLocalProvider resourcePermissionVersionLocalProvider;
     @Reference
     private IdService idService;
     @Reference(check = false)
-    private RoleLocalProvider roleLocalService;
+    private RoleLocalProvider roleLocalProvider;
     @Autowired
-    private ResourceActionLocalProvider resourceActionLocalService;
+    private ResourceActionLocalProvider resourceActionLocalProvider;
     @Autowired
-    private ResourcePermissionLocalProvider resourcePermissionLocalService;
+    private ResourcePermissionLocalProvider resourcePermissionLocalProvider;
 
     @Override
     public int getOrder() {
@@ -63,21 +63,21 @@ public class InitResourcePermission implements IEasyInit {
         InputStream inputStream = classPathResource.getInputStream();
         ResourcePermissionsXML resourcePermissionsXML = XMLUtil.readResourcePermission(inputStream);
         String module = resourcePermissionsXML.getModule();
-        ResourcePermissionVersion resourcePermissionVersion = resourcePermissionVersionLocalService.fetchByModule(module);
+        ResourcePermissionVersion resourcePermissionVersion = resourcePermissionVersionLocalProvider.fetchByModule(module);
         if (resourcePermissionVersion == null) {//第一次添加，没有resourcePermissionVersion
             resourcePermissionVersion = new ResourcePermissionVersion(idService.nextId(ResourcePermissionVersion.class.getName()));
             resourcePermissionVersion.setModule(module)
                     .setVersion(resourcePermissionsXML.getVersion());
-            resourcePermissionVersionLocalService.save(resourcePermissionVersion);
+            resourcePermissionVersionLocalProvider.save(resourcePermissionVersion);
 
             List<ResourcePermissionXML> resourcePermissionXMLList = resourcePermissionsXML.getResourcePermissionXMLList();
 
             for (ResourcePermissionXML resourcePermissionXML : resourcePermissionXMLList) {
-                Role role = roleLocalService.fetchByName(resourcePermissionXML.getRoleName());
+                Role role = roleLocalProvider.fetchByName(resourcePermissionXML.getRoleName());
                 if (role == null) {
                     throw new EntityNotExistException(new CustomThrowable(RoleErrorCode.ROLE_NOT_EXIST, resourcePermissionXML.getRoleName()));
                 }
-                List<ResourceAction> resourceActionList = resourceActionLocalService.fetchByNameAndActions(resourcePermissionXML.getEntityName(), resourcePermissionXML.getActionKeys());
+                List<ResourceAction> resourceActionList = resourceActionLocalProvider.fetchByNameAndActions(resourcePermissionXML.getEntityName(), resourcePermissionXML.getActionKeys());
                 if (resourceActionList.size() != resourcePermissionXML.getActionKeys().size()) {//xml中有action在数据库中找不到
                     List<String> dbActionList = resourceActionList.stream().map(ResourceAction::getAction).collect(Collectors.toList());
                     List<String> notInDbActionList = resourcePermissionXML.getActionKeys().stream().filter(name -> !dbActionList.contains(name)).collect(Collectors.toList());
@@ -90,19 +90,19 @@ public class InitResourcePermission implements IEasyInit {
                         .setRoleId(role.getId())
                         .setActionIds(actionIds)
                         .setPrimKey("");
-                resourcePermissionLocalService.save(resourcePermission);
+                resourcePermissionLocalProvider.save(resourcePermission);
             }
         } else if (!resourcePermissionVersion.getVersion().equals(resourcePermissionsXML.getVersion())) {//版本有变化
             resourcePermissionVersion.setVersion(resourcePermissionsXML.getVersion());
-            resourcePermissionVersionLocalService.saveOrUpdate(resourcePermissionVersion);
+            resourcePermissionVersionLocalProvider.saveOrUpdate(resourcePermissionVersion);
 
             List<ResourcePermissionXML> resourcePermissionXMLList = resourcePermissionsXML.getResourcePermissionXMLList();
             for (ResourcePermissionXML resourcePermissionXML : resourcePermissionXMLList) {
-                Role role = roleLocalService.fetchByName(resourcePermissionXML.getRoleName());
+                Role role = roleLocalProvider.fetchByName(resourcePermissionXML.getRoleName());
                 if (role == null) {
                     throw new EntityNotExistException(new CustomThrowable(RoleErrorCode.ROLE_NOT_EXIST, resourcePermissionXML.getRoleName()));
                 }
-                List<ResourceAction> resourceActionList = resourceActionLocalService.fetchByNameAndActions(resourcePermissionXML.getEntityName(), resourcePermissionXML.getActionKeys());
+                List<ResourceAction> resourceActionList = resourceActionLocalProvider.fetchByNameAndActions(resourcePermissionXML.getEntityName(), resourcePermissionXML.getActionKeys());
                 if (resourceActionList.size() != resourcePermissionXML.getActionKeys().size()) {//xml中有action在数据库中找不到
                     List<String> dbActionList = resourceActionList.stream().map(ResourceAction::getAction).collect(Collectors.toList());
                     List<String> notInDbActionList = resourcePermissionXML.getActionKeys().stream().filter(name -> !dbActionList.contains(name)).collect(Collectors.toList());
@@ -110,11 +110,11 @@ public class InitResourcePermission implements IEasyInit {
                 }
                 int actionIds = resourceActionList.stream().mapToInt(ResourceAction::getBitwiseValue).sum();
 
-                ResourcePermission resourcePermission = resourcePermissionLocalService.fetchByNameAndRoleId(resourcePermissionXML.getEntityName(), role.getId())
+                ResourcePermission resourcePermission = resourcePermissionLocalProvider.fetchByNameAndRoleId(resourcePermissionXML.getEntityName(), role.getId())
                         .setScope(resourcePermissionXML.getScope())
                         .setRoleId(role.getId())
                         .setActionIds(actionIds);
-                resourcePermissionLocalService.save(resourcePermission);
+                resourcePermissionLocalProvider.save(resourcePermission);
             }
         }
     }

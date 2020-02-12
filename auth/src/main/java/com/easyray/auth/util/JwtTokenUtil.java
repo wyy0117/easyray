@@ -1,7 +1,7 @@
 package com.easyray.auth.util;
 
 import com.easyray.auth.autoconfig.JWTConfigurationProperties;
-import com.easyray.userapi.entity.User;
+import com.easyray.systemapi.entity.User;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -9,7 +9,6 @@ import org.apache.commons.lang3.time.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import javax.annotation.PostConstruct;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;

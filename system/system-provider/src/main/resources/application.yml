@@ -1,0 +1,18 @@
+#server port
+server:
+  port: ${random.int[1000,9999]}
+
+dubbo:
+  application:
+    name: @project.name@
+
+spring:
+  security:
+    user:
+      name: admin
+      password: admin
+
+system:
+  group:
+    name: system-group
+

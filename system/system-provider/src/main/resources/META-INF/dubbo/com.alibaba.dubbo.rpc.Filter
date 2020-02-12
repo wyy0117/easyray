@@ -1,0 +1,5 @@
+userCheckPermissionFilter=com.easyray.systemprovider.provider.impl.UserCheckPermissionFilter
+roleCheckPermissionFilter=com.easyray.systemprovider.provider.impl.RoleCheckPermissionFilter
+userRoleCheckPermissionFilter=com.easyray.systemprovider.provider.impl.UserRoleCheckPermissionFilter
+groupCheckPermissionFilter=com.easyray.systemprovider.provider.impl.GroupCheckPermissionFilter
+userGroupRoleCheckPermissionFilter=com.easyray.systemprovider.provider.impl.UserGroupRoleCheckPermissionFilter
