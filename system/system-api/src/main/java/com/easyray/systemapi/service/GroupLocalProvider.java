@@ -9,5 +9,6 @@ import com.easyray.systemapi.entity.Group;
  */
 public interface GroupLocalProvider extends BaseLocalProvider<Group> {
 
+    public Group fetchByName(String name);
 
 }

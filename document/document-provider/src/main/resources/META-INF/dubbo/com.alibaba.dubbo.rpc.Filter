@@ -1,0 +1,2 @@
+dFolderCheckPermissionFilter=com.easyray.documentprovider.provider.impl.DFolderCheckPermissionFilter
+dFileCheckPermissionFilter=com.easyray.documentprovider.provider.impl.DFileCheckPermissionFilter

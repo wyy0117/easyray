@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import com.easyray.baseapi.entity.BaseEntity;
 import com.wyy.actable.annotation.Column;
 import com.wyy.actable.annotation.Table;
+import com.wyy.actable.annotation.Unique;
 
 import static com.wyy.actable.constants.MySqlDataType.VARCHAR;
 
@@ -15,6 +16,7 @@ import static com.wyy.actable.constants.MySqlDataType.VARCHAR;
 @Table(name = "sys_group")
 public class Group extends BaseEntity<Long> {
 
+    @Unique
     @Column(name = "name", type = VARCHAR, length = 20, nullable = false)
     private String name;
 

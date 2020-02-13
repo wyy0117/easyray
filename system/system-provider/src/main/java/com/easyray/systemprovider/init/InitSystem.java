@@ -125,13 +125,16 @@ public class InitSystem implements IEasyInit {
     }
 
     private void initGroup(String groupName, User user) {
-        Group group = new Group(idService.nextId(Group.class.getName()))
-                .setName(groupName);
-        group.setUserId(user.getId())
-                .setFullName(user.getFullName())
-                .setCreateDate(new Date())
-                .setModifiedDate(new Date());
-        groupLocalProvider.save(group);
+        Group group = groupLocalProvider.fetchByName(groupName);
+        if (group == null) {
+            group = new Group(idService.nextId(Group.class.getName()))
+                    .setName(groupName);
+            group.setUserId(user.getId())
+                    .setFullName(user.getFullName())
+                    .setCreateDate(new Date())
+                    .setModifiedDate(new Date());
+            groupLocalProvider.save(group);
+        }
     }
 
     private User initUser() {

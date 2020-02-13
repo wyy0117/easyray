@@ -5,14 +5,28 @@ package com.easyray.baseapi.entity;
  * @Author: wyy
  */
 
+import com.wyy.actable.annotation.Column;
+import com.wyy.actable.constants.MySqlDataType;
+
 /**
- *
  * @param <T> 主键类型
  */
 public abstract class TreeEntity<T> {
+    @Column(name = "id", type = MySqlDataType.BIGINT, length = 10, nullable = false)
     private T id;
+
+    @Column(name = "parent_id", type = MySqlDataType.BIGINT, length = 10, nullable = false)
     private T parentId;
+
+    @Column(name = "tree_path", type = MySqlDataType.VARCHAR, length = 75, nullable = false)
     private String treePath;
+
+    public TreeEntity() {
+    }
+
+    public TreeEntity(T id) {
+        this.id = id;
+    }
 
     @Override
     public String toString() {

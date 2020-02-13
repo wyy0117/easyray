@@ -11,6 +11,7 @@
         <module>idgenerator</module>
         <module>team</module>
         <module>system</module>
+        <module>document</module>
     </modules>
     <parent>
         <groupId>org.springframework.boot</groupId>

@@ -1,4 +1,4 @@
-package com.easyray.baseapi.configuration;
+package com.easyray.baseapi.config;
 
 import com.baomidou.mybatisplus.extension.plugins.PaginationInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.pagination.optimize.JsqlParserCountOptimize;
@@ -10,7 +10,7 @@ import org.springframework.context.annotation.Configuration;
  * @Author: wyy
  */
 @Configuration
-public class PageConfiguration {
+public class MybatisConfig {
 
     @Bean
     public PaginationInterceptor paginationInterceptor() {

@@ -13,8 +13,6 @@
     权限定义与检查
 1. scripts
     启动服务脚本
-1. user
-    用户模块
 #### 框架使用介绍
 框架设计为4层结构，其中api层提供基础接口（interface）；provider层提供基础service（dubbo），操作数据库，权限检查；web层包含2层：业务层(consumer)和controller层，service层做复杂业务逻辑操作，controller对外提供接口（rest service）。
 #### 注意事项

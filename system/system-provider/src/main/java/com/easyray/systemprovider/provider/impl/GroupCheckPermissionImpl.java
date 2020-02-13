@@ -13,4 +13,8 @@ import org.springframework.stereotype.Component;
 @Component
 public class GroupCheckPermissionImpl extends ServiceImpl<GroupMapper, Group> implements GroupCheckPermission {
 
+    @Override
+    public Group fetchByName(String name) {
+        return null;
+    }
 }

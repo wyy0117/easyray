@@ -11,7 +11,7 @@ import java.text.SimpleDateFormat
 class CodeGen {
     @Test
     void gen() {
-        String entity = "UserGroupRole"
+        String entity = "DFolder"
         String basePath = CodeGen.classLoader.getResource(".").path
         List<String> pathList = basePath.split("/") as List
         pathList = pathList.subList(0, pathList.size() - 2)

@@ -2,6 +2,7 @@ package com.easyray.systemprovider.provider.impl;
 
 import com.alibaba.dubbo.config.annotation.Reference;
 import com.alibaba.dubbo.config.annotation.Service;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.easyray.idgeneratorapi.service.IdService;
 import com.easyray.systemapi.constant.RoleNameConstant;
@@ -47,5 +48,10 @@ public class GroupLocalProviderImpl extends ServiceImpl<GroupMapper, Group> impl
         UserGroupRole userGroupRole = new UserGroupRole(idService.nextId(UserGroupRole.class.getName()), entity.getUserId(), entity.getId(), role.getId());
         userGroupRoleLocalProvider.save(userGroupRole);
         return super.save(entity);
+    }
+
+    @Override
+    public Group fetchByName(String name) {
+        return getOne(new QueryWrapper<Group>().eq("name", name));
     }
 }
