@@ -7,7 +7,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.easyray.common.exception.EntityNotExistException;
 import com.easyray.common.exception.filter.CustomThrowable;
 import com.easyray.idgeneratorapi.service.IdService;
-import com.easyray.systemapi.constant.RoleNameConstant;
+import com.easyray.baseapi.constant.RoleNameConstant;
 import com.easyray.systemapi.entity.Role;
 import com.easyray.systemapi.entity.User;
 import com.easyray.systemapi.entity.UserRole;

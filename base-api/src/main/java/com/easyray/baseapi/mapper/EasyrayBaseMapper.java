@@ -2,6 +2,8 @@ package com.easyray.baseapi.mapper;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.baomidou.mybatisplus.core.toolkit.Constants;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -11,5 +13,5 @@ import java.util.List;
  */
 public interface EasyrayBaseMapper<T> extends BaseMapper<T> {
 
-    public List<T> filterFindBy(QueryWrapper<T> queryWrapper);
+    List<T> filterFindBy(@Param(Constants.WRAPPER) QueryWrapper<T> queryWrapper, long groupId, long userId);
 }

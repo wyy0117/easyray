@@ -1,1 +1,6 @@
 
+dubbo:
+  application:
+    name: @project.name@
+server:
+  port: ${random.int[1000,9999]}

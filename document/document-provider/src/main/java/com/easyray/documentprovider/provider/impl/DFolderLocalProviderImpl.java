@@ -8,7 +8,6 @@ import com.easyray.documentprovider.mapper.DFolderMapper;
 import org.springframework.stereotype.Component;
 
 /**
- *
  * @author wyy
  * @since 2020-02_13
  */

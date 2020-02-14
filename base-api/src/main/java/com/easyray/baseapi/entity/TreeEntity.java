@@ -11,9 +11,7 @@ import com.wyy.actable.constants.MySqlDataType;
 /**
  * @param <T> 主键类型
  */
-public abstract class TreeEntity<T> {
-    @Column(name = "id", type = MySqlDataType.BIGINT, length = 10, nullable = false)
-    private T id;
+public abstract class TreeEntity<T> extends BaseEntity<T> {
 
     @Column(name = "parent_id", type = MySqlDataType.BIGINT, length = 10, nullable = false)
     private T parentId;
@@ -25,25 +23,15 @@ public abstract class TreeEntity<T> {
     }
 
     public TreeEntity(T id) {
-        this.id = id;
+        super(id);
     }
 
     @Override
     public String toString() {
         return "TreeEntity{" +
-                "id=" + id +
-                ", parentId=" + parentId +
+                "parentId=" + parentId +
                 ", treePath='" + treePath + '\'' +
-                '}';
-    }
-
-    public T getId() {
-        return id;
-    }
-
-    public TreeEntity<T> setId(T id) {
-        this.id = id;
-        return this;
+                "} " + super.toString();
     }
 
     public T getParentId() {

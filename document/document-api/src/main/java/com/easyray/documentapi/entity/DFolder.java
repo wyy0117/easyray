@@ -5,6 +5,7 @@ import com.easyray.baseapi.entity.TreeEntity;
 import com.wyy.actable.annotation.Column;
 import com.wyy.actable.annotation.Table;
 
+import static com.wyy.actable.constants.MySqlDataType.BIGINT;
 import static com.wyy.actable.constants.MySqlDataType.VARCHAR;
 
 /**
@@ -18,6 +19,9 @@ public class DFolder extends TreeEntity<Long> {
     @Column(name = "name", type = VARCHAR, length = 20, nullable = false)
     private String name;
 
+    @Column(name = "group_id",type=BIGINT,length = 10,nullable = false)
+    private long groupId;
+
     public DFolder(Long id) {
         super(id);
     }
@@ -29,7 +33,17 @@ public class DFolder extends TreeEntity<Long> {
     public String toString() {
         return "DFolder{" +
                 "name='" + name + '\'' +
+                ", groupId=" + groupId +
                 "} " + super.toString();
+    }
+
+    public long getGroupId() {
+        return groupId;
+    }
+
+    public DFolder setGroupId(long groupId) {
+        this.groupId = groupId;
+        return this;
     }
 
     public String getName() {

@@ -1,4 +1,4 @@
-package com.easyray.systemapi.constant;
+package com.easyray.baseapi.constant;
 
 /**
  * @Date: 20-2-12

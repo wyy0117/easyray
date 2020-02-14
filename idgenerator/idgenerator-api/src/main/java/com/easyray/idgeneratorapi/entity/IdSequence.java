@@ -17,8 +17,8 @@ import static com.wyy.actable.constants.MySqlDataType.VARCHAR;
 @Table(name = "sys_id_sequence")
 public class IdSequence extends PrimeKeyEntity<Long> {
     @Unique
-    @Column(name = "entity_name", type = VARCHAR, length = 75, nullable = false)
-    private String entityName;
+    @Column(name = "class_name", type = VARCHAR, length = 75, nullable = false)
+    private String className;
 
     @Column(name = "value", type = BIGINT, length = 20, nullable = false)
     private long value = 1L;
@@ -27,12 +27,12 @@ public class IdSequence extends PrimeKeyEntity<Long> {
         super(id);
     }
 
-    public String getEntityName() {
-        return entityName;
+    public String getClassName() {
+        return className;
     }
 
-    public IdSequence setEntityName(String entityName) {
-        this.entityName = entityName;
+    public IdSequence setClassName(String className) {
+        this.className = className;
         return this;
     }
 
@@ -48,7 +48,7 @@ public class IdSequence extends PrimeKeyEntity<Long> {
     @Override
     public String toString() {
         return "IdSequence{" +
-                "entityName='" + entityName + '\'' +
+                "className='" + className + '\'' +
                 ", value=" + value +
                 "} " + super.toString();
     }

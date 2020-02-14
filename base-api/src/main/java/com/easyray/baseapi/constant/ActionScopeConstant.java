@@ -1,10 +1,10 @@
-package com.easyray.resourcepermission.constant;
+package com.easyray.baseapi.constant;
 
 /**
  * @Date: 20-2-3
  * @Author: wyy
  */
-public class ActionScope {
+public class ActionScopeConstant {
 
     public static int GLOBAL = 1;
     public static int PROJECT = 2;

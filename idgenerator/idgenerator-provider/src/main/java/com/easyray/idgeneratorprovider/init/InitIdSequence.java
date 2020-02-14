@@ -34,7 +34,7 @@ public class InitIdSequence implements IEasyInit {
         IdSequence idSequence = idSequenceLocalProvider.fetchById(initId);
         if (idSequence == null) {
             idSequence = new IdSequence(initId)
-                    .setEntityName(IdSequence.class.getName())
+                    .setClassName(IdSequence.class.getName())
                     .setValue(initId);
             idSequenceLocalProvider.save(idSequence);
             idService.init();

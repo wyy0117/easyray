@@ -5,7 +5,7 @@ import com.alibaba.dubbo.config.annotation.Service;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.easyray.idgeneratorapi.service.IdService;
-import com.easyray.systemapi.constant.RoleNameConstant;
+import com.easyray.baseapi.constant.RoleNameConstant;
 import com.easyray.systemapi.entity.Group;
 import com.easyray.systemapi.entity.Role;
 import com.easyray.systemapi.entity.UserGroupRole;
@@ -37,7 +37,7 @@ public class GroupLocalProviderImpl extends ServiceImpl<GroupMapper, Group> impl
     private IdService idService;
 
     /**
-     * 创建group的时候，肯定会给{@link com.easyray.systemapi.constant.RoleNameConstant#GROUP_OWNER_ROLE_NAME}角色
+     * 创建group的时候，肯定会给{@link RoleNameConstant#GROUP_OWNER_ROLE_NAME}角色
      *
      * @param entity
      * @return

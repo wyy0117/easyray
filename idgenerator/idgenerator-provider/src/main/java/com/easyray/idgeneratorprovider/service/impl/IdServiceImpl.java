@@ -8,7 +8,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.PostConstruct;
 import java.util.List;
@@ -21,14 +20,13 @@ import java.util.concurrent.ConcurrentHashMap;
  */
 @Service
 @Component
-@Transactional
 public class IdServiceImpl implements IdService {
     private final Logger log = LoggerFactory.getLogger(IdServiceImpl.class);
 
     private final long skipNum = 1000L;
     private final long minId = 1L;
-    private Map<String, Long> entityName_max_map = new ConcurrentHashMap<>();
-    private Map<String, Long> entityName_current_map = new ConcurrentHashMap<>();
+    private Map<String, Long> className_max_map = new ConcurrentHashMap<>();
+    private Map<String, Long> className_current_map = new ConcurrentHashMap<>();
 
     @Autowired
     private IdSequenceLocalProvider idSequenceLocalProvider;
@@ -41,33 +39,33 @@ public class IdServiceImpl implements IdService {
         log.debug("IdServiceImpl.init");
         List<IdSequence> idSequenceList = idSequenceLocalProvider.list();
         for (IdSequence idSequence : idSequenceList) {
-            entityName_max_map.put(idSequence.getEntityName(), idSequence.getValue() + skipNum);
-            entityName_current_map.put(idSequence.getEntityName(), idSequence.getValue());
+            className_max_map.put(IdSequence.class.getName(), idSequence.getValue() + skipNum);
+            className_current_map.put(IdSequence.class.getName(), idSequence.getValue());
         }
     }
 
     @Override
-    public synchronized long nextId(String entityName) {
-        Long currentId = entityName_current_map.get(entityName);
+    public synchronized long nextId(String className) {
+        Long currentId = className_current_map.get(className);
         long returnId;
         if (currentId == null) {//entityName第一次生成id，需要写入数据库，写入map
             returnId = minId;
             IdSequence idSequence = new IdSequence(idService.nextId(IdSequence.class.getName()));
-            idSequence.setEntityName(entityName)
+            idSequence.setClassName(className)
                     .setValue(minId + skipNum);
             idSequenceLocalProvider.save(idSequence);
-            entityName_max_map.put(entityName, returnId + skipNum);
-            entityName_current_map.put(entityName, returnId);
+            className_max_map.put(className, returnId + skipNum);
+            className_current_map.put(className, returnId);
         } else {//已经写入过数据库
             returnId = currentId + 1;
-            entityName_current_map.put(entityName, returnId);
-            if (currentId.equals(entityName_max_map.get(entityName))) {//已经达到极限值，需要重新写入数据库,写入map
+            className_current_map.put(className, returnId);
+            if (currentId.equals(className_max_map.get(className))) {//已经达到极限值，需要重新写入数据库,写入map
 
-                IdSequence idSequence = idSequenceLocalProvider.fetchByEntityName(entityName);
+                IdSequence idSequence = idSequenceLocalProvider.fetchByEntityName(className);
                 idSequence.setValue(currentId + skipNum);
                 idSequenceLocalProvider.updateById(idSequence);
 
-                entityName_max_map.put(entityName, idSequence.getValue());
+                className_max_map.put(className, idSequence.getValue());
             }
         }
         return returnId;
