@@ -1,6 +1,6 @@
 
 import com.alibaba.dubbo.config.annotation.Service;
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.easyray.baseapi.provider.EasyrayServiceImpl ;
 import org.springframework.stereotype.Component;
 
 /**
@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
  */
 @Service
 @Component
-public class ${ENTITY}LocalProviderImpl extends ServiceImpl<${ENTITY}Mapper, ${ENTITY}> implements ${ENTITY}LocalProvider {
+public class ${ENTITY}LocalProviderImpl extends EasyrayServiceImpl<${ENTITY}Mapper, ${ENTITY}> implements ${ENTITY}LocalProvider {
 
 
 }

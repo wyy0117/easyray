@@ -9,7 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
  * @Date: 2020-02_11
  * @Author: wyy
  */
-@Service(filter = {"teamCheckPermissionFilter"})
+@Service
 @Component
 @Transactional
 public class TeamProviderImpl extends TeamLocalProviderImpl implements TeamProvider {

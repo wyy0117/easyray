@@ -6,7 +6,7 @@ import com.easyray.baseapi.init.IEasyInit;
 import com.easyray.common.exception.EasyCustomException;
 import com.easyray.common.exception.EntityNotExistException;
 import com.easyray.common.exception.filter.CustomThrowable;
-import com.easyray.idgeneratorapi.service.IdService;
+import com.easyray.idgeneratorapi.provider.IdService;
 import com.easyray.resourcepermission.autoconfig.ResourcePermissionConfigurationProperties;
 import com.easyray.resourcepermission.entity.ResourceAction;
 import com.easyray.resourcepermission.entity.ResourcePermission;

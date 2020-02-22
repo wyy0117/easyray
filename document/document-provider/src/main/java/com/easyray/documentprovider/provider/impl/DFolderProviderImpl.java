@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
  * @Date: 2020-02_13
  * @Author: wyy
  */
-@Service(filter = {"dFolderCheckPermissionFilter"})
+@Service
 @Component
 public class DFolderProviderImpl extends DFolderLocalProviderImpl implements DFolderProvider {
 

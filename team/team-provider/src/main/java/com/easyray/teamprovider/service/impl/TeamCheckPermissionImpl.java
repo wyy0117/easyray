@@ -1,6 +1,6 @@
 package com.easyray.teamprovider.service.impl;
 
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.easyray.baseapi.provider.EasyrayServiceImpl;
 import com.easyray.teamapi.entity.Team;
 import com.easyray.teamapi.service.TeamCheckPermission;
 import com.easyray.teamprovider.mapper.TeamMapper;
@@ -11,6 +11,6 @@ import org.springframework.stereotype.Component;
  * @Author: wyy
  */
 @Component
-public class TeamCheckPermissionImpl extends ServiceImpl<TeamMapper, Team> implements TeamCheckPermission {
+public class TeamCheckPermissionImpl extends EasyrayServiceImpl<TeamMapper, Team> implements TeamCheckPermission {
 
 }

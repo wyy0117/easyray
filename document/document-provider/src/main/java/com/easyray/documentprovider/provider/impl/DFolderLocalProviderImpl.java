@@ -1,7 +1,7 @@
 package com.easyray.documentprovider.provider.impl;
 
 import com.alibaba.dubbo.config.annotation.Service;
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.easyray.baseapi.provider.EasyrayServiceImpl;
 import com.easyray.documentapi.entity.DFolder;
 import com.easyray.documentapi.provider.DFolderLocalProvider;
 import com.easyray.documentprovider.mapper.DFolderMapper;
@@ -13,7 +13,7 @@ import org.springframework.stereotype.Component;
  */
 @Service
 @Component
-public class DFolderLocalProviderImpl extends ServiceImpl<DFolderMapper, DFolder> implements DFolderLocalProvider {
+public class DFolderLocalProviderImpl extends EasyrayServiceImpl<DFolderMapper, DFolder> implements DFolderLocalProvider {
 
 
 }

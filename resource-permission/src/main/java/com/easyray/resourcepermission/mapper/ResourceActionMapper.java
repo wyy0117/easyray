@@ -1,6 +1,6 @@
 package com.easyray.resourcepermission.mapper;
 
-import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.easyray.baseapi.mapper.EasyrayBaseMapper;
 import com.easyray.resourcepermission.entity.ResourceAction;
 import org.apache.ibatis.annotations.Mapper;
 
@@ -9,5 +9,5 @@ import org.apache.ibatis.annotations.Mapper;
  * @Author: wyy
  */
 @Mapper
-public interface ResourceActionMapper extends BaseMapper<ResourceAction>{
+public interface ResourceActionMapper extends EasyrayBaseMapper<ResourceAction> {
 }

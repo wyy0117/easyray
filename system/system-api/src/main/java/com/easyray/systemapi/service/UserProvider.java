@@ -9,4 +9,5 @@ import com.easyray.systemapi.entity.User;
  */
 public interface UserProvider extends UserLocalProvider, BaseProvider<User> {
 
+    public void a(int b,User user);
 }

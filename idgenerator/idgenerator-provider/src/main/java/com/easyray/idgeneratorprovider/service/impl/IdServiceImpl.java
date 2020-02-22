@@ -2,8 +2,8 @@ package com.easyray.idgeneratorprovider.service.impl;
 
 import com.alibaba.dubbo.config.annotation.Service;
 import com.easyray.idgeneratorapi.entity.IdSequence;
-import com.easyray.idgeneratorapi.service.IdSequenceLocalProvider;
-import com.easyray.idgeneratorapi.service.IdService;
+import com.easyray.idgeneratorapi.provider.IdSequenceLocalProvider;
+import com.easyray.idgeneratorapi.provider.IdService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,8 +39,8 @@ public class IdServiceImpl implements IdService {
         log.debug("IdServiceImpl.init");
         List<IdSequence> idSequenceList = idSequenceLocalProvider.list();
         for (IdSequence idSequence : idSequenceList) {
-            className_max_map.put(IdSequence.class.getName(), idSequence.getValue() + skipNum);
-            className_current_map.put(IdSequence.class.getName(), idSequence.getValue());
+            className_max_map.put(idSequence.getClassName(), idSequence.getValue() + skipNum);
+            className_current_map.put(idSequence.getClassName(), idSequence.getValue());
         }
     }
 

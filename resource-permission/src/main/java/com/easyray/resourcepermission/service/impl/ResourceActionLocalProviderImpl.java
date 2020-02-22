@@ -1,7 +1,7 @@
 package com.easyray.resourcepermission.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.easyray.baseapi.provider.EasyrayServiceImpl;
 import com.easyray.resourcepermission.entity.ResourceAction;
 import com.easyray.resourcepermission.mapper.ResourceActionMapper;
 import com.easyray.resourcepermission.service.ResourceActionLocalProvider;
@@ -16,7 +16,7 @@ import java.util.List;
  */
 @Component
 @Transactional
-public class ResourceActionLocalProviderImpl extends ServiceImpl<ResourceActionMapper, ResourceAction> implements ResourceActionLocalProvider {
+public class ResourceActionLocalProviderImpl extends EasyrayServiceImpl<ResourceActionMapper, ResourceAction> implements ResourceActionLocalProvider {
 
     @Override
     public List<ResourceAction> fetchByName(String name) {

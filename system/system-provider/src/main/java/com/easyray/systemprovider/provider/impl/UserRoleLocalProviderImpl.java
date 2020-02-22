@@ -1,7 +1,7 @@
 package com.easyray.systemprovider.provider.impl;
 
 import com.alibaba.dubbo.config.annotation.Service;
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.easyray.baseapi.provider.EasyrayServiceImpl;
 import com.easyray.systemapi.entity.Role;
 import com.easyray.systemapi.entity.User;
 import com.easyray.systemapi.entity.UserRole;
@@ -17,7 +17,7 @@ import java.util.List;
  */
 @Service
 @Component
-public class UserRoleLocalProviderImpl extends ServiceImpl<UserRoleMapper, UserRole> implements UserRoleLocalProvider {
+public class UserRoleLocalProviderImpl extends EasyrayServiceImpl<UserRoleMapper, UserRole> implements UserRoleLocalProvider {
 
 
     @Override

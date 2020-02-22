@@ -1,4 +1,4 @@
-package com.easyray.idgeneratorapi.service;
+package com.easyray.idgeneratorapi.provider;
 
 /**
  * @Date: 20-2-4
@@ -8,5 +8,5 @@ public interface IdService {
 
     public void init();
 
-    public long nextId(String entityName);
+    public long nextId(String className);
 }

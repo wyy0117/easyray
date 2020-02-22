@@ -1,7 +1,7 @@
 package com.easyray.idgeneratorprovider.mapper;
 
 
-import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.easyray.baseapi.mapper.EasyrayBaseMapper;
 import com.easyray.idgeneratorapi.entity.IdSequence;
 import org.apache.ibatis.annotations.Mapper;
 
@@ -10,6 +10,6 @@ import org.apache.ibatis.annotations.Mapper;
  * @Author: wyy
  */
 @Mapper
-public interface IdSequenceMapper extends BaseMapper<IdSequence> {
+public interface IdSequenceMapper extends EasyrayBaseMapper<IdSequence> {
 
 }

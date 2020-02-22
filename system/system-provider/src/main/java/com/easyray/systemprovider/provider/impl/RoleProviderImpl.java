@@ -9,7 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
  * @Date: 2020-02_08
  * @Author: wyy
  */
-@Service(filter = {"roleCheckPermissionFilter"})
+@Service
 @Component
 @Transactional
 public class RoleProviderImpl extends RoleLocalProviderImpl implements RoleProvider {

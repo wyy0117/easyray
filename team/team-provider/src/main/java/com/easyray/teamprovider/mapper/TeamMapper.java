@@ -1,6 +1,7 @@
 package com.easyray.teamprovider.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.easyray.baseapi.mapper.EasyrayBaseMapper;
 import com.easyray.teamapi.entity.Team;
 import org.apache.ibatis.annotations.Mapper;
 
@@ -9,6 +10,6 @@ import org.apache.ibatis.annotations.Mapper;
  * @since 2020-02_11
  */
 @Mapper
-public interface TeamMapper extends BaseMapper<Team> {
+public interface TeamMapper extends EasyrayBaseMapper<Team> {
 
 }

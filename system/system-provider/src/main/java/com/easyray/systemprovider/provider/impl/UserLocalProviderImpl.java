@@ -3,11 +3,10 @@ package com.easyray.systemprovider.provider.impl;
 import com.alibaba.dubbo.config.annotation.Reference;
 import com.alibaba.dubbo.config.annotation.Service;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.easyray.common.exception.EntityNotExistException;
-import com.easyray.common.exception.filter.CustomThrowable;
-import com.easyray.idgeneratorapi.service.IdService;
 import com.easyray.baseapi.constant.RoleNameConstant;
+import com.easyray.baseapi.provider.EasyrayServiceImpl;
+import com.easyray.common.exception.EntityNotExistException;
+import com.easyray.idgeneratorapi.provider.IdService;
 import com.easyray.systemapi.entity.Role;
 import com.easyray.systemapi.entity.User;
 import com.easyray.systemapi.entity.UserRole;
@@ -31,7 +30,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 @Component
 @Transactional
-public class UserLocalProviderImpl extends ServiceImpl<UserMapper, User> implements UserLocalProvider {
+public class UserLocalProviderImpl extends EasyrayServiceImpl<UserMapper, User> implements UserLocalProvider {
 
     @Autowired
     @Qualifier("roleLocalProviderImpl")
@@ -60,17 +59,14 @@ public class UserLocalProviderImpl extends ServiceImpl<UserMapper, User> impleme
 
     @Override
     public User findByUsername(String username) throws EntityNotExistException {
-        User user = fetchByUsername(username);
-        if (user == null) {
-            throw new EntityNotExistException(new CustomThrowable(User.class, "username: " + username));
-        }
-        return user;
+
+        return findBy(new QueryWrapper<User>().eq("username", username), null);
     }
 
     @Override
     public User fetchByUsername(String username) {
 
-        return getOne(new QueryWrapper<User>().eq("username", username), false);
+        return fetchBy(new QueryWrapper<User>().eq("username", username), null);
     }
 
 }

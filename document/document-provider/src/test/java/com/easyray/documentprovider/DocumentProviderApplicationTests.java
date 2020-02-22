@@ -5,7 +5,7 @@ import com.easyray.documentapi.entity.DFile;
 import com.easyray.documentapi.entity.DFolder;
 import com.easyray.documentapi.provider.DFileLocalProvider;
 import com.easyray.documentapi.provider.DFolderLocalProvider;
-import com.easyray.idgeneratorapi.service.IdService;
+import com.easyray.idgeneratorapi.provider.IdService;
 import com.easyray.systemapi.entity.Group;
 import com.easyray.systemapi.entity.User;
 import com.easyray.systemapi.service.GroupLocalProvider;

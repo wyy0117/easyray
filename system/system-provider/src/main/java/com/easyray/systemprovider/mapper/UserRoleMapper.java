@@ -1,6 +1,6 @@
 package com.easyray.systemprovider.mapper;
 
-import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.easyray.baseapi.mapper.EasyrayBaseMapper;
 import com.easyray.systemapi.entity.Role;
 import com.easyray.systemapi.entity.User;
 import com.easyray.systemapi.entity.UserRole;
@@ -14,7 +14,7 @@ import java.util.List;
  * @since 2020-02_12
  */
 @Mapper
-public interface UserRoleMapper extends BaseMapper<UserRole> {
+public interface UserRoleMapper extends EasyrayBaseMapper<UserRole> {
 
     @Select("select sys_role.* from sys_role left join sys_user_role on sys_role.id = sys_user_role.role_id where sys_user_role.user_id = #{userId} ")
     public List<Role> findRoleByUserId(long userId);

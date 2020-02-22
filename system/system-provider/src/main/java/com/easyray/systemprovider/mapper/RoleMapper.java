@@ -1,6 +1,6 @@
 package com.easyray.systemprovider.mapper;
 
-import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.easyray.baseapi.mapper.EasyrayBaseMapper;
 import com.easyray.systemapi.entity.Role;
 import org.apache.ibatis.annotations.Mapper;
 
@@ -9,7 +9,7 @@ import org.apache.ibatis.annotations.Mapper;
  * @since 2020-02_08
  */
 @Mapper
-public interface RoleMapper extends BaseMapper<Role> {
+public interface RoleMapper extends EasyrayBaseMapper<Role> {
 
 
 }

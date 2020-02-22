@@ -1,9 +1,9 @@
 package com.easyray.idgeneratorprovider.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.easyray.baseapi.provider.EasyrayServiceImpl;
 import com.easyray.idgeneratorapi.entity.IdSequence;
-import com.easyray.idgeneratorapi.service.IdSequenceLocalProvider;
+import com.easyray.idgeneratorapi.provider.IdSequenceLocalProvider;
 import com.easyray.idgeneratorprovider.mapper.IdSequenceMapper;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
@@ -14,10 +14,10 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @Component
 @Transactional
-public class IdSequenceLocalProviderImpl extends ServiceImpl<IdSequenceMapper, IdSequence> implements IdSequenceLocalProvider {
+public class IdSequenceLocalProviderImpl extends EasyrayServiceImpl<IdSequenceMapper, IdSequence> implements IdSequenceLocalProvider {
     @Override
     public IdSequence fetchByEntityName(String entityName) {
-        return getOne(new QueryWrapper<IdSequence>().eq("entity_name", entityName), false);
+        return fetchBy(new QueryWrapper<IdSequence>().eq("entity_name", entityName), null);
     }
 
     /**
@@ -26,6 +26,6 @@ public class IdSequenceLocalProviderImpl extends ServiceImpl<IdSequenceMapper, I
      */
     @Override
     public IdSequence fetchById(long id) {
-        return getById(id);
+        return fetchBy(new QueryWrapper<IdSequence>().eq("id", id), null);
     }
 }

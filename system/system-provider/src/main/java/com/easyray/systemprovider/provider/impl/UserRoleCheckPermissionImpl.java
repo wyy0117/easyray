@@ -1,6 +1,7 @@
 package com.easyray.systemprovider.provider.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.easyray.baseapi.provider.EasyrayServiceImpl;
 import com.easyray.systemapi.entity.Role;
 import com.easyray.systemapi.entity.User;
 import com.easyray.systemapi.entity.UserRole;
@@ -15,7 +16,7 @@ import java.util.List;
  * @Author: wyy
  */
 @Component
-public class UserRoleCheckPermissionImpl extends ServiceImpl<UserRoleMapper, UserRole> implements UserRoleCheckPermission {
+public class UserRoleCheckPermissionImpl extends EasyrayServiceImpl<UserRoleMapper, UserRole> implements UserRoleCheckPermission {
 
     @Override
     public List<User> findUserByRoleId(long roleId) {

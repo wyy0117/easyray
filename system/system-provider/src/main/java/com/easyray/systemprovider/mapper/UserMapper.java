@@ -1,11 +1,8 @@
 package com.easyray.systemprovider.mapper;
 
-import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.easyray.baseapi.mapper.EasyrayBaseMapper;
 import com.easyray.systemapi.entity.User;
 import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Select;
-
-import java.util.List;
 
 /**
  * <p>
@@ -16,6 +13,6 @@ import java.util.List;
  * @since 2020-01-26
  */
 @Mapper
-public interface UserMapper extends BaseMapper<User> {
+public interface UserMapper extends EasyrayBaseMapper<User> {
 
 }

@@ -1,7 +1,7 @@
 package com.easyray.systemprovider;
 
 import com.alibaba.dubbo.config.annotation.Reference;
-import com.easyray.idgeneratorapi.service.IdService;
+import com.easyray.idgeneratorapi.provider.IdService;
 import com.easyray.systemapi.entity.Group;
 import com.easyray.systemapi.entity.User;
 import com.easyray.systemapi.service.GroupLocalProvider;

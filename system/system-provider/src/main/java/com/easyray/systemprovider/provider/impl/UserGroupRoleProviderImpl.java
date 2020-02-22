@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
  * @Date: 2020-02_12
  * @Author: wyy
  */
-@Service(filter = {"userGroupRoleCheckPermissionFilter"})
+@Service
 @Component
 public class UserGroupRoleProviderImpl extends UserGroupRoleLocalProviderImpl implements UserGroupRoleProvider {
 

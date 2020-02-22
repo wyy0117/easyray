@@ -4,7 +4,7 @@ import com.alibaba.dubbo.config.annotation.Reference;
 import com.easyray.baseapi.constant.InitOrderConstant;
 import com.easyray.baseapi.init.IEasyInit;
 import com.easyray.common.util.MergeUtil;
-import com.easyray.idgeneratorapi.service.IdService;
+import com.easyray.idgeneratorapi.provider.IdService;
 import com.easyray.resourcepermission.autoconfig.ResourcePermissionConfigurationProperties;
 import com.easyray.resourcepermission.entity.ResourceAction;
 import com.easyray.resourcepermission.entity.ResourceActionVersion;

@@ -3,7 +3,7 @@ package com.easyray.systemprovider.init;
 import com.alibaba.dubbo.config.annotation.Reference;
 import com.easyray.baseapi.constant.InitOrderConstant;
 import com.easyray.baseapi.init.IEasyInit;
-import com.easyray.idgeneratorapi.service.IdService;
+import com.easyray.idgeneratorapi.provider.IdService;
 import com.easyray.baseapi.constant.RoleNameConstant;
 import com.easyray.baseapi.constant.RoleTypeConstant;
 import com.easyray.systemapi.entity.Group;

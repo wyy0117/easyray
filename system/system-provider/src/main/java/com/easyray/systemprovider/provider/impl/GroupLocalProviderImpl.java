@@ -3,9 +3,9 @@ package com.easyray.systemprovider.provider.impl;
 import com.alibaba.dubbo.config.annotation.Reference;
 import com.alibaba.dubbo.config.annotation.Service;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.easyray.idgeneratorapi.service.IdService;
 import com.easyray.baseapi.constant.RoleNameConstant;
+import com.easyray.baseapi.provider.EasyrayServiceImpl;
+import com.easyray.idgeneratorapi.provider.IdService;
 import com.easyray.systemapi.entity.Group;
 import com.easyray.systemapi.entity.Role;
 import com.easyray.systemapi.entity.UserGroupRole;
@@ -23,7 +23,7 @@ import org.springframework.stereotype.Component;
  */
 @Service
 @Component
-public class GroupLocalProviderImpl extends ServiceImpl<GroupMapper, Group> implements GroupLocalProvider {
+public class GroupLocalProviderImpl extends EasyrayServiceImpl<GroupMapper, Group> implements GroupLocalProvider {
 
     @Autowired
     @Qualifier("roleLocalProviderImpl")
@@ -52,6 +52,6 @@ public class GroupLocalProviderImpl extends ServiceImpl<GroupMapper, Group> impl
 
     @Override
     public Group fetchByName(String name) {
-        return getOne(new QueryWrapper<Group>().eq("name", name));
+        return fetchBy(new QueryWrapper<Group>().eq("name", name), null);
     }
 }

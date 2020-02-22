@@ -1,7 +1,7 @@
 package com.easyray.resourcepermission.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.easyray.baseapi.provider.EasyrayServiceImpl;
 import com.easyray.resourcepermission.entity.ResourceActionVersion;
 import com.easyray.resourcepermission.mapper.ResourceActionVersionMapper;
 import com.easyray.resourcepermission.service.ResourceActionVersionLocalProvider;
@@ -14,9 +14,9 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @Component
 @Transactional
-public class ResourceActionVersionLocalProviderImpl extends ServiceImpl<ResourceActionVersionMapper, ResourceActionVersion> implements ResourceActionVersionLocalProvider {
+public class ResourceActionVersionLocalProviderImpl extends EasyrayServiceImpl<ResourceActionVersionMapper, ResourceActionVersion> implements ResourceActionVersionLocalProvider {
     @Override
     public ResourceActionVersion fetchByModule(String module) {
-        return getOne(new QueryWrapper<ResourceActionVersion>().eq("module", module), false);
+        return fetchBy(new QueryWrapper<ResourceActionVersion>().eq("module", module), null);
     }
 }

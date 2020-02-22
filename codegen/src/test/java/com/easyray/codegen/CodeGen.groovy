@@ -11,13 +11,12 @@ import java.text.SimpleDateFormat
 class CodeGen {
     @Test
     void gen() {
-        String entity = "DFolder"
+        String entity = "Team"
         String basePath = CodeGen.classLoader.getResource(".").path
         List<String> pathList = basePath.split("/") as List
         pathList = pathList.subList(0, pathList.size() - 2)
         basePath = pathList.join("/") + "/src/test/resources"
 
-        genCode(entity, basePath, "META-INF/dubbo")
         genCode(entity, basePath, "entity")
         genCode(entity, basePath, "mapper")
         genCode(entity, basePath, "provider")

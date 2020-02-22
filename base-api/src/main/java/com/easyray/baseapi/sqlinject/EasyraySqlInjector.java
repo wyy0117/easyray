@@ -16,11 +16,14 @@ public class EasyraySqlInjector extends DefaultSqlInjector {
 
     @Autowired
     private FilterFindBy filterFindBy;
+    @Autowired
+    private FetchBy fetchBy;
 
     @Override
     public List<AbstractMethod> getMethodList(Class<?> mapperClass) {
         List<AbstractMethod> methodList = super.getMethodList(mapperClass);
         methodList.add(filterFindBy);
+        methodList.add(fetchBy);
         return methodList;
     }
 }

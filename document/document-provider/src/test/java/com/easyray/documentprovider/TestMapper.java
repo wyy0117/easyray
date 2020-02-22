@@ -2,7 +2,6 @@ package com.easyray.documentprovider;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.easyray.documentapi.entity.DFile;
-import com.easyray.documentprovider.mapper.MyMapper;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 

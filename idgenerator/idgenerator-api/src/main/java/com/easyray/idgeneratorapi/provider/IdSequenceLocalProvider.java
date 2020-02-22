@@ -1,4 +1,4 @@
-package com.easyray.idgeneratorapi.service;
+package com.easyray.idgeneratorapi.provider;
 
 import com.easyray.baseapi.provider.BaseLocalProvider;
 import com.easyray.idgeneratorapi.entity.IdSequence;

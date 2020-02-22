@@ -1,10 +1,10 @@
 package com.easyray.baseapi.provider;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.baomidou.mybatisplus.core.toolkit.Constants;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.easyray.baseapi.mapper.EasyrayBaseMapper;
-import org.apache.ibatis.annotations.Param;
+import com.easyray.common.exception.EntityNotExistException;
+import com.easyray.common.exception.filter.CustomThrowable;
 
 import java.util.List;
 
@@ -23,7 +23,19 @@ public class EasyrayServiceImpl<M extends EasyrayBaseMapper<T>, T> extends Servi
      * @param userId
      * @return
      */
-    public List<T> filterFindBy(@Param(Constants.WRAPPER) QueryWrapper<T> queryWrapper, long groupId, long userId) {
+    public List<T> filterFindBy(QueryWrapper<T> queryWrapper, long groupId, long userId) {
         return getBaseMapper().filterFindBy(queryWrapper, groupId, userId);
+    }
+
+    public T findBy(QueryWrapper<T> queryWrapper, Long groupId) throws EntityNotExistException {
+        T entity = fetchBy(queryWrapper, groupId);
+        if (entity == null) {
+            throw new EntityNotExistException(new CustomThrowable(entity.getClass(), queryWrapper.getCustomSqlSegment() + "groupId: " + groupId));
+        }
+        return entity;
+    }
+
+    public T fetchBy(QueryWrapper<T> queryWrapper, Long groupId) {
+        return getBaseMapper().fetchBy(queryWrapper, groupId);
     }
 }
