@@ -1,6 +1,5 @@
 package com.easyray.systemprovider;
 
-import com.easyray.systemapi.entity.User;
 import com.easyray.systemapi.service.UserProvider;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +17,6 @@ public class AOPTest {
 
     @Test
     public void testAOP() {
-//        userProvider.fetchByUsername("123");
-        userProvider.a(1,new User(1L));
+        userProvider.fetchByUsername("123");
     }
 }

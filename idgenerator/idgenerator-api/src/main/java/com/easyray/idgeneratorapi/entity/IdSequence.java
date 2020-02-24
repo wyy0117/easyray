@@ -23,6 +23,9 @@ public class IdSequence extends PrimeKeyEntity<Long> {
     @Column(name = "value", type = BIGINT, length = 20, nullable = false)
     private long value = 1L;
 
+    public IdSequence() {
+    }
+
     public IdSequence(long id) {
         super(id);
     }

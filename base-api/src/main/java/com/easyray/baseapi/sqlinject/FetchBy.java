@@ -15,7 +15,7 @@ public class FetchBy extends AbstractMethod {
     @Override
     public MappedStatement injectMappedStatement(Class<?> mapperClass, Class<?> modelClass, TableInfo tableInfo) {
         String sql = "<script>" +
-                "select " + tableInfo.getTableName() + ".* from " + tableInfo.getTableName() + " ${ew.customSqlSegment}" +
+                "select * from " + tableInfo.getTableName() + " ${ew.customSqlSegment}" +
                 "<if test='groupId != null and groupId != 0'>" +
                 "and groupId = #{groupId}" +
                 "</if>" +
