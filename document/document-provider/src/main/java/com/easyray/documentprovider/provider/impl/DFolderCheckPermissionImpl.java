@@ -13,4 +13,8 @@ import org.springframework.stereotype.Component;
 @Component
 public class DFolderCheckPermissionImpl extends EasyrayServiceImpl<DFolderMapper, DFolder> implements DFolderCheckPermission {
 
+    @Override
+    public void deleteFolder(long id) {
+
+    }
 }

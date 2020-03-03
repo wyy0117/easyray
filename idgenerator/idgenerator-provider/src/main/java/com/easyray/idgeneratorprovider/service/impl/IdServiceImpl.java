@@ -39,7 +39,10 @@ public class IdServiceImpl implements IdService {
         log.debug("IdServiceImpl.init");
         List<IdSequence> idSequenceList = idSequenceLocalProvider.list();
         for (IdSequence idSequence : idSequenceList) {
-            className_max_map.put(idSequence.getClassName(), idSequence.getValue() + skipNum);
+            long max = idSequence.getValue() + skipNum;
+            idSequence.setValue(max);
+            idSequenceLocalProvider.saveOrUpdate(idSequence);
+            className_max_map.put(idSequence.getClassName(), max);
             className_current_map.put(idSequence.getClassName(), idSequence.getValue());
         }
     }
@@ -61,7 +64,7 @@ public class IdServiceImpl implements IdService {
             className_current_map.put(className, returnId);
             if (currentId.equals(className_max_map.get(className))) {//已经达到极限值，需要重新写入数据库,写入map
 
-                IdSequence idSequence = idSequenceLocalProvider.fetchByEntityName(className);
+                IdSequence idSequence = idSequenceLocalProvider.fetchByClassName(className);
                 idSequence.setValue(currentId + skipNum);
                 idSequenceLocalProvider.updateById(idSequence);
 

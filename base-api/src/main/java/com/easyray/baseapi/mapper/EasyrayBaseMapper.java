@@ -2,6 +2,7 @@ package com.easyray.baseapi.mapper;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.Constants;
 import org.apache.ibatis.annotations.Param;
 
@@ -25,12 +26,24 @@ public interface EasyrayBaseMapper<T> extends BaseMapper<T> {
     List<T> filterFindBy(@Param(Constants.WRAPPER) QueryWrapper<T> queryWrapper, long groupId, long userId);
 
     /**
-     * sql注入 {@link com.easyray.baseapi.sqlinject.FetchBy}
+     * sql注入 {@link com.easyray.baseapi.sqlinject.FetchOneBy}
      *
      * @param queryWrapper
      * @param groupId
      * @return
      */
-    T fetchBy(@Param(Constants.WRAPPER) QueryWrapper<T> queryWrapper, Long groupId);
+    T fetchOneBy(@Param(Constants.WRAPPER) QueryWrapper<T> queryWrapper, Long groupId);
+
+    /**
+     * sql注入 {@link com.easyray.baseapi.sqlinject.FetchBy}
+     *
+     * @param page
+     * @param queryWrapper
+     * @param groupId
+     * @return
+     */
+    IPage<T> fetchBy(IPage<T> page, @Param(Constants.WRAPPER) QueryWrapper<T> queryWrapper, Long groupId);
+
+    IPage<T> doFetchBy();
 
 }

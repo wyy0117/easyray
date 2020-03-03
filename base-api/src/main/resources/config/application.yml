@@ -33,6 +33,8 @@ actable:
     mode: update
   execute:
     sql: true
+  print:
+    sql: true
 
 #log
 logging:

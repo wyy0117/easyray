@@ -1,5 +1,6 @@
 package com.easyray.documentapi.provider;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.easyray.baseapi.provider.BaseLocalProvider;
 import com.easyray.documentapi.entity.DFile;
 
@@ -9,5 +10,8 @@ import com.easyray.documentapi.entity.DFile;
  */
 public interface DFileLocalProvider extends BaseLocalProvider<DFile> {
 
+    IPage<DFile> findByName(IPage<DFile> page, String name, long groupId);
+
+    IPage<DFile> findByFolderId(IPage<DFile> page, long folderId,long groupId);
 
 }

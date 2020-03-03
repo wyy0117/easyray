@@ -16,8 +16,8 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public class IdSequenceLocalProviderImpl extends EasyrayServiceImpl<IdSequenceMapper, IdSequence> implements IdSequenceLocalProvider {
     @Override
-    public IdSequence fetchByEntityName(String entityName) {
-        return fetchBy(new QueryWrapper<IdSequence>().eq("entity_name", entityName), null);
+    public IdSequence fetchByClassName(String className) {
+        return fetchBy(new QueryWrapper<IdSequence>().eq("class_name", className), null);
     }
 
     /**

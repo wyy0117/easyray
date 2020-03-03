@@ -1,6 +1,8 @@
 package com.easyray.documentprovider;
 
 import com.alibaba.dubbo.config.annotation.Reference;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.easyray.documentapi.entity.DFile;
 import com.easyray.documentapi.entity.DFolder;
 import com.easyray.documentapi.provider.DFileLocalProvider;
@@ -10,17 +12,20 @@ import com.easyray.systemapi.entity.Group;
 import com.easyray.systemapi.entity.User;
 import com.easyray.systemapi.service.GroupLocalProvider;
 import com.easyray.systemapi.service.UserLocalProvider;
+import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
 
 @SpringBootTest
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
+@Transactional
 class DocumentProviderApplicationTests {
 
     @Reference
@@ -42,8 +47,15 @@ class DocumentProviderApplicationTests {
 
     @BeforeAll
     void before() {
-        user = userLocalProvider.getById(2);
-        group = groupLocalProvider.getById(2);
+        user = doAddUser();
+        group = doAddGroup(user);
+    }
+
+
+    @AfterAll
+    void after() {
+        groupLocalProvider.removeById(group.getId());
+        userLocalProvider.removeById(user.getId());
     }
 
     @Test
@@ -52,9 +64,14 @@ class DocumentProviderApplicationTests {
         for (int i = 0; i < 5; i++) {
             doAddFile(dFolder);
         }
+
+        IPage<DFile> dFileIPage = dFileLocalProvider.findByFolderId(new Page<>(1, 1), dFolder.getId(), group.getId());
+        assert dFileIPage.getRecords().size() > 0;
+
+        dFolderLocalProvider.deleteFolder(dFolder.getId());
     }
 
-    DFolder doAddFolder() {
+    private DFolder doAddFolder() {
         DFolder dFolder = new DFolder(idService.nextId(DFolder.class.getName()))
                 .setName(System.currentTimeMillis() + "")
                 .setGroupId(group.getId());
@@ -68,7 +85,29 @@ class DocumentProviderApplicationTests {
         return dFolder;
     }
 
-    DFile doAddFile(DFolder folder) {
+    private User doAddUser() {
+        User user = new User(idService.nextId(User.class.getName()))
+                .setUsername(System.currentTimeMillis() + "")
+                .setPassword("test");
+        user.setUserId(user.getId())
+                .setFullName("test")
+                .setCreateDate(new Date());
+        userLocalProvider.save(user);
+        return user;
+    }
+
+    private Group doAddGroup(User user) {
+        Group group = new Group(idService.nextId(Group.class.getName()))
+                .setName(System.currentTimeMillis() + "");
+        group.setUserId(user.getId())
+                .setFullName(user.getFullName())
+                .setCreateDate(new Date());
+        groupLocalProvider.save(group);
+        return group;
+    }
+
+
+    private DFile doAddFile(DFolder folder) {
         DFile dFile = new DFile(idService.nextId(DFile.class.getName()))
                 .setGroupId(group.getId())
                 .setName("123.txt")

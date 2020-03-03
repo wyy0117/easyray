@@ -9,5 +9,6 @@ import com.easyray.documentapi.entity.DFolder;
  */
 public interface DFolderLocalProvider extends BaseLocalProvider<DFolder> {
 
+    void deleteFolder(long id);
 
 }

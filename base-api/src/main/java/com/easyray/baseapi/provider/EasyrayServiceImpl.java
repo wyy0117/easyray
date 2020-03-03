@@ -36,6 +36,8 @@ public class EasyrayServiceImpl<M extends EasyrayBaseMapper<T>, T> extends Servi
     }
 
     public T fetchBy(QueryWrapper<T> queryWrapper, Long groupId) {
-        return getBaseMapper().fetchBy(queryWrapper, groupId);
+        return getBaseMapper().fetchOneBy(queryWrapper, groupId);
     }
+
+
 }

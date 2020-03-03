@@ -64,4 +64,12 @@ class SystemProviderApplicationTests {
         return group;
     }
 
+    @Test
+    void testFetchUser() {
+        User user = doAddUser();
+        User user1 = userLocalProvider.fetchByUsername(user.getUsername());
+        assert user.getId().equals(user1.getId());
+        userLocalProvider.removeById(user.getId());
+    }
+
 }
