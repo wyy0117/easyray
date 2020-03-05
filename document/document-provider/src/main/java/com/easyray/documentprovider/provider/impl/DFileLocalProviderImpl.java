@@ -9,6 +9,8 @@ import com.easyray.documentapi.provider.DFileLocalProvider;
 import com.easyray.documentprovider.mapper.DFileMapper;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+
 /**
  * @author wyy
  * @since 2020-02_13
@@ -20,11 +22,16 @@ public class DFileLocalProviderImpl extends EasyrayServiceImpl<DFileMapper, DFil
 
     @Override
     public IPage<DFile> findByName(IPage<DFile> page, String name, long groupId) {
-        return getBaseMapper().fetchBy(page, new QueryWrapper<DFile>().like("name", name), groupId);
+        return getBaseMapper().fetchByQueryAndGroupId(page, new QueryWrapper<DFile>().like("name", name), groupId);
     }
 
     @Override
     public IPage<DFile> findByFolderId(IPage<DFile> page, long folderId, long groupId) {
-        return getBaseMapper().fetchBy(page, new QueryWrapper<DFile>().eq("folder_id", folderId), groupId);
+        return getBaseMapper().fetchByQueryAndGroupId(page, new QueryWrapper<DFile>().eq("folder_id", folderId), groupId);
+    }
+
+    @Override
+    public List<DFile> findByFolderId(long folderId, long groupId) {
+        return getBaseMapper().fetchByQueryAndGroupId(new QueryWrapper<DFile>().eq("folder_id", folderId), groupId);
     }
 }

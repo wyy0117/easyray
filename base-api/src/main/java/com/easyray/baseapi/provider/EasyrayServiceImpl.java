@@ -24,19 +24,19 @@ public class EasyrayServiceImpl<M extends EasyrayBaseMapper<T>, T> extends Servi
      * @return
      */
     public List<T> filterFindBy(QueryWrapper<T> queryWrapper, long groupId, long userId) {
-        return getBaseMapper().filterFindBy(queryWrapper, groupId, userId);
+        return getBaseMapper().filterFindByQuery(queryWrapper, groupId, userId);
     }
 
-    public T findBy(QueryWrapper<T> queryWrapper, Long groupId) throws EntityNotExistException {
-        T entity = fetchBy(queryWrapper, groupId);
+    public T findOneByQueryAndGroupId(QueryWrapper<T> queryWrapper, Long groupId) throws EntityNotExistException {
+        T entity = fetchOneByQueryAndGroupId(queryWrapper, groupId);
         if (entity == null) {
-            throw new EntityNotExistException(new CustomThrowable(entity.getClass(), queryWrapper.getCustomSqlSegment() + "groupId: " + groupId));
+            throw new EntityNotExistException(new CustomThrowable(entity.getClass(), queryWrapper.getCustomSqlSegment() + "group_id: " + groupId));
         }
         return entity;
     }
 
-    public T fetchBy(QueryWrapper<T> queryWrapper, Long groupId) {
-        return getBaseMapper().fetchOneBy(queryWrapper, groupId);
+    public T fetchOneByQueryAndGroupId(QueryWrapper<T> queryWrapper, Long groupId) {
+        return getBaseMapper().fetchOneByQueryAndGroupId(queryWrapper, groupId);
     }
 
 

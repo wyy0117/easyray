@@ -14,36 +14,58 @@ import java.util.List;
  */
 public interface EasyrayBaseMapper<T> extends BaseMapper<T> {
 
-
     /**
-     * 使用sql注入，{@link com.easyray.baseapi.sqlinject.FilterFindBy}
+     * 使用sql注入，{@link com.easyray.baseapi.sqlinject.FilterFindByQuery}
      *
      * @param queryWrapper
      * @param groupId
      * @param userId
      * @return
      */
-    List<T> filterFindBy(@Param(Constants.WRAPPER) QueryWrapper<T> queryWrapper, long groupId, long userId);
+    List<T> filterFindByQuery(@Param(Constants.WRAPPER) QueryWrapper<T> queryWrapper, long groupId, long userId);
 
     /**
-     * sql注入 {@link com.easyray.baseapi.sqlinject.FetchOneBy}
+     * sql注入 {@link com.easyray.baseapi.sqlinject.FetchOneByQueryAndGroupId}
      *
      * @param queryWrapper
      * @param groupId
      * @return
      */
-    T fetchOneBy(@Param(Constants.WRAPPER) QueryWrapper<T> queryWrapper, Long groupId);
+    T fetchOneByQueryAndGroupId(@Param(Constants.WRAPPER) QueryWrapper<T> queryWrapper, Long groupId);
+
+
+    default IPage<T> fetchByQueryAndGroupId(IPage<T> page, @Param(Constants.WRAPPER) QueryWrapper<T> queryWrapper, Long groupId) {
+
+        assert page != null;
+
+        if (groupId != null) {
+            queryWrapper.eq("group_id", groupId);
+        }
+        return fetchByQuery(page, queryWrapper);
+    }
+
+    default List<T> fetchByQueryAndGroupId(@Param(Constants.WRAPPER) QueryWrapper<T> queryWrapper, Long groupId) {
+        if (groupId != null) {
+            queryWrapper.eq("group_id", groupId);
+        }
+        return fetchByQuery(queryWrapper);
+    }
 
     /**
-     * sql注入 {@link com.easyray.baseapi.sqlinject.FetchBy}
+     * sql注入 {@link com.easyray.baseapi.sqlinject.FetchByQuery}
      *
      * @param page
      * @param queryWrapper
-     * @param groupId
      * @return
      */
-    IPage<T> fetchBy(IPage<T> page, @Param(Constants.WRAPPER) QueryWrapper<T> queryWrapper, Long groupId);
+    IPage<T> fetchByQuery(IPage<T> page, @Param(Constants.WRAPPER) QueryWrapper<T> queryWrapper);
 
-    IPage<T> doFetchBy();
+    /**
+     * sql注入 {@link com.easyray.baseapi.sqlinject.FetchByQuery}
+     *
+     * @param queryWrapper
+     * @return
+     */
+    List<T> fetchByQuery(@Param(Constants.WRAPPER) QueryWrapper<T> queryWrapper);
 
 }

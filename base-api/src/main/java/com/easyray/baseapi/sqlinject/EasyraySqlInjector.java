@@ -15,18 +15,18 @@ import java.util.List;
 public class EasyraySqlInjector extends DefaultSqlInjector {
 
     @Autowired
-    private FilterFindBy filterFindBy;
+    private FilterFindByQuery filterFindByQuery;
     @Autowired
-    private FetchOneBy fetchOneBy;
+    private FetchOneByQueryAndGroupId fetchOneByQueryAndGroupId;
     @Autowired
-    private FetchBy fetchBy;
+    private FetchByQuery fetchByQuery;
 
     @Override
     public List<AbstractMethod> getMethodList(Class<?> mapperClass) {
         List<AbstractMethod> methodList = super.getMethodList(mapperClass);
-        methodList.add(filterFindBy);
-        methodList.add(fetchOneBy);
-        methodList.add(fetchBy);
+        methodList.add(filterFindByQuery);
+        methodList.add(fetchOneByQueryAndGroupId);
+        methodList.add(fetchByQuery);
         return methodList;
     }
 }

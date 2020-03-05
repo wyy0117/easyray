@@ -7,11 +7,11 @@ import org.apache.ibatis.mapping.SqlSource;
 import org.springframework.stereotype.Component;
 
 /**
- * @Date: 20-2-26
+ * @Date: 20-2-22
  * @Author: wyy
  */
 @Component
-public class FetchBy extends AbstractMethod {
+public class FetchOneByQueryAndGroupId extends AbstractMethod {
     @Override
     public MappedStatement injectMappedStatement(Class<?> mapperClass, Class<?> modelClass, TableInfo tableInfo) {
         String sql = "<script>" +
@@ -21,6 +21,6 @@ public class FetchBy extends AbstractMethod {
                 "</if>" +
                 "</script>";
         SqlSource sqlSource = languageDriver.createSqlSource(configuration, sql, modelClass);
-        return this.addSelectMappedStatementForTable(mapperClass, "fetchBy", sqlSource, tableInfo);
+        return this.addSelectMappedStatementForTable(mapperClass, "fetchOneByQueryAndGroupId", sqlSource, tableInfo);
     }
 }

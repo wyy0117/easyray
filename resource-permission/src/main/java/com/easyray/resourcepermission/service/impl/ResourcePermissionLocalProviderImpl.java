@@ -24,6 +24,6 @@ public class ResourcePermissionLocalProviderImpl extends EasyrayServiceImpl<Reso
 
     @Override
     public ResourcePermission fetchByNameAndRoleId(String entityName, long roleId) {
-        return fetchBy(new QueryWrapper<ResourcePermission>().eq("name", entityName).eq("role_id", roleId), null);
+        return fetchOneByQueryAndGroupId(new QueryWrapper<ResourcePermission>().eq("name", entityName).eq("role_id", roleId), null);
     }
 }

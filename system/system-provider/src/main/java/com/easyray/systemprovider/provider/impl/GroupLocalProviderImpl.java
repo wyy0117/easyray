@@ -52,6 +52,6 @@ public class GroupLocalProviderImpl extends EasyrayServiceImpl<GroupMapper, Grou
 
     @Override
     public Group fetchByName(String name) {
-        return fetchBy(new QueryWrapper<Group>().eq("name", name), null);
+        return fetchOneByQueryAndGroupId(new QueryWrapper<Group>().eq("name", name), null);
     }
 }

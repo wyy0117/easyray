@@ -13,7 +13,7 @@ import org.springframework.stereotype.Component;
  * @Author: wyy
  */
 @Component
-public class FilterFindBy extends AbstractMethod {
+public class FilterFindByQuery extends AbstractMethod {
 
     @Override
     public MappedStatement injectMappedStatement(Class<?> mapperClass, Class<?> modelClass, TableInfo tableInfo) {
@@ -46,8 +46,8 @@ public class FilterFindBy extends AbstractMethod {
                 "       or (resource_permission.scope = " + ActionScopeConstant.ENTITY + " and owner_id = #{userId})\n" +
                 ") as resource_permission on group_id = #{groupId} and ((resource_permission.scope = " + ActionScopeConstant.GLOBAL + ") or (resource_permission.scope = " + ActionScopeConstant.PROJECT + ") or\n" +
                 "                                              (resource_permission.scope = " + ActionScopeConstant.ENTITY + " and\n" +
-                "                                               resource_permission.prim_key = cast(" + tableInfo.getTableName() + ".id as char)))";
+                "                                               resource_permission.prim_key = cast(" + tableInfo.getTableName() + ".id as char))) and ${ew.targetSql}";
         SqlSource sqlSource = languageDriver.createSqlSource(configuration, sql, modelClass);
-        return this.addSelectMappedStatementForTable(mapperClass, "filterFindBy", sqlSource, tableInfo);
+        return this.addSelectMappedStatementForTable(mapperClass, "filterFindByQuery", sqlSource, tableInfo);
     }
 }

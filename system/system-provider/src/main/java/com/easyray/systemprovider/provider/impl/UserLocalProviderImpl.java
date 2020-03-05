@@ -60,13 +60,13 @@ public class UserLocalProviderImpl extends EasyrayServiceImpl<UserMapper, User> 
     @Override
     public User findByUsername(String username) throws EntityNotExistException {
 
-        return findBy(new QueryWrapper<User>().eq("username", username), null);
+        return findOneByQueryAndGroupId(new QueryWrapper<User>().eq("username", username), null);
     }
 
     @Override
     public User fetchByUsername(String username) {
 
-        return fetchBy(new QueryWrapper<User>().eq("username", username), null);
+        return fetchOneByQueryAndGroupId(new QueryWrapper<User>().eq("username", username), null);
     }
 
 }

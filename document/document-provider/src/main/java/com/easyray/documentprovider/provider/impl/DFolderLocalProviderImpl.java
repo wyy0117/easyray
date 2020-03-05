@@ -12,6 +12,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+
 /**
  * @author wyy
  * @since 2020-02_13
@@ -28,6 +30,14 @@ public class DFolderLocalProviderImpl extends EasyrayServiceImpl<DFolderMapper, 
     @Override
     public void deleteFolder(long id) {
         dFileLocalProvider.remove(new QueryWrapper<DFile>().eq("folder_id", id));
+        List<DFolder> subFolderList = getSubFolderList(id);
+        subFolderList.forEach(folder -> deleteFolder(folder.getId()));
         removeById(id);
+    }
+
+    @Override
+    public List<DFolder> getSubFolderList(long parentFolderId) {
+
+        return getBaseMapper().fetchByQuery(new QueryWrapper<DFolder>().eq("parent_id", parentFolderId));
     }
 }

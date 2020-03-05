@@ -7,6 +7,8 @@ import com.easyray.documentapi.provider.DFileCheckPermission;
 import com.easyray.documentprovider.mapper.DFileMapper;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+
 /**
  * @Date: 2020-02_13
  * @Author: wyy
@@ -21,6 +23,11 @@ public class DFileCheckPermissionImpl extends EasyrayServiceImpl<DFileMapper, DF
 
     @Override
     public IPage<DFile> findByFolderId(IPage<DFile> page, long folderId, long groupId) {
+        return null;
+    }
+
+    @Override
+    public List<DFile> findByFolderId(long folderId, long groupId) {
         return null;
     }
 }

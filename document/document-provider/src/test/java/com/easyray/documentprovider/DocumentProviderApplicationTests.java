@@ -22,6 +22,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
+import java.util.List;
 
 @SpringBootTest
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
@@ -66,7 +67,13 @@ class DocumentProviderApplicationTests {
         }
 
         IPage<DFile> dFileIPage = dFileLocalProvider.findByFolderId(new Page<>(1, 1), dFolder.getId(), group.getId());
-        assert dFileIPage.getRecords().size() > 0;
+        assert dFileIPage.getRecords().size() == 1;
+
+        dFileIPage = dFileLocalProvider.findByFolderId(new Page<>(1, 3), dFolder.getId(), group.getId());
+        assert dFileIPage.getRecords().size() == 3;
+
+        List<DFile> dFileList = dFileLocalProvider.findByFolderId(dFolder.getId(), group.getId());
+        assert dFileList.size() > 0;
 
         dFolderLocalProvider.deleteFolder(dFolder.getId());
     }

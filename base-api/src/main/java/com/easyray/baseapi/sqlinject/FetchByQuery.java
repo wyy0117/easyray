@@ -7,20 +7,16 @@ import org.apache.ibatis.mapping.SqlSource;
 import org.springframework.stereotype.Component;
 
 /**
- * @Date: 20-2-22
+ * @Date: 20-2-26
  * @Author: wyy
  */
 @Component
-public class FetchOneBy extends AbstractMethod {
+public class FetchByQuery extends AbstractMethod {
     @Override
     public MappedStatement injectMappedStatement(Class<?> mapperClass, Class<?> modelClass, TableInfo tableInfo) {
-        String sql = "<script>" +
-                "select * from " + tableInfo.getTableName() + " ${ew.customSqlSegment}" +
-                "<if test='groupId != null and groupId != 0'>" +
-                "and groupId = #{groupId}" +
-                "</if>" +
-                "</script>";
+        String sql = "select * from " + tableInfo.getTableName() + " ${ew.customSqlSegment}";
+
         SqlSource sqlSource = languageDriver.createSqlSource(configuration, sql, modelClass);
-        return this.addSelectMappedStatementForTable(mapperClass, "fetchOneBy", sqlSource, tableInfo);
+        return this.addSelectMappedStatementForTable(mapperClass, "fetchByQuery", sqlSource, tableInfo);
     }
 }
