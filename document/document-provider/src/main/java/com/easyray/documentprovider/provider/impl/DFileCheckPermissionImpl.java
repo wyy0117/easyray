@@ -6,6 +6,7 @@ import com.easyray.documentapi.entity.DFile;
 import com.easyray.documentapi.provider.DFileCheckPermission;
 import com.easyray.documentprovider.mapper.DFileMapper;
 import org.springframework.stereotype.Component;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -30,4 +31,10 @@ public class DFileCheckPermissionImpl extends EasyrayServiceImpl<DFileMapper, DF
     public List<DFile> findByFolderId(long folderId, long groupId) {
         return null;
     }
+
+    @Override
+    public String uploadFile(MultipartFile file) {
+        return null;
+    }
+
 }

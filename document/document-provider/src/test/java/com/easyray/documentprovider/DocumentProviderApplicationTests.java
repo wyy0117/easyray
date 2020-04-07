@@ -19,8 +19,13 @@ import org.junit.jupiter.api.TestInstance;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.Date;
 import java.util.List;
 
@@ -76,6 +81,19 @@ class DocumentProviderApplicationTests {
         assert dFileList.size() > 0;
 
         dFolderLocalProvider.deleteFolder(dFolder.getId());
+    }
+
+    @Test
+    void uploadFile() throws IOException {
+        doUploadFile();
+    }
+
+    private void doUploadFile() throws IOException {
+        ClassPathResource classPathResource = new ClassPathResource("2.jpg");
+        String contentType = Files.probeContentType(Paths.get(classPathResource.getURI()));
+        MockMultipartFile multipartFile = new MockMultipartFile(classPathResource.getFilename(), classPathResource.getFilename(), contentType, classPathResource.getInputStream());
+        String url = dFileLocalProvider.uploadFile(multipartFile);
+        System.out.println("url = " + url);
     }
 
     private DFolder doAddFolder() {

@@ -3,7 +3,9 @@ package com.easyray.documentapi.provider;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.easyray.baseapi.provider.BaseLocalProvider;
 import com.easyray.documentapi.entity.DFile;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 
 /**
@@ -17,5 +19,7 @@ public interface DFileLocalProvider extends BaseLocalProvider<DFile> {
     IPage<DFile> findByFolderId(IPage<DFile> page, long folderId, long groupId);
 
     List<DFile> findByFolderId(long folderId, long groupId);
+
+    String uploadFile(MultipartFile file) throws IOException;
 
 }
