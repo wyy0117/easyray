@@ -7,6 +7,7 @@ import com.easyray.idgeneratorapi.provider.IdService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
@@ -23,7 +24,8 @@ import java.util.concurrent.ConcurrentHashMap;
 public class IdServiceImpl implements IdService {
     private final Logger log = LoggerFactory.getLogger(IdServiceImpl.class);
 
-    private final long skipNum = 1000L;
+    @Value("${id.skip-num}")
+    private long skipNum;
     private final long minId = 1L;
     private Map<String, Long> className_max_map = new ConcurrentHashMap<>();
     private Map<String, Long> className_current_map = new ConcurrentHashMap<>();

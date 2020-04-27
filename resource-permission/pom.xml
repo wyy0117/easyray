@@ -47,6 +47,12 @@
             <artifactId>system-api</artifactId>
             <version>1.0.0</version>
         </dependency>
+
+        <dependency>
+            <groupId>com.wyy</groupId>
+            <artifactId>auth</artifactId>
+            <version>1.0.0</version>
+        </dependency>
     </dependencies>
 
 </project>

@@ -4,3 +4,7 @@ server:
 dubbo:
   application:
     name: @project.name@
+
+#生成多少个id写入数据库一次
+id:
+  skip-num: 10000

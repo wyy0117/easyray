@@ -27,4 +27,18 @@ class IdgeneratorProviderApplicationTests {
         idSequenceMapper.delete(new QueryWrapper<IdSequence>().eq("class_name", "aaa"));
     }
 
+    @Test
+    void testQPS() {
+        long current = System.currentTimeMillis();
+        long id1 = idService.nextId("aaa");
+        System.out.println("id1 = " + id1);
+        while (System.currentTimeMillis() - current < 1000) {
+            idService.nextId("aaa");
+        }
+        long id2 = idService.nextId("aaa");
+        System.out.println("id2-id1 = " + (id2 - id1));
+
+
+    }
+
 }
