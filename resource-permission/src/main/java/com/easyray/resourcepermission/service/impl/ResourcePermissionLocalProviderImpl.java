@@ -19,12 +19,12 @@ import java.util.List;
 public class ResourcePermissionLocalProviderImpl extends EasyrayServiceImpl<ResourcePermissionMapper, ResourcePermission> implements ResourcePermissionLocalProvider {
     @Override
     public List<ResourcePermission> fetchByName(String name) {
-        return list(new QueryWrapper<ResourcePermission>().eq("name", name));
+        return list(new QueryWrapper<ResourcePermission>().lambda().eq(ResourcePermission::getName, name));
     }
 
     @Override
     public ResourcePermission fetchByNameAndRoleId(String entityName, long roleId) {
-        return fetchOneByQueryAndGroupId(new QueryWrapper<ResourcePermission>().eq("name", entityName).eq("role_id", roleId), null);
+        return fetchOneByQueryAndGroupId(new QueryWrapper<ResourcePermission>().lambda().eq(ResourcePermission::getName, entityName).eq(ResourcePermission::getRoleId, roleId), null);
     }
 
     @Override

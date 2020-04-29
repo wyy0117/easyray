@@ -1,6 +1,5 @@
-
-import org.springframework.stereotype.Component;
 import org.aspectj.lang.annotation.Aspect;
+import org.springframework.stereotype.Component;
 
 /**
  * @Date: ${DATE}
@@ -8,19 +7,21 @@ import org.aspectj.lang.annotation.Aspect;
  */
 @Aspect
 @Component
-public class ${ENTITY}CheckPermissionAspect extends CheckPermissionAspect<${ENTITY}CheckPermission> {
+public class $ {
+    ENTITY
+}CheckPermissionAspect extends CheckPermissionAspect<${ENTITY}CheckPermission>{
 
-    @Autowired
-    private ${ENTITY}CheckPermission checkPermission;
+@Autowired
+private ${ENTITY}CheckPermission checkPermission;
 
-    @Override
-    public ${ENTITY}CheckPermission getCheckPermission() {
+@Override
+public ${ENTITY}CheckPermission getCheckPermission(){
         return checkPermission;
-    }
+        }
 
-    @Pointcut("target(${ENTITY}ProviderImpl)")
-    @Override
-    public void pointcut() {
+@Pointcut("target(${ENTITY}ProviderImpl)")
+@Override
+public void pointcut(){
 
-    }
-}
+        }
+        }

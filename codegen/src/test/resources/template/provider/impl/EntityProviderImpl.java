@@ -8,6 +8,8 @@ import org.springframework.stereotype.Component;
  */
 @Service(filter = {"CheckPermissionFilter"})
 @Component
-public class ${ENTITY}ProviderImpl extends ${ENTITY}LocalProviderImpl implements ${ENTITY}Provider {
+public class $ {
+    ENTITY
+}ProviderImpl extends ${ENTITY}LocalProviderImpl implements ${ENTITY}Provider{
 
-}
+        }

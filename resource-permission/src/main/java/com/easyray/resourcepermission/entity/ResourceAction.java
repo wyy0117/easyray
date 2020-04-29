@@ -7,7 +7,8 @@ import com.wyy.actable.annotation.Index;
 import com.wyy.actable.annotation.Table;
 import com.wyy.actable.annotation.Unique;
 
-import static com.wyy.actable.constants.MySqlDataType.*;
+import static com.wyy.actable.constants.MySqlDataType.INT;
+import static com.wyy.actable.constants.MySqlDataType.VARCHAR;
 
 /**
  * @Date: 20-1-27

@@ -6,8 +6,6 @@ import com.wyy.actable.annotation.Column;
 import com.wyy.actable.annotation.Table;
 import com.wyy.actable.constants.MySqlDataType;
 
-import java.security.PrivateKey;
-
 /**
  * @Date: 20-1-27
  * @Author: wyy

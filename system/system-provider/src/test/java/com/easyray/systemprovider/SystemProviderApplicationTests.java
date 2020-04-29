@@ -40,8 +40,8 @@ class SystemProviderApplicationTests {
                 .setUsername(System.currentTimeMillis() + "")
                 .setPassword("test");
         user.setUserId(user.getId())
-                .setFullName("test")
-                .setCreateDate(new Date());
+                .setFullName("test");
+//                .setCreateDate(new Date());
         log.debug("user = " + user);
         userLocalProvider.save(user);
         return user;

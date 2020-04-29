@@ -1,5 +1,6 @@
 package com.easyray.baseapi.provider;
 
+import com.baomidou.mybatisplus.core.conditions.AbstractWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.easyray.baseapi.mapper.EasyrayBaseMapper;
@@ -12,7 +13,7 @@ import java.util.List;
  * @Date: 20-2-12
  * @Author: wyy
  */
-public class EasyrayServiceImpl<M extends EasyrayBaseMapper<T>, T> extends ServiceImpl<M, T> {
+public abstract class EasyrayServiceImpl<M extends EasyrayBaseMapper<T>, T> extends ServiceImpl<M, T> {
 
 
     /**
@@ -23,11 +24,11 @@ public class EasyrayServiceImpl<M extends EasyrayBaseMapper<T>, T> extends Servi
      * @param userId
      * @return
      */
-    public List<T> filterFindBy(QueryWrapper<T> queryWrapper, long groupId, long userId) {
+    public List<T> filterFindBy(AbstractWrapper queryWrapper, long groupId, long userId) {
         return getBaseMapper().filterFindByQuery(queryWrapper, groupId, userId);
     }
 
-    public T findOneByQueryAndGroupId(QueryWrapper<T> queryWrapper, Long groupId) throws EntityNotExistException {
+    public T findOneByQueryAndGroupId(AbstractWrapper queryWrapper, Long groupId) throws EntityNotExistException {
         T entity = fetchOneByQueryAndGroupId(queryWrapper, groupId);
         if (entity == null) {
             throw new EntityNotExistException(new CustomThrowable(entity.getClass(), queryWrapper.getCustomSqlSegment() + "group_id: " + groupId));
@@ -35,7 +36,7 @@ public class EasyrayServiceImpl<M extends EasyrayBaseMapper<T>, T> extends Servi
         return entity;
     }
 
-    public T fetchOneByQueryAndGroupId(QueryWrapper<T> queryWrapper, Long groupId) {
+    public T fetchOneByQueryAndGroupId(AbstractWrapper queryWrapper, Long groupId) {
         return getBaseMapper().fetchOneByQueryAndGroupId(queryWrapper, groupId);
     }
 

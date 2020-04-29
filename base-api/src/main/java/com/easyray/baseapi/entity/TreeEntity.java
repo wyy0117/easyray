@@ -5,6 +5,7 @@ package com.easyray.baseapi.entity;
  * @Author: wyy
  */
 
+import com.easyray.baseapi.constant.ColumnNameConstant;
 import com.wyy.actable.annotation.Column;
 import com.wyy.actable.constants.MySqlDataType;
 
@@ -13,10 +14,10 @@ import com.wyy.actable.constants.MySqlDataType;
  */
 public abstract class TreeEntity<T> extends BaseEntity<T> {
 
-    @Column(name = "parent_id", type = MySqlDataType.BIGINT, length = 10, nullable = false)
+    @Column(name = ColumnNameConstant.parent_id, type = MySqlDataType.BIGINT, length = 10, nullable = false)
     private T parentId;
 
-    @Column(name = "tree_path", type = MySqlDataType.VARCHAR, length = 75, nullable = false)
+    @Column(name = ColumnNameConstant.tree_path, type = MySqlDataType.VARCHAR, length = 75, nullable = false)
     private String treePath;
 
     public TreeEntity() {

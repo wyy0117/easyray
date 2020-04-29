@@ -7,7 +7,7 @@ import com.easyray.common.exception.filter.ICustomErrorCode;
  * @Author: wyy
  */
 public enum DFileErrorCode implements ICustomErrorCode {
-;
+    ;
     private String _code;
     private String _reason;
 

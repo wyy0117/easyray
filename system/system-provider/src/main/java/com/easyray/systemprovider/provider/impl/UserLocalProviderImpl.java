@@ -3,6 +3,7 @@ package com.easyray.systemprovider.provider.impl;
 import com.alibaba.dubbo.config.annotation.Reference;
 import com.alibaba.dubbo.config.annotation.Service;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.toolkit.support.SFunction;
 import com.easyray.baseapi.constant.RoleNameConstant;
 import com.easyray.baseapi.provider.EasyrayServiceImpl;
 import com.easyray.common.exception.EntityNotExistException;
@@ -60,13 +61,13 @@ public class UserLocalProviderImpl extends EasyrayServiceImpl<UserMapper, User> 
     @Override
     public User findByUsername(String username) throws EntityNotExistException {
 
-        return findOneByQueryAndGroupId(new QueryWrapper<User>().eq("username", username), null);
+        return findOneByQueryAndGroupId(new QueryWrapper<User>().lambda().eq(User::getUsername, username), null);
     }
 
     @Override
     public User fetchByUsername(String username) {
 
-        return fetchOneByQueryAndGroupId(new QueryWrapper<User>().eq("username", username), null);
+        return fetchOneByQueryAndGroupId(new QueryWrapper<User>().lambda().eq(User::getUsername, username), null);
     }
 
 }

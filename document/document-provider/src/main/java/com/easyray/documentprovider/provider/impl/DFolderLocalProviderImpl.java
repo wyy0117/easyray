@@ -29,7 +29,7 @@ public class DFolderLocalProviderImpl extends EasyrayServiceImpl<DFolderMapper, 
 
     @Override
     public void deleteFolder(long id) {
-        dFileLocalProvider.remove(new QueryWrapper<DFile>().eq("folder_id", id));
+        dFileLocalProvider.remove(new QueryWrapper<DFile>().lambda().eq(DFile::getFolderId, id));
         List<DFolder> subFolderList = getSubFolderList(id);
         subFolderList.forEach(folder -> deleteFolder(folder.getId()));
         removeById(id);
@@ -38,6 +38,6 @@ public class DFolderLocalProviderImpl extends EasyrayServiceImpl<DFolderMapper, 
     @Override
     public List<DFolder> getSubFolderList(long parentFolderId) {
 
-        return getBaseMapper().fetchByQuery(new QueryWrapper<DFolder>().eq("parent_id", parentFolderId));
+        return getBaseMapper().fetchByQuery(new QueryWrapper<DFolder>().lambda().eq(DFolder::getParentId, parentFolderId));
     }
 }

@@ -8,7 +8,7 @@ import com.easyray.common.exception.filter.ICustomErrorCode;
  */
 public enum RoleErrorCode implements ICustomErrorCode {
 
-    ROLE_NOT_EXIST("030","角色不存在");
+    ROLE_NOT_EXIST("030", "角色不存在");
 
     private String _code;
     private String _reason;

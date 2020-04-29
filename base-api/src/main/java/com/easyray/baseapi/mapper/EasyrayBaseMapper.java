@@ -1,9 +1,11 @@
 package com.easyray.baseapi.mapper;
 
+import com.baomidou.mybatisplus.core.conditions.AbstractWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.Constants;
+import com.easyray.baseapi.constant.ColumnNameConstant;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -22,7 +24,7 @@ public interface EasyrayBaseMapper<T> extends BaseMapper<T> {
      * @param userId
      * @return
      */
-    List<T> filterFindByQuery(@Param(Constants.WRAPPER) QueryWrapper<T> queryWrapper, long groupId, long userId);
+    List<T> filterFindByQuery(@Param(Constants.WRAPPER) AbstractWrapper queryWrapper, long groupId, long userId);
 
     /**
      * sql注入 {@link com.easyray.baseapi.sqlinject.FetchOneByQueryAndGroupId}
@@ -31,22 +33,22 @@ public interface EasyrayBaseMapper<T> extends BaseMapper<T> {
      * @param groupId
      * @return
      */
-    T fetchOneByQueryAndGroupId(@Param(Constants.WRAPPER) QueryWrapper<T> queryWrapper, Long groupId);
+    T fetchOneByQueryAndGroupId(@Param(Constants.WRAPPER) AbstractWrapper queryWrapper, Long groupId);
 
 
-    default IPage<T> fetchByQueryAndGroupId(IPage<T> page, @Param(Constants.WRAPPER) QueryWrapper<T> queryWrapper, Long groupId) {
+    default IPage<T> fetchByQueryAndGroupId(IPage<T> page, @Param(Constants.WRAPPER) AbstractWrapper queryWrapper, Long groupId) {
 
         assert page != null;
 
         if (groupId != null) {
-            queryWrapper.eq("group_id", groupId);
+            queryWrapper.eq(ColumnNameConstant.group_id, groupId);
         }
         return fetchByQuery(page, queryWrapper);
     }
 
-    default List<T> fetchByQueryAndGroupId(@Param(Constants.WRAPPER) QueryWrapper<T> queryWrapper, Long groupId) {
+    default List<T> fetchByQueryAndGroupId(@Param(Constants.WRAPPER) AbstractWrapper queryWrapper, Long groupId) {
         if (groupId != null) {
-            queryWrapper.eq("group_id", groupId);
+            queryWrapper.eq(ColumnNameConstant.group_id, groupId);
         }
         return fetchByQuery(queryWrapper);
     }
@@ -58,7 +60,7 @@ public interface EasyrayBaseMapper<T> extends BaseMapper<T> {
      * @param queryWrapper
      * @return
      */
-    IPage<T> fetchByQuery(IPage<T> page, @Param(Constants.WRAPPER) QueryWrapper<T> queryWrapper);
+    IPage<T> fetchByQuery(IPage<T> page, @Param(Constants.WRAPPER) AbstractWrapper queryWrapper);
 
     /**
      * sql注入 {@link com.easyray.baseapi.sqlinject.FetchByQuery}
@@ -66,6 +68,6 @@ public interface EasyrayBaseMapper<T> extends BaseMapper<T> {
      * @param queryWrapper
      * @return
      */
-    List<T> fetchByQuery(@Param(Constants.WRAPPER) QueryWrapper<T> queryWrapper);
+    List<T> fetchByQuery(@Param(Constants.WRAPPER) AbstractWrapper queryWrapper);
 
 }

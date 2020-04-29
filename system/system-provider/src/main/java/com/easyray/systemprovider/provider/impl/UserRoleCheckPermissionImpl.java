@@ -1,6 +1,5 @@
 package com.easyray.systemprovider.provider.impl;
 
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.easyray.baseapi.provider.EasyrayServiceImpl;
 import com.easyray.systemapi.entity.Role;
 import com.easyray.systemapi.entity.User;

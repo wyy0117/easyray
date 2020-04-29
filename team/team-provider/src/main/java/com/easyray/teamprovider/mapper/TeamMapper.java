@@ -1,6 +1,5 @@
 package com.easyray.teamprovider.mapper;
 
-import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.easyray.baseapi.mapper.EasyrayBaseMapper;
 import com.easyray.teamapi.entity.Team;
 import org.apache.ibatis.annotations.Mapper;

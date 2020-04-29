@@ -1,7 +1,6 @@
 package com.easyray.teamprovider.service.impl;
 
 import com.alibaba.dubbo.config.annotation.Service;
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.easyray.baseapi.provider.EasyrayServiceImpl;
 import com.easyray.teamapi.entity.Team;
 import com.easyray.teamapi.service.TeamLocalProvider;

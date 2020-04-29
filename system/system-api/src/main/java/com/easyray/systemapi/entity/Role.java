@@ -1,8 +1,8 @@
 package com.easyray.systemapi.entity;
 
 import com.baomidou.mybatisplus.annotation.TableName;
-import com.easyray.baseapi.entity.BaseEntity;
 import com.easyray.baseapi.constant.RoleTypeConstant;
+import com.easyray.baseapi.entity.BaseEntity;
 import com.wyy.actable.annotation.Column;
 import com.wyy.actable.annotation.Table;
 

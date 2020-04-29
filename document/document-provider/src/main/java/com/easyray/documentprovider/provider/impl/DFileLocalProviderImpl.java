@@ -28,17 +28,17 @@ public class DFileLocalProviderImpl extends EasyrayServiceImpl<DFileMapper, DFil
 
     @Override
     public IPage<DFile> findByName(IPage<DFile> page, String name, long groupId) {
-        return getBaseMapper().fetchByQueryAndGroupId(page, new QueryWrapper<DFile>().like("name", name), groupId);
+        return getBaseMapper().fetchByQueryAndGroupId(page, new QueryWrapper<DFile>().lambda().eq(DFile::getName, name), groupId);
     }
 
     @Override
     public IPage<DFile> findByFolderId(IPage<DFile> page, long folderId, long groupId) {
-        return getBaseMapper().fetchByQueryAndGroupId(page, new QueryWrapper<DFile>().eq("folder_id", folderId), groupId);
+        return getBaseMapper().fetchByQueryAndGroupId(page, new QueryWrapper<DFile>().lambda().eq(DFile::getFolderId, folderId), groupId);
     }
 
     @Override
     public List<DFile> findByFolderId(long folderId, long groupId) {
-        return getBaseMapper().fetchByQueryAndGroupId(new QueryWrapper<DFile>().eq("folder_id", folderId), groupId);
+        return getBaseMapper().fetchByQueryAndGroupId(new QueryWrapper<DFile>().lambda().eq(DFile::getFolderId, folderId), groupId);
     }
 
     @Override

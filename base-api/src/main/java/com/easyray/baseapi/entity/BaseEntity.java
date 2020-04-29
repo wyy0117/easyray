@@ -1,5 +1,8 @@
 package com.easyray.baseapi.entity;
 
+import com.baomidou.mybatisplus.annotation.FieldFill;
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.easyray.baseapi.constant.ColumnNameConstant;
 import com.wyy.actable.annotation.Column;
 
 import java.util.Date;
@@ -15,13 +18,18 @@ import static com.wyy.actable.constants.MySqlDataType.*;
  * @param <T> 主键类型
  */
 public abstract class BaseEntity<T> extends PrimeKeyEntity<T> {
-    @Column(name = "user_id", type = BIGINT, length = 20, nullable = false)
+    @Column(name = ColumnNameConstant.user_id, type = BIGINT, length = 20, nullable = false)
     private long userId;
-    @Column(name = "full_name", type = VARCHAR, length = 20, nullable = false)
+    @Column(name = ColumnNameConstant.full_name, type = VARCHAR, length = 20, nullable = false)
     private String fullName;
-    @Column(name = "create_date", type = DATETIME, nullable = false)
+
+    @Column(name = ColumnNameConstant.create_date, type = DATETIME, nullable = false)
+    @TableField(fill = FieldFill.INSERT)
     private Date createDate;
-    @Column(name = "modified_date", type = DATETIME)
+
+
+    @Column(name = ColumnNameConstant.modified_date, type = DATETIME)
+    @TableField(fill = FieldFill.INSERT_UPDATE)
     private Date modifiedDate;
 
     public BaseEntity() {

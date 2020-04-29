@@ -19,7 +19,7 @@ public class DFolder extends TreeEntity<Long> {
     @Column(name = "name", type = VARCHAR, length = 20, nullable = false)
     private String name;
 
-    @Column(name = "group_id",type=BIGINT,length = 10,nullable = false)
+    @Column(name = "group_id", type = BIGINT, length = 10, nullable = false)
     private long groupId;
 
     public DFolder(Long id) {

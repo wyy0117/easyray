@@ -1,5 +1,3 @@
-
-import com.easyray.baseapi.mapper.EasyrayBaseMapper ;
 import org.apache.ibatis.annotations.Mapper;
 
 /**
@@ -7,6 +5,8 @@ import org.apache.ibatis.annotations.Mapper;
  * @since ${DATE}
  */
 @Mapper
-public interface ${ENTITY}Mapper extends EasyrayBaseMapper<${ENTITY}> {
+public interface $ {
+    ENTITY
+}Mapper extends EasyrayBaseMapper<${ENTITY}>{
 
-}
+        }

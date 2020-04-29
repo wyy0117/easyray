@@ -20,22 +20,22 @@ public class ResourceActionLocalProviderImpl extends EasyrayServiceImpl<Resource
 
     @Override
     public List<ResourceAction> fetchByName(String name) {
-        return list(new QueryWrapper<ResourceAction>().eq("name", name));
+        return list(new QueryWrapper<ResourceAction>().lambda().eq(ResourceAction::getName, name));
     }
 
     @Override
     public void deleteByNameAndActions(String name, List<String> actionList) {
 
-        remove(new QueryWrapper<ResourceAction>().eq("name", name).in("action", actionList));
+        remove(new QueryWrapper<ResourceAction>().lambda().eq(ResourceAction::getName, name).in(ResourceAction::getAction, actionList));
     }
 
     @Override
     public int countByName(String name) {
-        return count(new QueryWrapper<ResourceAction>().eq("name", name));
+        return count(new QueryWrapper<ResourceAction>().lambda().eq(ResourceAction::getName, name));
     }
 
     @Override
     public List<ResourceAction> fetchByNameAndActions(String name, List<String> actionList) {
-        return list(new QueryWrapper<ResourceAction>().eq("name", name).in("action", actionList));
+        return list(new QueryWrapper<ResourceAction>().lambda().eq(ResourceAction::getName, name).in(ResourceAction::getAction, actionList));
     }
 }
