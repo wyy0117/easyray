@@ -21,7 +21,7 @@ public class PermissionUtil {
 
     public boolean havePermission(long userId, long groupId, String action, String name) {
 
-        return resourcePermissionLocalProvider.fetchPermission(userId, groupId, action, name).size() > 0;
+        return resourcePermissionLocalProvider.findResourcePermission(userId, groupId, action, name).size() > 0;
     }
 
     public boolean havePermission(long groupId, String action, String name) {

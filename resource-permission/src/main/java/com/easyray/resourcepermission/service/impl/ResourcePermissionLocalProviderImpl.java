@@ -28,7 +28,7 @@ public class ResourcePermissionLocalProviderImpl extends EasyrayServiceImpl<Reso
     }
 
     @Override
-    public List<ResourcePermission> fetchPermission(long userId, long groupId, String action, String name) {
-        return getBaseMapper().havePermission(userId, groupId, action, name);
+    public List<ResourcePermission> findResourcePermission(long userId, long groupId, String action, String name) {
+        return getBaseMapper().findResourcePermission(userId, groupId, action, name);
     }
 }

@@ -110,11 +110,15 @@ public class InitResourcePermission implements IEasyInit {
                 }
                 int actionIds = resourceActionList.stream().mapToInt(ResourceAction::getBitwiseValue).sum();
 
-                ResourcePermission resourcePermission = resourcePermissionLocalProvider.fetchByNameAndRoleId(resourcePermissionXML.getEntityName(), role.getId())
-                        .setScope(resourcePermissionXML.getScope())
+                ResourcePermission resourcePermission = resourcePermissionLocalProvider.fetchByNameAndRoleId(resourcePermissionXML.getEntityName(), role.getId());
+                if (resourcePermission == null) {
+                    resourcePermission = new ResourcePermission(idService.nextId(ResourcePermission.class.getName()))
+                    .setName(resourcePermissionXML.getEntityName());
+                }
+                resourcePermission.setScope(resourcePermissionXML.getScope())
                         .setRoleId(role.getId())
                         .setActionIds(actionIds);
-                resourcePermissionLocalProvider.save(resourcePermission);
+                resourcePermissionLocalProvider.saveOrUpdate(resourcePermission);
             }
         }
     }

@@ -20,7 +20,7 @@ public class ResourcePermission extends PrimeKeyEntity<Long> {
     @Column(name = "scope", type = MySqlDataType.INT, length = 1, nullable = false)
     private int scope;
 
-    @Column(name = "prim_key", type = MySqlDataType.VARCHAR, length = 20, nullable = false)
+    @Column(name = "prim_key", type = MySqlDataType.VARCHAR, length = 20, nullable = false, defaultValue = "")
     private String primKey;
 
     @Column(name = "role_id", type = MySqlDataType.BIGINT, length = 20, nullable = false)
