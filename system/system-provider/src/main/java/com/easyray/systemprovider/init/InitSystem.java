@@ -26,6 +26,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * @Date: 20-2-8
@@ -65,58 +66,66 @@ public class InitSystem implements IEasyInit {
 
     @Override
     public void init(ApplicationArguments args) throws Exception {
+        //初始化user
+        User user = initUser();
+
         /**
          * 初始化角色 {@link RoleNameConstant#USER_ROLE_NAME}
          */
         String roleName = RoleNameConstant.USER_ROLE_NAME;
         Role role = roleLocalProvider.fetchByName(roleName);
-        boolean updateRole = false;
         if (role == null) {
             role = new Role(idService.nextId(Role.class.getName()));
             role.setName(roleName)
                     .setType(RoleTypeConstant.GLOBAL_ROLE)
-                    .setUserId(0)
-                    .setFullName("")
-                    .setCreateDate(new Date())
-                    .setModifiedDate(new Date());
-            roleLocalProvider.save(role);
-            updateRole = true;
-        }
-        //初始化user
-        User user = initUser();
-        if (updateRole) {
-            //修改角色的用户信息
-            role.setUserId(user.getId())
-                    .setFullName(user.getFullName());
-            roleLocalProvider.saveOrUpdate(role);
-        }
-        /**
-         * 初始化角色 {@link RoleNameConstant#ADMINISTRATOR_ROLE_NAME}
-         */
-        role = initRole(RoleNameConstant.ADMINISTRATOR_ROLE_NAME, user, RoleTypeConstant.GLOBAL_ROLE);
-        initUserRole(role, user);
-
-        /**
-         * 初始化角色{@link RoleNameConstant#GROUP_OWNER_ROLE_NAME}
-         */
-        role = initRole(RoleNameConstant.GROUP_OWNER_ROLE_NAME, user, RoleTypeConstant.GROUP_ROLE);
-
-        initGroup(systemGroupProperties.getName(), user);
-    }
-
-    private Role initRole(String roleName, User user, int roleType) {
-        Role role = roleLocalProvider.fetchByName(roleName);
-        if (role == null) {
-            role = new Role(idService.nextId(Role.class.getName()));
-            role.setName(roleName)
-                    .setType(roleType)
                     .setUserId(user.getId())
                     .setFullName(user.getFullName())
                     .setCreateDate(new Date())
                     .setModifiedDate(new Date());
             roleLocalProvider.save(role);
         }
-        return role;
+        List<User> userRoleList = userRoleLocalProvider.findUserByRoleId(role.getId());
+        if (userRoleList.size() == 0) {
+            initUserRole(role, user);
+        }
+
+        /**
+         * 初始化角色 {@link RoleNameConstant#ADMINISTRATOR_ROLE_NAME}
+         */
+        roleName = RoleNameConstant.ADMINISTRATOR_ROLE_NAME;
+        role = roleLocalProvider.fetchByName(roleName);
+        if (role == null) {
+            role = new Role(idService.nextId(Role.class.getName()));
+            role.setName(roleName)
+                    .setType(RoleTypeConstant.GLOBAL_ROLE)
+                    .setUserId(user.getId())
+                    .setFullName(user.getFullName())
+                    .setCreateDate(new Date())
+                    .setModifiedDate(new Date());
+            roleLocalProvider.save(role);
+        }
+        userRoleList = userRoleLocalProvider.findUserByRoleId(role.getId());
+        if (userRoleList.size() == 0) {
+            initUserRole(role, user);
+        }
+
+        /**
+         * 初始化角色{@link RoleNameConstant#GROUP_OWNER_ROLE_NAME}
+         */
+        roleName = RoleNameConstant.ADMINISTRATOR_ROLE_NAME;
+        role = roleLocalProvider.fetchByName(roleName);
+        if (role == null) {
+            role = new Role(idService.nextId(Role.class.getName()));
+            role.setName(roleName)
+                    .setType(RoleTypeConstant.GROUP_ROLE)
+                    .setUserId(user.getId())
+                    .setFullName(user.getFullName())
+                    .setCreateDate(new Date())
+                    .setModifiedDate(new Date());
+            roleLocalProvider.save(role);
+        }
+
+        initGroup(systemGroupProperties.getName(), user);
     }
 
     private void initUserRole(Role role, User user) {
