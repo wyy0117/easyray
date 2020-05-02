@@ -42,9 +42,9 @@ public class FilterFindByQuery extends AbstractMethod {
                 "         ) as user_group_role\n" +
                 "    where (resource_permission.role_id = user_role.role_id and resource_permission.scope = " + ActionScopeConstant.GLOBAL + ")\n" +
                 "       or (resource_permission.role_id = user_group_role.role_id and\n" +
-                "           (resource_permission.scope = " + ActionScopeConstant.PROJECT + " or resource_permission.scope = " + ActionScopeConstant.ENTITY + "))\n" +
+                "           (resource_permission.scope = " + ActionScopeConstant.GROUP + " or resource_permission.scope = " + ActionScopeConstant.ENTITY + "))\n" +
                 "       or (resource_permission.scope = " + ActionScopeConstant.ENTITY + " and owner_id = #{userId})\n" +
-                ") as resource_permission on group_id = #{groupId} and ((resource_permission.scope = " + ActionScopeConstant.GLOBAL + ") or (resource_permission.scope = " + ActionScopeConstant.PROJECT + ") or\n" +
+                ") as resource_permission on group_id = #{groupId} and ((resource_permission.scope = " + ActionScopeConstant.GLOBAL + ") or (resource_permission.scope = " + ActionScopeConstant.GROUP + ") or\n" +
                 "                                              (resource_permission.scope = " + ActionScopeConstant.ENTITY + " and\n" +
                 "                                               resource_permission.prim_key = cast(" + tableInfo.getTableName() + ".id as char))) and ${ew.targetSql}";
         SqlSource sqlSource = languageDriver.createSqlSource(configuration, sql, modelClass);

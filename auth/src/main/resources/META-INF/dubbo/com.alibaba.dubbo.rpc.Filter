@@ -1,0 +1,2 @@
+authContextConsumerFilter=com.easyray.auth.filter.dubbocontext.AuthContextConsumerFilter
+authContextProviderFilter=com.easyray.auth.filter.dubbocontext.AuthContextProviderFilter

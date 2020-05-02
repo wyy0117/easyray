@@ -27,10 +27,17 @@ public abstract class BaseEntity<T> extends PrimeKeyEntity<T> {
     @TableField(fill = FieldFill.INSERT)
     private Date createDate;
 
-
     @Column(name = ColumnNameConstant.modified_date, type = DATETIME)
     @TableField(fill = FieldFill.INSERT_UPDATE)
     private Date modifiedDate;
+
+    @Column(name = ColumnNameConstant.modifiedUserId, type = BIGINT, length = 20, nullable = true)
+    @TableField(fill = FieldFill.UPDATE)
+    private long modifiedUserId;
+
+    @Column(name = ColumnNameConstant.modifiedUserFullName, type = VARCHAR, length = 20, nullable = true)
+    @TableField(fill = FieldFill.UPDATE)
+    private String modifiedUserFullName;
 
     public BaseEntity() {
     }
@@ -42,11 +49,31 @@ public abstract class BaseEntity<T> extends PrimeKeyEntity<T> {
     @Override
     public String toString() {
         return "BaseEntity{" +
-                ", userId=" + userId +
+                "userId=" + userId +
                 ", fullName='" + fullName + '\'' +
                 ", createDate=" + createDate +
                 ", modifiedDate=" + modifiedDate +
-                '}';
+                ", modifiedUserId=" + modifiedUserId +
+                ", modifiedUserFullName='" + modifiedUserFullName + '\'' +
+                "} " + super.toString();
+    }
+
+    public long getModifiedUserId() {
+        return modifiedUserId;
+    }
+
+    public BaseEntity<T> setModifiedUserId(long modifiedUserId) {
+        this.modifiedUserId = modifiedUserId;
+        return this;
+    }
+
+    public String getModifiedUserFullName() {
+        return modifiedUserFullName;
+    }
+
+    public BaseEntity<T> setModifiedUserFullName(String modifiedUserFullName) {
+        this.modifiedUserFullName = modifiedUserFullName;
+        return this;
     }
 
     public long getUserId() {

@@ -1,7 +1,6 @@
 package com.easyray.baseapi.provider;
 
 import com.baomidou.mybatisplus.core.conditions.AbstractWrapper;
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.easyray.baseapi.mapper.EasyrayBaseMapper;
 import com.easyray.common.exception.EntityNotExistException;

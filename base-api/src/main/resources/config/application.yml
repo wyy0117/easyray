@@ -42,3 +42,8 @@ logging:
     path: .
   level:
     com.easyray: debug
+
+mybatis-plus:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+

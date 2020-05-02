@@ -13,4 +13,8 @@ public abstract class FieldNameConstant {
     public static final String name = "name";
     public static final String createDate = "createDate";
     public static final String modifiedDate = "modifiedDate";
+    public static final String userId = "userId";
+    public static final String fullName = "fullName";
+    public static final String modifiedUserId = "modifiedUserId";
+    public static final String modifiedUserFullName = "modifiedUserFullName";
 }

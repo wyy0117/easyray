@@ -20,8 +20,8 @@ import java.util.Map;
  * @Author: wyy
  */
 @Configuration
-public class EasyInitConfig implements ApplicationRunner {
-    private Logger log = LoggerFactory.getLogger(EasyInitConfig.class);
+public class EasyrayInitConfig implements ApplicationRunner {
+    private Logger log = LoggerFactory.getLogger(EasyrayInitConfig.class);
 
     @Autowired
     private ApplicationContext applicationContext;

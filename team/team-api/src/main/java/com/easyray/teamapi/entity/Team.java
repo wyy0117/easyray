@@ -23,6 +23,9 @@ public class Team extends BaseEntity<Long> {
     @Column(name = "role_id", type = BIGINT, length = 20, nullable = false)
     private long roleId;
 
+    @Column(name = "group_id", type = BIGINT, length = 20, nullable = false)
+    private long groupId;
+
     public Team(Long id) {
         super(id);
     }
@@ -30,19 +33,39 @@ public class Team extends BaseEntity<Long> {
     public Team() {
     }
 
+    @Override
+    public String toString() {
+        return "Team{" +
+                "name='" + name + '\'' +
+                ", roleId=" + roleId +
+                ", groupId=" + groupId +
+                "} " + super.toString();
+    }
+
     public String getName() {
         return name;
     }
 
-    public void setName(String name) {
+    public Team setName(String name) {
         this.name = name;
+        return this;
     }
 
     public long getRoleId() {
         return roleId;
     }
 
-    public void setRoleId(long roleId) {
+    public Team setRoleId(long roleId) {
         this.roleId = roleId;
+        return this;
+    }
+
+    public long getGroupId() {
+        return groupId;
+    }
+
+    public Team setGroupId(long groupId) {
+        this.groupId = groupId;
+        return this;
     }
 }

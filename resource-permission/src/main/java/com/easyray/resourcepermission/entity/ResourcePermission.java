@@ -42,13 +42,13 @@ public class ResourcePermission extends PrimeKeyEntity<Long> {
     @Override
     public String toString() {
         return "ResourcePermission{" +
-                ", name='" + name + '\'' +
+                "name='" + name + '\'' +
                 ", scope=" + scope +
                 ", primKey='" + primKey + '\'' +
                 ", roleId=" + roleId +
                 ", ownerId=" + ownerId +
                 ", actionIds=" + actionIds +
-                '}';
+                "} " + super.toString();
     }
 
     public int getActionIds() {

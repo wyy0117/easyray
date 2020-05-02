@@ -20,5 +20,7 @@ public abstract class ColumnNameConstant {
     public static final String parent_id = "parent_id";
     public static final String tree_path = "tree_path";
     public static final String group_id = "group_id";
+    public static final String modifiedUserId = "modified_user_id";
+    public static final String modifiedUserFullName = "modified_user_full_name";
 
 }

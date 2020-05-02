@@ -113,7 +113,7 @@ public class InitResourcePermission implements IEasyInit {
                 ResourcePermission resourcePermission = resourcePermissionLocalProvider.fetchByNameAndRoleId(resourcePermissionXML.getEntityName(), role.getId());
                 if (resourcePermission == null) {
                     resourcePermission = new ResourcePermission(idService.nextId(ResourcePermission.class.getName()))
-                    .setName(resourcePermissionXML.getEntityName());
+                            .setName(resourcePermissionXML.getEntityName());
                 }
                 resourcePermission.setScope(resourcePermissionXML.getScope())
                         .setRoleId(role.getId())

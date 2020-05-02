@@ -15,4 +15,3 @@ spring:
 system:
   group:
     name: system-group
-
