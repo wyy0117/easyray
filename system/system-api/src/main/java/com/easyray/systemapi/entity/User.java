@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import com.easyray.baseapi.entity.BaseEntity;
 import com.wyy.actable.annotation.Column;
 import com.wyy.actable.annotation.Table;
+import com.wyy.actable.annotation.Unique;
 
 import java.util.Date;
 
@@ -21,21 +22,26 @@ import static com.wyy.actable.constants.MySqlDataType.*;
 @Table(name = "sys_user")
 public class User extends BaseEntity<Long> {
 
+    @Unique
     @Column(name = "username", type = VARCHAR, length = 20, nullable = false, comment = "用户的登录名")
     private String username;
 
     @Column(name = "password", type = VARCHAR, length = 75, nullable = false)
     private String password;
 
+    @Unique
     @Column(name = "phone", type = VARCHAR, length = 10)
     private String phone;
 
+    @Unique
     @Column(name = "email", type = VARCHAR, length = 75)
     private String email;
 
+    @Unique
     @Column(name = "open_id", type = VARCHAR, length = 75)
     private String openId;
 
+    @Unique
     @Column(name = "union_id", type = VARCHAR, length = 75)
     private Long unionId;
 
