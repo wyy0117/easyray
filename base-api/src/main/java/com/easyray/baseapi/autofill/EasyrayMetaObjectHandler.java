@@ -26,12 +26,12 @@ public class EasyrayMetaObjectHandler implements MetaObjectHandler {
     public void insertFill(MetaObject metaObject) {
         String createDate = metaObject.findProperty(FieldNameConstant.createDate, true);
         if (createDate != null) {
-            logger.debug("auto set {} value: {}", FieldNameConstant.createDate, new Date());
+            logger.debug("{} auto set {} value: {}", metaObject.getOriginalObject().getClass().getSimpleName(), FieldNameConstant.createDate, new Date());
             this.setFieldValByName(FieldNameConstant.createDate, new Date(), metaObject);
         }
         String modifiedDate = metaObject.findProperty(FieldNameConstant.modifiedDate, true);
         if (modifiedDate != null) {
-            logger.debug("auto set {} value: {}", FieldNameConstant.modifiedDate, new Date());
+            logger.debug("{} auto set {} value: {}", metaObject.getOriginalObject().getClass().getSimpleName(), FieldNameConstant.modifiedDate, new Date());
             this.setFieldValByName(FieldNameConstant.modifiedDate, new Date(), metaObject);
         }
     }

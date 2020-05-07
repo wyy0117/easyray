@@ -19,8 +19,11 @@ import static com.wyy.actable.constants.MySqlDataType.*;
  */
 public abstract class BaseEntity<T> extends PrimeKeyEntity<T> {
     @Column(name = ColumnNameConstant.user_id, type = BIGINT, length = 20, nullable = false)
+    @TableField(fill = FieldFill.INSERT)
     private long userId;
+
     @Column(name = ColumnNameConstant.full_name, type = VARCHAR, length = 20, nullable = false)
+    @TableField(fill = FieldFill.INSERT)
     private String fullName;
 
     @Column(name = ColumnNameConstant.create_date, type = DATETIME, nullable = false)

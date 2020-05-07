@@ -22,9 +22,9 @@ import org.springframework.stereotype.Component;
 
 @Aspect
 @Component
-public class AutoFillUserProperty {
+public class AutoFillUserPropertyHandler {
 
-    private final Logger logger = LoggerFactory.getLogger(AutoFillUserProperty.class);
+    private final Logger logger = LoggerFactory.getLogger(AutoFillUserPropertyHandler.class);
 
     @Autowired
     private SpringSecurityThreadLocal springSecurityThreadLocal;
@@ -45,13 +45,13 @@ public class AutoFillUserProperty {
             MetaObject metaObject = (MetaObject) args[0];
             String userId = metaObject.findProperty(FieldNameConstant.userId, true);
             if (userId != null) {
-                logger.debug("auto set {} value: {}", FieldNameConstant.userId, user.getId());
+                logger.debug("{} auto set {} value: {}", metaObject.getOriginalObject().getClass().getSimpleName(), FieldNameConstant.userId, user.getId());
                 easyrayMetaObjectHandler.setFieldValByName(FieldNameConstant.userId, user.getId(), metaObject);
             }
 
             String fullName = metaObject.findProperty(FieldNameConstant.fullName, true);
             if (fullName != null) {
-                logger.debug("auto set {} value: {}", FieldNameConstant.fullName, user.getFullName());
+                logger.debug("{} auto set {} value: {}", metaObject.getOriginalObject().getClass().getSimpleName(), FieldNameConstant.fullName, user.getFullName());
                 easyrayMetaObjectHandler.setFieldValByName(FieldNameConstant.fullName, user.getFullName(), metaObject);
             }
         }
@@ -73,13 +73,13 @@ public class AutoFillUserProperty {
             MetaObject metaObject = (MetaObject) args[0];
             String modifiedUserId = metaObject.findProperty(FieldNameConstant.modifiedUserId, true);
             if (modifiedUserId != null) {
-                logger.debug("auto set {} value: {}", FieldNameConstant.modifiedUserId, user.getId());
+                logger.debug("{} auto set {} value: {}", metaObject.getOriginalObject().getClass().getSimpleName(), FieldNameConstant.modifiedUserId, user.getId());
                 easyrayMetaObjectHandler.setFieldValByName(FieldNameConstant.modifiedUserId, user.getId(), metaObject);
             }
 
             String modifiedUserFullName = metaObject.findProperty(FieldNameConstant.modifiedUserFullName, true);
             if (modifiedUserFullName != null) {
-                logger.debug("auto set {} value: {}", FieldNameConstant.modifiedUserFullName, user.getFullName());
+                logger.debug("{} auto set {} value: {}", metaObject.getOriginalObject().getClass().getSimpleName(), FieldNameConstant.modifiedUserFullName, user.getFullName());
                 easyrayMetaObjectHandler.setFieldValByName(FieldNameConstant.modifiedUserFullName, user.getFullName(), metaObject);
             }
         }

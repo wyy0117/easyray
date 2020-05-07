@@ -34,7 +34,7 @@ public class AuthContextProviderFilter implements Filter {
         if (userLocalProvider == null) {
             userLocalProvider = ApplicationContextUtil.getBean("userLocalProviderImpl", UserLocalProvider.class);
         }
-        logger.debug("userLocalProvider = " + userLocalProvider);
+
         if (springSecurityThreadLocal != null
                 && springSecurityThreadLocal.getUser() == null
                 && userIdStr != null

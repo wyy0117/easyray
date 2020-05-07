@@ -38,7 +38,7 @@ class SystemProviderApplicationTests {
     private User doAddUser() {
         User user = new User(idService.nextId(User.class.getName()))
 //                .setUsername(System.currentTimeMillis() + "")
-                .setUsername("test1")
+                .setUsername("test2")
                 .setPassword("test");
         user.setUserId(user.getId())
                 .setFullName("test");

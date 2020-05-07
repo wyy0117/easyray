@@ -19,7 +19,7 @@
         </resource-permission>
 
         <resource-permission>
-            <role-name>GROUP_OWNER</role-name>
+            <role-name>TENANT_OWNER</role-name>
             <scope>2</scope>
             <entity-name>com.easyray.teamapi.entity.Team</entity-name>
             <action-key>UPDATE</action-key>

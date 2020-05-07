@@ -46,7 +46,7 @@ class TeamProviderApplicationTests {
 
     @BeforeAll
     public void before() throws EntityNotExistException {
-        User user = userLocalProvider.findByUsername("test");
+        User user = userLocalProvider.findByUsername("test2");
 
         springSecurityThreadLocal.setUser(user);
     }
@@ -61,7 +61,7 @@ class TeamProviderApplicationTests {
     public void testAdd() {
         Team team = new Team(idService.nextId(Team.class.getName()));
         team.setName(System.currentTimeMillis() + "")
-                .setTenantId(313002);
+                .setTenantId(3);
         teamLocalProvider.save(team);
     }
 

@@ -6,6 +6,7 @@ import com.easyray.baseapi.mapper.EasyrayBaseMapper;
 import com.easyray.common.exception.EntityNotExistException;
 import com.easyray.common.exception.filter.CustomThrowable;
 
+import java.lang.reflect.ParameterizedType;
 import java.util.List;
 
 /**
@@ -30,7 +31,10 @@ public abstract class EasyrayServiceImpl<M extends EasyrayBaseMapper<T>, T> exte
     public T findOneByQueryAndTenantId(AbstractWrapper queryWrapper, Long tenantId) throws EntityNotExistException {
         T entity = fetchOneByQueryAndTenantId(queryWrapper, tenantId);
         if (entity == null) {
-            throw new EntityNotExistException(new CustomThrowable(entity.getClass(), queryWrapper.getCustomSqlSegment() + "tenant_id: " + tenantId));
+            ParameterizedType pt = (ParameterizedType) this.getClass().getGenericSuperclass();
+            // 获取第一个类型参数的真实类型
+            Class clazz =  (Class) pt.getActualTypeArguments()[1];
+            throw new EntityNotExistException(new CustomThrowable(clazz, queryWrapper.getCustomSqlSegment() + "tenant_id: " + tenantId));
         }
         return entity;
     }
