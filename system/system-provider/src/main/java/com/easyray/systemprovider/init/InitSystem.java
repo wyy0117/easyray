@@ -66,24 +66,38 @@ public class InitSystem implements IEasyInit {
 
     @Override
     public void init(ApplicationArguments args) throws Exception {
-        //初始化user
-        User user = initUser();
 
         /**
          * 初始化角色 {@link RoleNameConstant#USER_ROLE_NAME}
          */
         String roleName = RoleNameConstant.USER_ROLE_NAME;
         Role role = roleLocalProvider.fetchByName(roleName);
+        long adminUserId = 0;
+
         if (role == null) {
+            adminUserId = idService.nextId(User.class.getName());
             role = new Role(idService.nextId(Role.class.getName()));
             role.setName(roleName)
                     .setType(RoleTypeConstant.GLOBAL_ROLE)
-                    .setUserId(user.getId())
-                    .setFullName(user.getFullName())
+                    .setUserId(adminUserId)
+                    .setFullName(securityProperties.getUser().getName())
                     .setCreateDate(new Date())
                     .setModifiedDate(new Date());
             roleLocalProvider.save(role);
         }
+
+        User user = userLocalProvider.fetchByUsername(securityProperties.getUser().getName());
+        if (user == null) {
+            log.debug("init user");
+            log.debug("add user {}", securityProperties.getUser().getName());
+            user = new User(adminUserId);
+            user.setUsername(securityProperties.getUser().getName());
+            user.setFullName(securityProperties.getUser().getName());
+            user.setPassword(new BCryptPasswordEncoder().encode(securityProperties.getUser().getPassword()));
+            user.setCreateDate(new Date());
+            userLocalProvider.save(user);
+        }
+
         List<User> userRoleList = userRoleLocalProvider.findUserByRoleId(role.getId());
         if (userRoleList.size() == 0) {
             initUserRole(role, user);
@@ -112,7 +126,7 @@ public class InitSystem implements IEasyInit {
         /**
          * 初始化角色{@link RoleNameConstant#TENANT_OWNER_ROLE_NAME}
          */
-        roleName = RoleNameConstant.ADMINISTRATOR_ROLE_NAME;
+        roleName = RoleNameConstant.TENANT_OWNER_ROLE_NAME;
         role = roleLocalProvider.fetchByName(roleName);
         if (role == null) {
             role = new Role(idService.nextId(Role.class.getName()));
@@ -146,19 +160,4 @@ public class InitSystem implements IEasyInit {
         }
     }
 
-    private User initUser() {
-        log.debug("init user");
-        User admin = userLocalProvider.fetchByUsername(securityProperties.getUser().getName());
-        if (admin == null) {
-            log.debug("add user {}", securityProperties.getUser().getName());
-            admin = new User(idService.nextId(User.class.getName()));
-            admin.setUsername(securityProperties.getUser().getName());
-            admin.setFullName(securityProperties.getUser().getName());
-            admin.setPassword(new BCryptPasswordEncoder().encode(securityProperties.getUser().getPassword()));
-            admin.setCreateDate(new Date());
-            userLocalProvider.save(admin);
-        }
-        return admin;
-
-    }
 }
