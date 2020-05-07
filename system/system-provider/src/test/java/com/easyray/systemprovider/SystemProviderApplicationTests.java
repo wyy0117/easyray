@@ -2,9 +2,9 @@ package com.easyray.systemprovider;
 
 import com.alibaba.dubbo.config.annotation.Reference;
 import com.easyray.idgeneratorapi.provider.IdService;
-import com.easyray.systemapi.entity.Group;
+import com.easyray.systemapi.entity.Tenant;
 import com.easyray.systemapi.entity.User;
-import com.easyray.systemapi.service.GroupLocalProvider;
+import com.easyray.systemapi.service.TenantLocalProvider;
 import com.easyray.systemapi.service.UserLocalProvider;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
@@ -24,8 +24,8 @@ class SystemProviderApplicationTests {
     private UserLocalProvider userLocalProvider;
 
     @Autowired
-    @Qualifier("groupLocalProviderImpl")
-    private GroupLocalProvider groupLocalProvider;
+    @Qualifier("tenantLocalProviderImpl")
+    private TenantLocalProvider tenantLocalProvider;
 
     @Reference
     private IdService idService;
@@ -49,20 +49,20 @@ class SystemProviderApplicationTests {
     }
 
     @Test
-    void addGroup() {
+    void addTenant() {
         User user = doAddUser();
-        Group group = doAddGroup(user);
+        Tenant tenant = doAddTenant(user);
     }
 
-    private Group doAddGroup(User user) {
-        Group group = new Group(idService.nextId(Group.class.getName()))
+    private Tenant doAddTenant(User user) {
+        Tenant tenant = new Tenant(idService.nextId(Tenant.class.getName()))
                 .setName(System.currentTimeMillis() + "");
-        group.setUserId(user.getId())
+        tenant.setUserId(user.getId())
                 .setFullName(user.getFullName())
                 .setCreateDate(new Date());
-        groupLocalProvider.save(group);
-        log.debug("group = " + group);
-        return group;
+        tenantLocalProvider.save(tenant);
+        log.debug("tenant = " + tenant);
+        return tenant;
     }
 
     @Test

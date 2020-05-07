@@ -8,9 +8,9 @@ import com.easyray.documentapi.entity.DFolder;
 import com.easyray.documentapi.provider.DFileLocalProvider;
 import com.easyray.documentapi.provider.DFolderLocalProvider;
 import com.easyray.idgeneratorapi.provider.IdService;
-import com.easyray.systemapi.entity.Group;
+import com.easyray.systemapi.entity.Tenant;
 import com.easyray.systemapi.entity.User;
-import com.easyray.systemapi.service.GroupLocalProvider;
+import com.easyray.systemapi.service.TenantLocalProvider;
 import com.easyray.systemapi.service.UserLocalProvider;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
@@ -46,21 +46,21 @@ class DocumentProviderApplicationTests {
     @Qualifier("DFileLocalProviderImpl")
     private DFileLocalProvider dFileLocalProvider;
     @Reference
-    private GroupLocalProvider groupLocalProvider;
+    private TenantLocalProvider tenantLocalProvider;
 
     private User user;
-    private Group group;
+    private Tenant tenant;
 
     @BeforeAll
     void before() {
         user = doAddUser();
-        group = doAddGroup(user);
+        tenant = doAddTenant(user);
     }
 
 
     @AfterAll
     void after() {
-        groupLocalProvider.removeById(group.getId());
+        tenantLocalProvider.removeById(tenant.getId());
         userLocalProvider.removeById(user.getId());
     }
 
@@ -71,13 +71,13 @@ class DocumentProviderApplicationTests {
             doAddFile(dFolder);
         }
 
-        IPage<DFile> dFileIPage = dFileLocalProvider.findByFolderId(new Page<>(1, 1), dFolder.getId(), group.getId());
+        IPage<DFile> dFileIPage = dFileLocalProvider.findByFolderId(new Page<>(1, 1), dFolder.getId(), tenant.getId());
         assert dFileIPage.getRecords().size() == 1;
 
-        dFileIPage = dFileLocalProvider.findByFolderId(new Page<>(1, 3), dFolder.getId(), group.getId());
+        dFileIPage = dFileLocalProvider.findByFolderId(new Page<>(1, 3), dFolder.getId(), tenant.getId());
         assert dFileIPage.getRecords().size() == 3;
 
-        List<DFile> dFileList = dFileLocalProvider.findByFolderId(dFolder.getId(), group.getId());
+        List<DFile> dFileList = dFileLocalProvider.findByFolderId(dFolder.getId(), tenant.getId());
         assert dFileList.size() > 0;
 
         dFolderLocalProvider.deleteFolder(dFolder.getId());
@@ -99,7 +99,7 @@ class DocumentProviderApplicationTests {
     private DFolder doAddFolder() {
         DFolder dFolder = new DFolder(idService.nextId(DFolder.class.getName()))
                 .setName(System.currentTimeMillis() + "")
-                .setGroupId(group.getId());
+                .setTenantId(tenant.getId());
         dFolder.setUserId(user.getId())
                 .setFullName(user.getFullName())
                 .setCreateDate(new Date());
@@ -121,20 +121,20 @@ class DocumentProviderApplicationTests {
         return user;
     }
 
-    private Group doAddGroup(User user) {
-        Group group = new Group(idService.nextId(Group.class.getName()))
+    private Tenant doAddTenant(User user) {
+        Tenant tenant = new Tenant(idService.nextId(Tenant.class.getName()))
                 .setName(System.currentTimeMillis() + "");
-        group.setUserId(user.getId())
+        tenant.setUserId(user.getId())
                 .setFullName(user.getFullName())
                 .setCreateDate(new Date());
-        groupLocalProvider.save(group);
-        return group;
+        tenantLocalProvider.save(tenant);
+        return tenant;
     }
 
 
     private DFile doAddFile(DFolder folder) {
         DFile dFile = new DFile(idService.nextId(DFile.class.getName()))
-                .setGroupId(group.getId())
+                .setTenantId(tenant.getId())
                 .setName("123.txt")
                 .setExtension("txt")
                 .setMediaType("text")

@@ -23,8 +23,8 @@ public class Team extends BaseEntity<Long> {
     @Column(name = "role_id", type = BIGINT, length = 20, nullable = false)
     private long roleId;
 
-    @Column(name = "group_id", type = BIGINT, length = 20, nullable = false)
-    private long groupId;
+    @Column(name = "tenant_id", type = BIGINT, length = 20, nullable = false)
+    private long tenantId;
 
     public Team(Long id) {
         super(id);
@@ -38,7 +38,7 @@ public class Team extends BaseEntity<Long> {
         return "Team{" +
                 "name='" + name + '\'' +
                 ", roleId=" + roleId +
-                ", groupId=" + groupId +
+                ", tenantId=" + tenantId +
                 "} " + super.toString();
     }
 
@@ -60,12 +60,12 @@ public class Team extends BaseEntity<Long> {
         return this;
     }
 
-    public long getGroupId() {
-        return groupId;
+    public long getTenantId() {
+        return tenantId;
     }
 
-    public Team setGroupId(long groupId) {
-        this.groupId = groupId;
+    public Team setTenantId(long tenantId) {
+        this.tenantId = tenantId;
         return this;
     }
 }

@@ -8,5 +8,5 @@ public class RoleNameConstant {
 
     public static final String ADMINISTRATOR_ROLE_NAME = "ADMINISTRATOR";
     public static final String USER_ROLE_NAME = "USER";
-    public static final String GROUP_OWNER_ROLE_NAME = "GROUP_OWNER";
+    public static final String TENANT_OWNER_ROLE_NAME = "TENANT_OWNER";
 }

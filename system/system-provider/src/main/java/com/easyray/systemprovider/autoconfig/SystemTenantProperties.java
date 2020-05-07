@@ -8,17 +8,17 @@ import org.springframework.context.annotation.Configuration;
  * @Author: wyy
  */
 @Configuration
-@ConfigurationProperties(prefix = "system.group")
-public class SystemGroupProperties {
+@ConfigurationProperties(prefix = "system.tenant")
+public class SystemTenantProperties {
 
     /**
-     * 系统group的名字
+     * 系统tenant的名字
      */
-    private String name = "system-group";
+    private String name = "system-tenant";
 
     @Override
     public String toString() {
-        return "SystemGroupProperties{" +
+        return "SystemTenantProperties{" +
                 "name='" + name + '\'' +
                 '}';
     }

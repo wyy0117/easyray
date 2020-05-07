@@ -19,8 +19,8 @@ public class DFolder extends TreeEntity<Long> {
     @Column(name = "name", type = VARCHAR, length = 20, nullable = false)
     private String name;
 
-    @Column(name = "group_id", type = BIGINT, length = 10, nullable = false)
-    private long groupId;
+    @Column(name = "tenant_id", type = BIGINT, length = 10, nullable = false)
+    private long tenantId;
 
     public DFolder(Long id) {
         super(id);
@@ -33,16 +33,16 @@ public class DFolder extends TreeEntity<Long> {
     public String toString() {
         return "DFolder{" +
                 "name='" + name + '\'' +
-                ", groupId=" + groupId +
+                ", tenantId=" + tenantId +
                 "} " + super.toString();
     }
 
-    public long getGroupId() {
-        return groupId;
+    public long getTenantId() {
+        return tenantId;
     }
 
-    public DFolder setGroupId(long groupId) {
-        this.groupId = groupId;
+    public DFolder setTenantId(long tenantId) {
+        this.tenantId = tenantId;
         return this;
     }
 

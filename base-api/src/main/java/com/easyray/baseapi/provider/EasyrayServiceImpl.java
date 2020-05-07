@@ -19,24 +19,24 @@ public abstract class EasyrayServiceImpl<M extends EasyrayBaseMapper<T>, T> exte
      * 根据权限筛选过滤
      *
      * @param queryWrapper
-     * @param groupId
+     * @param tenantId
      * @param userId
      * @return
      */
-    public List<T> filterFindBy(AbstractWrapper queryWrapper, long groupId, long userId) {
-        return getBaseMapper().filterFindByQuery(queryWrapper, groupId, userId);
+    public List<T> filterFindBy(AbstractWrapper queryWrapper, long tenantId, long userId) {
+        return getBaseMapper().filterFindByQuery(queryWrapper, tenantId, userId);
     }
 
-    public T findOneByQueryAndGroupId(AbstractWrapper queryWrapper, Long groupId) throws EntityNotExistException {
-        T entity = fetchOneByQueryAndGroupId(queryWrapper, groupId);
+    public T findOneByQueryAndTenantId(AbstractWrapper queryWrapper, Long tenantId) throws EntityNotExistException {
+        T entity = fetchOneByQueryAndTenantId(queryWrapper, tenantId);
         if (entity == null) {
-            throw new EntityNotExistException(new CustomThrowable(entity.getClass(), queryWrapper.getCustomSqlSegment() + "group_id: " + groupId));
+            throw new EntityNotExistException(new CustomThrowable(entity.getClass(), queryWrapper.getCustomSqlSegment() + "tenant_id: " + tenantId));
         }
         return entity;
     }
 
-    public T fetchOneByQueryAndGroupId(AbstractWrapper queryWrapper, Long groupId) {
-        return getBaseMapper().fetchOneByQueryAndGroupId(queryWrapper, groupId);
+    public T fetchOneByQueryAndTenantId(AbstractWrapper queryWrapper, Long tenantId) {
+        return getBaseMapper().fetchOneByQueryAndTenantId(queryWrapper, tenantId);
     }
 
 

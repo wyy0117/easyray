@@ -12,9 +12,9 @@ public class ActionScopeConstant {
     public static int GLOBAL = 1;
 
     /**
-     * group下有某个权限
+     * tenant下有某个权限
      */
-    public static int GROUP = 2;
+    public static int TENANT = 2;
 
     /**
      * 只对某个实体有权限

@@ -17,6 +17,6 @@ import org.springframework.transaction.annotation.Transactional;
 public class ResourceActionVersionLocalProviderImpl extends EasyrayServiceImpl<ResourceActionVersionMapper, ResourceActionVersion> implements ResourceActionVersionLocalProvider {
     @Override
     public ResourceActionVersion fetchByModule(String module) {
-        return fetchOneByQueryAndGroupId(new QueryWrapper<ResourceActionVersion>().lambda().eq(ResourceActionVersion::getModule, module), null);
+        return fetchOneByQueryAndTenantId(new QueryWrapper<ResourceActionVersion>().lambda().eq(ResourceActionVersion::getModule, module), null);
     }
 }

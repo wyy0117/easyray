@@ -82,9 +82,9 @@ public class FastDFSClient implements DFSClient {
      */
     @Override
     public byte[] download(String fileUrl) {
-        String group = fileUrl.substring(0, fileUrl.indexOf("/"));
+        String tenant = fileUrl.substring(0, fileUrl.indexOf("/"));
         String path = fileUrl.substring(fileUrl.indexOf("/") + 1);
-        byte[] bytes = storageClient.downloadFile(group, path, new DownloadByteArray());
+        byte[] bytes = storageClient.downloadFile(tenant, path, new DownloadByteArray());
         return bytes;
     }
 

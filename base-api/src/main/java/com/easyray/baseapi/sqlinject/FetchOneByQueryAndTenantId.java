@@ -11,16 +11,16 @@ import org.springframework.stereotype.Component;
  * @Author: wyy
  */
 @Component
-public class FetchOneByQueryAndGroupId extends AbstractMethod {
+public class FetchOneByQueryAndTenantId extends AbstractMethod {
     @Override
     public MappedStatement injectMappedStatement(Class<?> mapperClass, Class<?> modelClass, TableInfo tableInfo) {
         String sql = "<script>" +
                 "select * from " + tableInfo.getTableName() + " ${ew.customSqlSegment}" +
-                "<if test='groupId != null and groupId != 0'>" +
-                "and groupId = #{groupId}" +
+                "<if test='tenantId != null and tenantId != 0'>" +
+                "and tenant_id = #{tenantId}" +
                 "</if>" +
                 "</script>";
         SqlSource sqlSource = languageDriver.createSqlSource(configuration, sql, modelClass);
-        return this.addSelectMappedStatementForTable(mapperClass, "fetchOneByQueryAndGroupId", sqlSource, tableInfo);
+        return this.addSelectMappedStatementForTable(mapperClass, "fetchOneByQueryAndTenantId", sqlSource, tableInfo);
     }
 }

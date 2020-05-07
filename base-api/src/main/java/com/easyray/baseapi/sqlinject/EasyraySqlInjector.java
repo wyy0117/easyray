@@ -17,7 +17,7 @@ public class EasyraySqlInjector extends DefaultSqlInjector {
     @Autowired
     private FilterFindByQuery filterFindByQuery;
     @Autowired
-    private FetchOneByQueryAndGroupId fetchOneByQueryAndGroupId;
+    private FetchOneByQueryAndTenantId fetchOneByQueryAndTenantId;
     @Autowired
     private FetchByQuery fetchByQuery;
 
@@ -25,7 +25,7 @@ public class EasyraySqlInjector extends DefaultSqlInjector {
     public List<AbstractMethod> getMethodList(Class<?> mapperClass) {
         List<AbstractMethod> methodList = super.getMethodList(mapperClass);
         methodList.add(filterFindByQuery);
-        methodList.add(fetchOneByQueryAndGroupId);
+        methodList.add(fetchOneByQueryAndTenantId);
         methodList.add(fetchByQuery);
         return methodList;
     }

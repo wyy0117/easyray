@@ -19,13 +19,13 @@ public class PermissionUtil {
     @Autowired
     private ResourcePermissionLocalProvider resourcePermissionLocalProvider;
 
-    public boolean havePermission(long userId, long groupId, String action, String name) {
+    public boolean havePermission(long userId, long tenantId, String action, String name) {
 
-        return resourcePermissionLocalProvider.findResourcePermission(userId, groupId, action, name).size() > 0;
+        return resourcePermissionLocalProvider.findResourcePermission(userId, tenantId, action, name).size() > 0;
     }
 
-    public boolean havePermission(long groupId, String action, String name) {
+    public boolean havePermission(long tenantId, String action, String name) {
         User user = springSecurityThreadLocal.getUser();
-        return havePermission(user.getId(), groupId, action, name);
+        return havePermission(user.getId(), tenantId, action, name);
     }
 }

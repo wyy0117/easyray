@@ -11,32 +11,32 @@ import static com.wyy.actable.constants.MySqlDataType.BIGINT;
  * @author wyy
  * @since 2020-02_12
  */
-@TableName("sys_user_group_role")
-@Table(name = "sys_user_group_role")
-public class UserGroupRole extends PrimeKeyEntity<Long> {
+@TableName("sys_user_tenant_role")
+@Table(name = "sys_user_tenant_role")
+public class UserTenantRole extends PrimeKeyEntity<Long> {
 
     @Column(name = "user_id", type = BIGINT, length = 10, nullable = false)
     private long userId;
-    @Column(name = "group_id", type = BIGINT, length = 10, nullable = false)
-    private long groupId;
+    @Column(name = "tenant_id", type = BIGINT, length = 10, nullable = false)
+    private long tenantId;
     @Column(name = "role_id", type = BIGINT, length = 10, nullable = false)
     private long roleId;
 
-    public UserGroupRole(Long id, long userId, long groupId, long roleId) {
+    public UserTenantRole(Long id, long userId, long tenantId, long roleId) {
         super(id);
         this.userId = userId;
-        this.groupId = groupId;
+        this.tenantId = tenantId;
         this.roleId = roleId;
     }
 
-    public UserGroupRole() {
+    public UserTenantRole() {
     }
 
     @Override
     public String toString() {
-        return "UserGroupRole{" +
+        return "UserTenantRole{" +
                 "userId=" + userId +
-                ", groupId=" + groupId +
+                ", tenantId=" + tenantId +
                 ", roleId=" + roleId +
                 "} " + super.toString();
     }
@@ -49,12 +49,12 @@ public class UserGroupRole extends PrimeKeyEntity<Long> {
         this.userId = userId;
     }
 
-    public long getGroupId() {
-        return groupId;
+    public long getTenantId() {
+        return tenantId;
     }
 
-    public void setGroupId(long groupId) {
-        this.groupId = groupId;
+    public void setTenantId(long tenantId) {
+        this.tenantId = tenantId;
     }
 
     public long getRoleId() {

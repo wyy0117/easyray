@@ -14,5 +14,5 @@ public interface ResourcePermissionLocalProvider extends BaseLocalProvider<Resou
 
     public ResourcePermission fetchByNameAndRoleId(String name, long roleId);
 
-    public List<ResourcePermission> findResourcePermission(long userId, long groupId, String action, String name);
+    public List<ResourcePermission> findResourcePermission(long userId, long tenantId, String action, String name);
 }

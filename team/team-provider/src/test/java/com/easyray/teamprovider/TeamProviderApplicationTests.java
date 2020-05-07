@@ -61,7 +61,7 @@ class TeamProviderApplicationTests {
     public void testAdd() {
         Team team = new Team(idService.nextId(Team.class.getName()));
         team.setName(System.currentTimeMillis() + "")
-                .setGroupId(313002);
+                .setTenantId(313002);
         teamLocalProvider.save(team);
     }
 
@@ -76,7 +76,7 @@ class TeamProviderApplicationTests {
     public void testTeamPermission() {
         Team team = new Team(idService.nextId(Team.class.getName()));
         team.setName(System.currentTimeMillis() + "")
-                .setGroupId(313002);
+                .setTenantId(313002);
         teamLocalProvider.save(team);
 
         //给团队的角色赋权限
@@ -84,7 +84,7 @@ class TeamProviderApplicationTests {
         resourcePermission.setName(Team.class.getName())
                 .setPrimKey("")
                 .setRoleId(team.getRoleId())
-                .setScope(ActionScopeConstant.GROUP)
+                .setScope(ActionScopeConstant.TENANT)
                 .setActionIds(2);
         resourcePermissionLocalProvider.save(resourcePermission);
     }

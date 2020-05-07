@@ -27,18 +27,18 @@ public class DFileLocalProviderImpl extends EasyrayServiceImpl<DFileMapper, DFil
     private DFSClient dfsClient;
 
     @Override
-    public IPage<DFile> findByName(IPage<DFile> page, String name, long groupId) {
-        return getBaseMapper().fetchByQueryAndGroupId(page, new QueryWrapper<DFile>().lambda().eq(DFile::getName, name), groupId);
+    public IPage<DFile> findByName(IPage<DFile> page, String name, long tenantId) {
+        return getBaseMapper().fetchByQueryAndTenantId(page, new QueryWrapper<DFile>().lambda().eq(DFile::getName, name), tenantId);
     }
 
     @Override
-    public IPage<DFile> findByFolderId(IPage<DFile> page, long folderId, long groupId) {
-        return getBaseMapper().fetchByQueryAndGroupId(page, new QueryWrapper<DFile>().lambda().eq(DFile::getFolderId, folderId), groupId);
+    public IPage<DFile> findByFolderId(IPage<DFile> page, long folderId, long tenantId) {
+        return getBaseMapper().fetchByQueryAndTenantId(page, new QueryWrapper<DFile>().lambda().eq(DFile::getFolderId, folderId), tenantId);
     }
 
     @Override
-    public List<DFile> findByFolderId(long folderId, long groupId) {
-        return getBaseMapper().fetchByQueryAndGroupId(new QueryWrapper<DFile>().lambda().eq(DFile::getFolderId, folderId), groupId);
+    public List<DFile> findByFolderId(long folderId, long tenantId) {
+        return getBaseMapper().fetchByQueryAndTenantId(new QueryWrapper<DFile>().lambda().eq(DFile::getFolderId, folderId), tenantId);
     }
 
     @Override

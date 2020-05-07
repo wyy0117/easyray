@@ -27,8 +27,8 @@ public class DFile extends BaseEntity<Long> {
     private long folderId;
     @Column(name = "folder_path", type = VARCHAR, length = 75, nullable = false)
     private String folderPath;
-    @Column(name = "group_id", type = BIGINT, length = 10, nullable = false)
-    private long groupId;
+    @Column(name = "tenant_id", type = BIGINT, length = 10, nullable = false)
+    private long tenantId;
     @Column(name = "url", type = VARCHAR, length = 75, nullable = false)
     private String url;
 
@@ -56,16 +56,16 @@ public class DFile extends BaseEntity<Long> {
                 ", mediaType='" + mediaType + '\'' +
                 ", folderId=" + folderId +
                 ", folderPath='" + folderPath + '\'' +
-                ", groupId=" + groupId +
+                ", tenantId=" + tenantId +
                 "} " + super.toString();
     }
 
-    public long getGroupId() {
-        return groupId;
+    public long getTenantId() {
+        return tenantId;
     }
 
-    public DFile setGroupId(long groupId) {
-        this.groupId = groupId;
+    public DFile setTenantId(long tenantId) {
+        this.tenantId = tenantId;
         return this;
     }
 

@@ -1,7 +1,7 @@
 package com.easyray.systemprovider.provider.impl;
 
 import com.alibaba.dubbo.config.annotation.Service;
-import com.easyray.systemapi.service.GroupProvider;
+import com.easyray.systemapi.service.UserTenantRoleProvider;
 import org.springframework.stereotype.Component;
 
 /**
@@ -10,6 +10,6 @@ import org.springframework.stereotype.Component;
  */
 @Service
 @Component
-public class GroupProviderImpl extends GroupLocalProviderImpl implements GroupProvider {
+public class UserTenantRoleProviderImpl extends UserTenantRoleLocalProviderImpl implements UserTenantRoleProvider {
 
 }

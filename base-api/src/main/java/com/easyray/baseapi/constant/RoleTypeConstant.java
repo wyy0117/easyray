@@ -12,9 +12,9 @@ public class RoleTypeConstant {
     public static final int GLOBAL_ROLE = 1;
 
     /**
-     * 站点角色
+     * 租户角色
      */
-    public static final int GROUP_ROLE = 2;
+    public static final int TENANT_ROLE = 2;
 
     /**
      * 范围角色

@@ -1,7 +1,7 @@
 package com.easyray.systemprovider.mapper;
 
 import com.easyray.baseapi.mapper.EasyrayBaseMapper;
-import com.easyray.systemapi.entity.Group;
+import com.easyray.systemapi.entity.Tenant;
 import org.apache.ibatis.annotations.Mapper;
 
 /**
@@ -9,6 +9,6 @@ import org.apache.ibatis.annotations.Mapper;
  * @since 2020-02_12
  */
 @Mapper
-public interface GroupMapper extends EasyrayBaseMapper<Group> {
+public interface TenantMapper extends EasyrayBaseMapper<Tenant> {
 
 }

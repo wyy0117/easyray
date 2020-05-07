@@ -1,12 +1,12 @@
 package com.easyray.systemapi.service;
 
 import com.easyray.baseapi.provider.BaseProvider;
-import com.easyray.systemapi.entity.Group;
+import com.easyray.systemapi.entity.Tenant;
 
 /**
  * @Date: 2020-02_12
  * @Author: wyy
  */
-public interface GroupProvider extends GroupLocalProvider, BaseProvider<Group> {
+public interface TenantProvider extends TenantLocalProvider, BaseProvider<Tenant> {
 
 }

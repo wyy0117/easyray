@@ -19,35 +19,35 @@ public interface EasyrayBaseMapper<T> extends BaseMapper<T> {
      * 使用sql注入，{@link com.easyray.baseapi.sqlinject.FilterFindByQuery}
      *
      * @param queryWrapper
-     * @param groupId
+     * @param tenantId
      * @param userId
      * @return
      */
-    List<T> filterFindByQuery(@Param(Constants.WRAPPER) AbstractWrapper queryWrapper, long groupId, long userId);
+    List<T> filterFindByQuery(@Param(Constants.WRAPPER) AbstractWrapper queryWrapper, long tenantId, long userId);
 
     /**
-     * sql注入 {@link com.easyray.baseapi.sqlinject.FetchOneByQueryAndGroupId}
+     * sql注入 {@link com.easyray.baseapi.sqlinject.FetchOneByQueryAndTenantId}
      *
      * @param queryWrapper
-     * @param groupId
+     * @param tenantId
      * @return
      */
-    T fetchOneByQueryAndGroupId(@Param(Constants.WRAPPER) AbstractWrapper queryWrapper, Long groupId);
+    T fetchOneByQueryAndTenantId(@Param(Constants.WRAPPER) AbstractWrapper queryWrapper, Long tenantId);
 
 
-    default IPage<T> fetchByQueryAndGroupId(IPage<T> page, @Param(Constants.WRAPPER) AbstractWrapper queryWrapper, Long groupId) {
+    default IPage<T> fetchByQueryAndTenantId(IPage<T> page, @Param(Constants.WRAPPER) AbstractWrapper queryWrapper, Long tenantId) {
 
         assert page != null;
 
-        if (groupId != null) {
-            queryWrapper.eq(ColumnNameConstant.group_id, groupId);
+        if (tenantId != null) {
+            queryWrapper.eq(ColumnNameConstant.tenant_id, tenantId);
         }
         return fetchByQuery(page, queryWrapper);
     }
 
-    default List<T> fetchByQueryAndGroupId(@Param(Constants.WRAPPER) AbstractWrapper queryWrapper, Long groupId) {
-        if (groupId != null) {
-            queryWrapper.eq(ColumnNameConstant.group_id, groupId);
+    default List<T> fetchByQueryAndTenantId(@Param(Constants.WRAPPER) AbstractWrapper queryWrapper, Long tenantId) {
+        if (tenantId != null) {
+            queryWrapper.eq(ColumnNameConstant.tenant_id, tenantId);
         }
         return fetchByQuery(queryWrapper);
     }

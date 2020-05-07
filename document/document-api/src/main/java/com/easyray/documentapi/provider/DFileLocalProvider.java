@@ -14,11 +14,11 @@ import java.util.List;
  */
 public interface DFileLocalProvider extends BaseLocalProvider<DFile> {
 
-    IPage<DFile> findByName(IPage<DFile> page, String name, long groupId);
+    IPage<DFile> findByName(IPage<DFile> page, String name, long tenantId);
 
-    IPage<DFile> findByFolderId(IPage<DFile> page, long folderId, long groupId);
+    IPage<DFile> findByFolderId(IPage<DFile> page, long folderId, long tenantId);
 
-    List<DFile> findByFolderId(long folderId, long groupId);
+    List<DFile> findByFolderId(long folderId, long tenantId);
 
     String uploadFile(MultipartFile file) throws IOException;
 

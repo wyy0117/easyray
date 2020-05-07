@@ -12,33 +12,33 @@ import static com.wyy.actable.constants.MySqlDataType.VARCHAR;
  * @author wyy
  * @since 2020-02_12
  */
-@TableName("sys_group")
-@Table(name = "sys_group")
-public class Group extends BaseEntity<Long> {
+@TableName("sys_tenant")
+@Table(name = "sys_tenant")
+public class Tenant extends BaseEntity<Long> {
 
     @Unique
     @Column(name = "name", type = VARCHAR, length = 20, nullable = false)
     private String name;
 
-    public Group(Long id) {
+    public Tenant(Long id) {
         super(id);
     }
 
-    public Group() {
+    public Tenant() {
     }
 
     public String getName() {
         return name;
     }
 
-    public Group setName(String name) {
+    public Tenant setName(String name) {
         this.name = name;
         return this;
     }
 
     @Override
     public String toString() {
-        return "Group{" +
+        return "Tenant{" +
                 "name='" + name + '\'' +
                 "} " + super.toString();
     }

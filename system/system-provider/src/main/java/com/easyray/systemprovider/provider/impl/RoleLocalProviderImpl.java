@@ -26,13 +26,13 @@ public class RoleLocalProviderImpl extends EasyrayServiceImpl<RoleMapper, Role> 
 
     @Override
     public Role fetchByName(String name) {
-        return fetchOneByQueryAndGroupId(new QueryWrapper<Role>().lambda().eq(Role::getName, name), null);
+        return fetchOneByQueryAndTenantId(new QueryWrapper<Role>().lambda().eq(Role::getName, name), null);
     }
 
     @Override
     public Role findByName(String name) throws EntityNotExistException {
 
-        return findOneByQueryAndGroupId(new QueryWrapper<Role>().lambda().eq(Role::getName, name), null);
+        return findOneByQueryAndTenantId(new QueryWrapper<Role>().lambda().eq(Role::getName, name), null);
     }
 
 

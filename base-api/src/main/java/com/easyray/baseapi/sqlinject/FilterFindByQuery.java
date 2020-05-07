@@ -34,17 +34,17 @@ public class FilterFindByQuery extends AbstractMethod {
                 "                   inner join sys_user_role on sys_user.id = sys_user_role.user_id\n" +
                 "          where sys_user.id = #{userId}) as user_role,\n" +
                 "         (\n" +
-                "             select sys_user_group_role.user_id, sys_user_group_role.group_id, sys_user_group_role.role_id\n" +
-                "             from sys_user_group_role\n" +
+                "             select sys_user_tenant_role.user_id, sys_user_tenant_role.tenant_id, sys_user_tenant_role.role_id\n" +
+                "             from sys_user_tenant_role\n" +
                 "                      inner join sys_user\n" +
-                "                                 on sys_user_group_role.user_id = sys_user.id and sys_user_group_role.group_id = #{groupId}\n" +
+                "                                 on sys_user_tenant_role.user_id = sys_user.id and sys_user_tenant_role.tenant_id = #{tenantId}\n" +
                 "             where sys_user.id = #{userId}\n" +
-                "         ) as user_group_role\n" +
+                "         ) as user_tenant_role\n" +
                 "    where (resource_permission.role_id = user_role.role_id and resource_permission.scope = " + ActionScopeConstant.GLOBAL + ")\n" +
-                "       or (resource_permission.role_id = user_group_role.role_id and\n" +
-                "           (resource_permission.scope = " + ActionScopeConstant.GROUP + " or resource_permission.scope = " + ActionScopeConstant.ENTITY + "))\n" +
+                "       or (resource_permission.role_id = user_tenant_role.role_id and\n" +
+                "           (resource_permission.scope = " + ActionScopeConstant.TENANT + " or resource_permission.scope = " + ActionScopeConstant.ENTITY + "))\n" +
                 "       or (resource_permission.scope = " + ActionScopeConstant.ENTITY + " and owner_id = #{userId})\n" +
-                ") as resource_permission on group_id = #{groupId} and ((resource_permission.scope = " + ActionScopeConstant.GLOBAL + ") or (resource_permission.scope = " + ActionScopeConstant.GROUP + ") or\n" +
+                ") as resource_permission on tenant_id = #{tenantId} and ((resource_permission.scope = " + ActionScopeConstant.GLOBAL + ") or (resource_permission.scope = " + ActionScopeConstant.TENANT + ") or\n" +
                 "                                              (resource_permission.scope = " + ActionScopeConstant.ENTITY + " and\n" +
                 "                                               resource_permission.prim_key = cast(" + tableInfo.getTableName() + ".id as char))) and ${ew.targetSql}";
         SqlSource sqlSource = languageDriver.createSqlSource(configuration, sql, modelClass);

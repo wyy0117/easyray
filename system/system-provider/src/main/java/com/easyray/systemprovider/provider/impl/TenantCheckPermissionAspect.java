@@ -1,7 +1,7 @@
 package com.easyray.systemprovider.provider.impl;
 
 import com.easyray.baseapi.provider.CheckPermissionAspect;
-import com.easyray.systemapi.service.GroupCheckPermission;
+import com.easyray.systemapi.service.TenantCheckPermission;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,17 +13,17 @@ import org.springframework.stereotype.Component;
  */
 @Aspect
 @Component
-public class GroupCheckPermissionAspect extends CheckPermissionAspect<GroupCheckPermission> {
+public class TenantCheckPermissionAspect extends CheckPermissionAspect<TenantCheckPermission> {
 
     @Autowired
-    private GroupCheckPermission checkPermission;
+    private TenantCheckPermission checkPermission;
 
     @Override
-    public GroupCheckPermission getCheckPermission() {
+    public TenantCheckPermission getCheckPermission() {
         return checkPermission;
     }
 
-    @Pointcut("target(GroupProviderImpl)")
+    @Pointcut("target(TenantProviderImpl)")
     @Override
     public void pointcut() {
 

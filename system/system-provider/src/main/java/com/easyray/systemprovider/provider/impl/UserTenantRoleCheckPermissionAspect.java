@@ -1,7 +1,7 @@
 package com.easyray.systemprovider.provider.impl;
 
 import com.easyray.baseapi.provider.CheckPermissionAspect;
-import com.easyray.systemapi.service.UserGroupRoleCheckPermission;
+import com.easyray.systemapi.service.UserTenantRoleCheckPermission;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,17 +13,17 @@ import org.springframework.stereotype.Component;
  */
 @Aspect
 @Component
-public class UserGroupRoleCheckPermissionAspect extends CheckPermissionAspect<UserGroupRoleCheckPermission> {
+public class UserTenantRoleCheckPermissionAspect extends CheckPermissionAspect<UserTenantRoleCheckPermission> {
 
     @Autowired
-    private UserGroupRoleCheckPermission checkPermission;
+    private UserTenantRoleCheckPermission checkPermission;
 
     @Override
-    public UserGroupRoleCheckPermission getCheckPermission() {
+    public UserTenantRoleCheckPermission getCheckPermission() {
         return checkPermission;
     }
 
-    @Pointcut("target(UserGroupRoleProviderImpl)")
+    @Pointcut("target(UserTenantRoleProviderImpl)")
     @Override
     public void pointcut() {
 

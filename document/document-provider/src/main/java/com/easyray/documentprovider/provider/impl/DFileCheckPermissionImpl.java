@@ -18,17 +18,17 @@ import java.util.List;
 public class DFileCheckPermissionImpl extends EasyrayServiceImpl<DFileMapper, DFile> implements DFileCheckPermission {
 
     @Override
-    public IPage<DFile> findByName(IPage<DFile> page, String name, long groupId) {
+    public IPage<DFile> findByName(IPage<DFile> page, String name, long tenantId) {
         return null;
     }
 
     @Override
-    public IPage<DFile> findByFolderId(IPage<DFile> page, long folderId, long groupId) {
+    public IPage<DFile> findByFolderId(IPage<DFile> page, long folderId, long tenantId) {
         return null;
     }
 
     @Override
-    public List<DFile> findByFolderId(long folderId, long groupId) {
+    public List<DFile> findByFolderId(long folderId, long tenantId) {
         return null;
     }
 
