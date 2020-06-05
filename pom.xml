@@ -3,16 +3,9 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <modules>
-        <module>codegen</module>
-        <module>base-api</module>
-        <module>resource-permission</module>
-        <module>common</module>
-        <module>auth</module>
-        <module>idgenerator</module>
-        <module>team</module>
-        <module>system</module>
-        <module>document</module>
-        <module>dfs</module>
+        <module>easyray-framework-core</module>
+        <module>easyray-framework-component</module>
+        <module>easyray-framework-util</module>
     </modules>
     <parent>
         <groupId>org.springframework.boot</groupId>
@@ -20,8 +13,8 @@
         <version>2.2.4.RELEASE</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
-    <groupId>com.wyy</groupId>
-    <artifactId>easyray</artifactId>
+    <groupId>com.easyray</groupId>
+    <artifactId>easyray-framework</artifactId>
     <version>1.0.0</version>
     <name>easyray</name>
     <packaging>pom</packaging>

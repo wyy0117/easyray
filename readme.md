@@ -1,20 +1,18 @@
 #### 模块说明
-1. auth  
-    认证模块，可以账号密码登录，后期扩展微信登录，短信登录等
-1. base-api  
-    框架基础模块，包含了框架的公共api
-1. codegen  
-    代码生成模块
-1. common   
-    公共模块，提供公共api，与框架体系无关
-1. idgenerator
-    id生成器
-1. resource-permission
-    权限定义与检查
+1. easyray-framework-core  
+    框架核心模块
+1. easyray-framework-component  
+    框架层组件
+1. easyray-framework-util 
+    框架层工具
 1. scripts
     启动服务脚本
 #### 框架使用介绍
-框架设计为4层结构，其中api层提供基础接口（interface）；provider层提供基础service（dubbo），操作数据库，权限检查；web层包含2层：业务层(consumer)和controller层，service层做复杂业务逻辑操作，controller对外提供接口（rest service）。
+框架设计为4层结构  
+    - api层提供基础接口（interface）  
+    - provider层提供基础service（dubbo），操作数据库，权限底层检查  
+    - 业务层(consumer)做业务操作，提供service  
+    - controller对外提供接口（rest service）  
 #### 注意事项
 1. 所有的依赖关系全部从根pom文件查找，禁止模块引入特殊依赖
 #### 开发步骤
@@ -23,8 +21,8 @@
 1. api模块添加依赖
     ```
     <dependency>
-        <groupId>com.wyy</groupId>
-        <artifactId>base-api</artifactId>
+        <groupId>com.easyray</groupId>
+        <artifactId>easyray-framework-core-baseapi</artifactId>
         <version>1.0.0</version>
     </dependency>
     ```
