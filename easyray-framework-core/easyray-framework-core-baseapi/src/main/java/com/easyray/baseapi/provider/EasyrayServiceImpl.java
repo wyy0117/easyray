@@ -33,8 +33,8 @@ public abstract class EasyrayServiceImpl<M extends EasyrayBaseMapper<T>, T> exte
         if (entity == null) {
             ParameterizedType pt = (ParameterizedType) this.getClass().getGenericSuperclass();
             // 获取第一个类型参数的真实类型
-            Class clazz =  (Class) pt.getActualTypeArguments()[1];
-            throw new EntityNotExistException(new CustomThrowable(clazz, queryWrapper.getCustomSqlSegment() + "tenant_id: " + tenantId));
+            Class clazz = (Class) pt.getActualTypeArguments()[1];
+            throw new EntityNotExistException(new CustomThrowable(clazz, queryWrapper.getCustomSqlSegment() + ",tenant_id: " + tenantId));
         }
         return entity;
     }
@@ -43,5 +43,12 @@ public abstract class EasyrayServiceImpl<M extends EasyrayBaseMapper<T>, T> exte
         return getBaseMapper().fetchOneByQueryAndTenantId(queryWrapper, tenantId);
     }
 
+    public T findOneByQuery(AbstractWrapper queryWrapper) throws EntityNotExistException {
+        return findOneByQueryAndTenantId(queryWrapper, null);
+    }
+
+    public T fetchOneByQuery(AbstractWrapper queryWrapper) {
+        return fetchOneByQueryAndTenantId(queryWrapper, null);
+    }
 
 }

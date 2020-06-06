@@ -38,4 +38,9 @@ public class ResourceActionLocalProviderImpl extends EasyrayServiceImpl<Resource
     public List<ResourceAction> fetchByNameAndActions(String name, List<String> actionList) {
         return list(new QueryWrapper<ResourceAction>().lambda().eq(ResourceAction::getName, name).in(ResourceAction::getAction, actionList));
     }
+
+    @Override
+    public ResourceAction fetchByNameAndAction(String entityName, String action) {
+        return fetchOneByQuery(new QueryWrapper<ResourceAction>().lambda().eq(ResourceAction::getName, entityName).eq(ResourceAction::getAction, action));
+    }
 }

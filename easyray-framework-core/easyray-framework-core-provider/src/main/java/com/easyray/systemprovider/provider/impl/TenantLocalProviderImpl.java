@@ -5,13 +5,13 @@ import com.alibaba.dubbo.config.annotation.Service;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.easyray.baseapi.constant.RoleNameConstant;
 import com.easyray.baseapi.provider.EasyrayServiceImpl;
-import com.easyray.idgeneratorapi.provider.IdService;
-import com.easyray.coreapi.entity.Tenant;
 import com.easyray.coreapi.entity.Role;
+import com.easyray.coreapi.entity.Tenant;
 import com.easyray.coreapi.entity.UserTenantRole;
-import com.easyray.coreapi.service.TenantLocalProvider;
 import com.easyray.coreapi.service.RoleLocalProvider;
+import com.easyray.coreapi.service.TenantLocalProvider;
 import com.easyray.coreapi.service.UserTenantRoleLocalProvider;
+import com.easyray.idgeneratorapi.provider.IdService;
 import com.easyray.systemprovider.mapper.TenantMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -52,6 +52,6 @@ public class TenantLocalProviderImpl extends EasyrayServiceImpl<TenantMapper, Te
 
     @Override
     public Tenant fetchByName(String name) {
-        return fetchOneByQueryAndTenantId(new QueryWrapper<Tenant>().lambda().eq(Tenant::getName, name), null);
+        return fetchOneByQuery(new QueryWrapper<Tenant>().lambda().eq(Tenant::getName, name));
     }
 }

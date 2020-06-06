@@ -5,9 +5,9 @@ import com.alibaba.dubbo.config.annotation.Service;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.easyray.baseapi.provider.EasyrayServiceImpl;
 import com.easyray.common.exception.EntityNotExistException;
-import com.easyray.idgeneratorapi.provider.IdService;
 import com.easyray.coreapi.entity.Role;
 import com.easyray.coreapi.service.RoleLocalProvider;
+import com.easyray.idgeneratorapi.provider.IdService;
 import com.easyray.systemprovider.mapper.RoleMapper;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
@@ -26,13 +26,13 @@ public class RoleLocalProviderImpl extends EasyrayServiceImpl<RoleMapper, Role> 
 
     @Override
     public Role fetchByName(String name) {
-        return fetchOneByQueryAndTenantId(new QueryWrapper<Role>().lambda().eq(Role::getName, name), null);
+        return fetchOneByQuery(new QueryWrapper<Role>().lambda().eq(Role::getName, name));
     }
 
     @Override
     public Role findByName(String name) throws EntityNotExistException {
 
-        return findOneByQueryAndTenantId(new QueryWrapper<Role>().lambda().eq(Role::getName, name), null);
+        return findOneByQuery(new QueryWrapper<Role>().lambda().eq(Role::getName, name));
     }
 
 

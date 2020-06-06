@@ -6,6 +6,9 @@ import com.easyray.baseapi.init.IEasyInit;
 import com.easyray.common.exception.EasyCustomException;
 import com.easyray.common.exception.EntityNotExistException;
 import com.easyray.common.exception.filter.CustomThrowable;
+import com.easyray.coreapi.entity.Role;
+import com.easyray.coreapi.error.RoleErrorCode;
+import com.easyray.coreapi.service.RoleLocalProvider;
 import com.easyray.idgeneratorapi.provider.IdService;
 import com.easyray.resourcepermission.autoconfig.ResourcePermissionConfigurationProperties;
 import com.easyray.resourcepermission.entity.ResourceAction;
@@ -18,9 +21,8 @@ import com.easyray.resourcepermission.service.ResourceActionLocalProvider;
 import com.easyray.resourcepermission.service.ResourcePermissionLocalProvider;
 import com.easyray.resourcepermission.service.ResourcePermissionVersionLocalProvider;
 import com.easyray.resourcepermission.util.XMLUtil;
-import com.easyray.coreapi.entity.Role;
-import com.easyray.coreapi.error.RoleErrorCode;
-import com.easyray.coreapi.service.RoleLocalProvider;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.core.io.ClassPathResource;
@@ -38,6 +40,8 @@ import java.util.stream.Collectors;
 @Component
 @Transactional
 public class InitResourcePermission implements IEasyInit {
+
+    private Logger logger = LoggerFactory.getLogger(InitResourcePermission.class);
 
     @Autowired
     private ResourcePermissionConfigurationProperties resourcePermissionConfigurationProperties;
@@ -63,8 +67,11 @@ public class InitResourcePermission implements IEasyInit {
         InputStream inputStream = classPathResource.getInputStream();
         ResourcePermissionsXML resourcePermissionsXML = XMLUtil.readResourcePermission(inputStream);
         String module = resourcePermissionsXML.getModule();
+        logger.debug("init resource permission,module:{}", module);
+
         ResourcePermissionVersion resourcePermissionVersion = resourcePermissionVersionLocalProvider.fetchByModule(module);
         if (resourcePermissionVersion == null) {//第一次添加，没有resourcePermissionVersion
+            logger.debug("no ResourcePermissionVersion in db,create ResourcePermissionVersion,version:{}", resourcePermissionsXML.getVersion());
             resourcePermissionVersion = new ResourcePermissionVersion(idService.nextId(ResourcePermissionVersion.class.getName()));
             resourcePermissionVersion.setModule(module)
                     .setVersion(resourcePermissionsXML.getVersion());
@@ -90,9 +97,11 @@ public class InitResourcePermission implements IEasyInit {
                         .setRoleId(role.getId())
                         .setActionIds(actionIds)
                         .setPrimKey("");
+                logger.debug("create ResourcePermission:{}", resourcePermission);
                 resourcePermissionLocalProvider.save(resourcePermission);
             }
         } else if (!resourcePermissionVersion.getVersion().equals(resourcePermissionsXML.getVersion())) {//版本有变化
+            logger.debug("ResourcePermissionVersion not save,db version:{},new version:{},update it", resourcePermissionVersion.getVersion(), resourcePermissionsXML.getVersion());
             resourcePermissionVersion.setVersion(resourcePermissionsXML.getVersion());
             resourcePermissionVersionLocalProvider.saveOrUpdate(resourcePermissionVersion);
 
@@ -118,8 +127,11 @@ public class InitResourcePermission implements IEasyInit {
                 resourcePermission.setScope(resourcePermissionXML.getScope())
                         .setRoleId(role.getId())
                         .setActionIds(actionIds);
+                logger.debug("create ResourcePermission:{}", resourcePermission);
                 resourcePermissionLocalProvider.saveOrUpdate(resourcePermission);
             }
+        } else {
+            logger.debug("ResourcePermissionVersion not changed do nothing");
         }
     }
 }

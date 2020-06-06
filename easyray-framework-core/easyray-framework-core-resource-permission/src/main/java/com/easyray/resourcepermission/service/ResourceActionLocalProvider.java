@@ -17,4 +17,6 @@ public interface ResourceActionLocalProvider extends BaseLocalProvider<ResourceA
     public int countByName(String entityName);
 
     public List<ResourceAction> fetchByNameAndActions(String entityName, List<String> actionList);
+
+    public ResourceAction fetchByNameAndAction(String entityName, String action);
 }

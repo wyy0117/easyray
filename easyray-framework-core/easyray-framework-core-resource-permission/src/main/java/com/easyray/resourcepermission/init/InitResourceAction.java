@@ -16,6 +16,8 @@ import com.easyray.resourcepermission.service.ResourcePermissionLocalProvider;
 import com.easyray.resourcepermission.service.ResourcePermissionVersionLocalProvider;
 import com.easyray.resourcepermission.util.XMLUtil;
 import org.dom4j.DocumentException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.core.io.ClassPathResource;
@@ -34,6 +36,8 @@ import java.util.stream.Collectors;
 @Component
 @Transactional
 public class InitResourceAction implements IEasyInit {
+
+    private Logger logger = LoggerFactory.getLogger(InitResourceAction.class);
 
     @Autowired
     private ResourcePermissionConfigurationProperties resourcePermissionConfigurationProperties;
@@ -58,16 +62,19 @@ public class InitResourceAction implements IEasyInit {
 
     @Override
     public void init(ApplicationArguments args) throws Exception {
-
+        logger.debug("InitResourceAction.init");
         ClassPathResource classPathResource = new ClassPathResource(resourcePermissionConfigurationProperties.getResourceAction());
         InputStream inputStream = classPathResource.getInputStream();
         try {
             ResourceActionsXML resourceActionsXML = XMLUtil.readResourceAction(inputStream);
             String version = resourceActionsXML.getVersion();
+            logger.debug("resource action file version:{}", version);
             String module = resourceActionsXML.getModule();
+            logger.debug("resource action file module:{}", module);
 
             ResourceActionVersion resourceActionVersion = resourceActionVersionLocalProvider.fetchByModule(module);
             if (resourceActionVersion == null) {//第一次添加
+                logger.debug("resourceActionVersion is null,it is first time init...");
                 resourceActionVersion = new ResourceActionVersion(idService.nextId(ResourceActionVersion.class.getName()));
                 resourceActionVersion.setModule(resourceActionsXML.getModule())
                         .setVersion(resourceActionsXML.getVersion());
@@ -78,7 +85,9 @@ public class InitResourceAction implements IEasyInit {
                     addResourceAction(actionKeys, resourceActionXML.getEntityName(), 0);
                 }
             } else {//已经有了，
+                logger.debug("find one resourceActionVersion in db,id:{}", resourceActionVersion.getId());
                 if (!resourceActionVersion.getVersion().equals(version)) {//版本发生了变化，需要最新的结果
+                    logger.debug("resource action version is not same,old version:{},new version:{}", resourceActionVersion.getVersion(), version);
                     resourceActionVersion.setVersion(version);
                     resourceActionVersionLocalProvider.saveOrUpdate(resourceActionVersion);
 
@@ -89,13 +98,17 @@ public class InitResourceAction implements IEasyInit {
                         List<String> dbActionList = resourceActionList.stream().map(ResourceAction::getAction).collect(Collectors.toList());
                         MergeUtil.MergeResult<String> mergeResult = new MergeUtil<String>().merge(dbActionList, resourceActionXML.getActionKeys());
                         if (mergeResult.getNeedDelete().size() > 0) {//有需要删除的
+                            logger.debug("delete some ResourceAction");
                             deleteResourceAction(mergeResult.getNeedDelete(), entityName);
                         }
                         if (mergeResult.getNeedAdd().size() > 0) {//有需要新增的
+                            logger.debug("add some ResourceAction");
                             addResourceAction(mergeResult.getNeedAdd(), entityName, resourceActionLocalProvider.countByName(entityName) + 1);
                         }
                     }
 
+                } else {
+                    logger.debug("ResourceActionVersion not change,do nothing");
                 }
             }
 
@@ -117,7 +130,8 @@ public class InitResourceAction implements IEasyInit {
             ResourceAction resourceAction = new ResourceAction(idService.nextId(ResourceAction.class.getName()))
                     .setName(entityName)
                     .setAction(action)
-                    .setBitwiseValue(((int) Math.pow(2.0, ((double) actionSize++))));
+                    .setBitwiseValue(((int) Math.pow(2.0, (actionSize++))));
+            logger.debug("add ResourceAction:{}", resourceAction);
             resourceActionLocalProvider.save(resourceAction);
         }
     }

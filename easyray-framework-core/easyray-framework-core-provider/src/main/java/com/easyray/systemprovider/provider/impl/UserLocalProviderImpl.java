@@ -6,13 +6,13 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.easyray.baseapi.constant.RoleNameConstant;
 import com.easyray.baseapi.provider.EasyrayServiceImpl;
 import com.easyray.common.exception.EntityNotExistException;
-import com.easyray.idgeneratorapi.provider.IdService;
 import com.easyray.coreapi.entity.Role;
 import com.easyray.coreapi.entity.User;
 import com.easyray.coreapi.entity.UserRole;
 import com.easyray.coreapi.service.RoleLocalProvider;
 import com.easyray.coreapi.service.UserLocalProvider;
 import com.easyray.coreapi.service.UserRoleLocalProvider;
+import com.easyray.idgeneratorapi.provider.IdService;
 import com.easyray.systemprovider.mapper.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -24,7 +24,7 @@ import org.springframework.transaction.annotation.Transactional;
  * 服务实现类
  * </p>
  *
- * @author easyray
+ * @author wyy
  * @since 2020-01-26
  */
 @Service
@@ -60,13 +60,13 @@ public class UserLocalProviderImpl extends EasyrayServiceImpl<UserMapper, User> 
     @Override
     public User findByUsername(String username) throws EntityNotExistException {
 
-        return findOneByQueryAndTenantId(new QueryWrapper<User>().lambda().eq(User::getUsername, username), null);
+        return findOneByQuery(new QueryWrapper<User>().lambda().eq(User::getUsername, username));
     }
 
     @Override
     public User fetchByUsername(String username) {
 
-        return fetchOneByQueryAndTenantId(new QueryWrapper<User>().lambda().eq(User::getUsername, username), null);
+        return fetchOneByQuery(new QueryWrapper<User>().lambda().eq(User::getUsername, username));
     }
 
 }

@@ -17,6 +17,6 @@ import org.springframework.transaction.annotation.Transactional;
 public class ResourcePermissionVersionLocalProviderImpl extends EasyrayServiceImpl<ResourcePermissionVersionMapper, ResourcePermissionVersion> implements ResourcePermissionVersionLocalProvider {
     @Override
     public ResourcePermissionVersion fetchByModule(String module) {
-        return fetchOneByQueryAndTenantId(new QueryWrapper<ResourcePermissionVersion>().lambda().eq(ResourcePermissionVersion::getModule, module), null);
+        return fetchOneByQuery(new QueryWrapper<ResourcePermissionVersion>().lambda().eq(ResourcePermissionVersion::getModule, module));
     }
 }
