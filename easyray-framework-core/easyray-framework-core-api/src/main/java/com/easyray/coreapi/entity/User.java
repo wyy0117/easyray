@@ -5,6 +5,7 @@ import com.easyray.baseapi.entity.BaseEntity;
 import com.wyy.actable.annotation.Column;
 import com.wyy.actable.annotation.Table;
 import com.wyy.actable.annotation.Unique;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import java.util.Date;
 
@@ -99,8 +100,14 @@ public class User extends BaseEntity<Long> {
         return password;
     }
 
+    /**
+     * 密码会自动加密
+     *
+     * @param password 未加密
+     * @return
+     */
     public User setPassword(String password) {
-        this.password = password;
+        this.password = new BCryptPasswordEncoder().encode(password);
         return this;
     }
 

@@ -5,15 +5,15 @@ import com.easyray.baseapi.constant.InitOrderConstant;
 import com.easyray.baseapi.constant.RoleNameConstant;
 import com.easyray.baseapi.constant.RoleTypeConstant;
 import com.easyray.baseapi.init.IEasyInit;
-import com.easyray.idgeneratorapi.provider.IdService;
-import com.easyray.coreapi.entity.Tenant;
 import com.easyray.coreapi.entity.Role;
+import com.easyray.coreapi.entity.Tenant;
 import com.easyray.coreapi.entity.User;
 import com.easyray.coreapi.entity.UserRole;
-import com.easyray.coreapi.service.TenantLocalProvider;
 import com.easyray.coreapi.service.RoleLocalProvider;
+import com.easyray.coreapi.service.TenantLocalProvider;
 import com.easyray.coreapi.service.UserLocalProvider;
 import com.easyray.coreapi.service.UserRoleLocalProvider;
+import com.easyray.idgeneratorapi.provider.IdService;
 import com.easyray.systemprovider.autoconfig.SystemTenantProperties;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,7 +21,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.autoconfigure.security.SecurityProperties;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -93,7 +92,7 @@ public class InitSystem implements IEasyInit {
             user = new User(adminUserId);
             user.setUsername(securityProperties.getUser().getName());
             user.setFullName(securityProperties.getUser().getName());
-            user.setPassword(new BCryptPasswordEncoder().encode(securityProperties.getUser().getPassword()));
+            user.setPassword(securityProperties.getUser().getPassword());
             user.setCreateDate(new Date());
             userLocalProvider.save(user);
         }
