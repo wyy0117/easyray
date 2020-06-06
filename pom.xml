@@ -39,7 +39,7 @@
         <spring-framework.version>5.2.3.RELEASE</spring-framework.version>
         <actable.version>1.0-SNAPSHOT</actable.version>
         <fastdfs.version>1.27.2</fastdfs.version>
-        <spring-security.version>5.2.1.RELEASE</spring-security.version>
+        <spring-security.version>5.2.5.RELEASE</spring-security.version>
     </properties>
 
     <dependencyManagement>
