@@ -1,7 +1,7 @@
-package com.easyray.auth.util;
+package com.easyray.login.util;
 
-import com.easyray.auth.autoconfig.JWTConfigurationProperties;
 import com.easyray.coreapi.entity.User;
+import com.easyray.login.autoconfig.EasyrayAuthConfigurationProperties;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -20,11 +20,11 @@ import java.util.Map;
 @Component
 public class JwtTokenUtil {
 
-    private static JWTConfigurationProperties jwtConfigurationProperties;
+    private static EasyrayAuthConfigurationProperties easyrayAuthConfigurationProperties;
 
     @Autowired
-    public void setJwtConfigurationProperties(JWTConfigurationProperties jwtConfigurationProperties) {
-        JwtTokenUtil.jwtConfigurationProperties = jwtConfigurationProperties;
+    public void setJwtConfigurationProperties(EasyrayAuthConfigurationProperties easyrayAuthConfigurationProperties) {
+        JwtTokenUtil.easyrayAuthConfigurationProperties = easyrayAuthConfigurationProperties;
     }
 
 
@@ -33,10 +33,7 @@ public class JwtTokenUtil {
     public static final String TOKEN_HEADER = "Authorization";
     public static final String TOKEN_PREFIX = "Bearer ";
 
-    public static String createToken(User user) {
 
-        return createToken(user, jwtConfigurationProperties.isRememberMe());
-    }
 
     public static String createToken(User user, Boolean rememberMe) {
         assert user != null;
@@ -50,17 +47,17 @@ public class JwtTokenUtil {
         String token = Jwts.builder()
                 .setClaims(claims)
                 .setExpiration(DateUtils.addSeconds(new Date(), expiration))
-                .signWith(SignatureAlgorithm.HS512, jwtConfigurationProperties.getSecret())
+                .signWith(SignatureAlgorithm.HS512, easyrayAuthConfigurationProperties.getSecret())
                 .compact();
 
         return token;
     }
 
     public static int getExpiration(Boolean rememberMe) {
-        int expiration = jwtConfigurationProperties.getExpiration();
+        int expiration = easyrayAuthConfigurationProperties.getTokenExpiration();
 
         if (rememberMe != null && rememberMe) {
-            expiration = jwtConfigurationProperties.getRememberMeExpiration();
+//            expiration = easyrayAuthConfigurationProperties.getRememberMeExpiration();
         }
         return expiration;
     }
@@ -77,7 +74,7 @@ public class JwtTokenUtil {
 
     private static Claims getTokenBody(String token) {
         return Jwts.parser()
-                .setSigningKey(jwtConfigurationProperties.getSecret())
+                .setSigningKey(easyrayAuthConfigurationProperties.getSecret())
                 .parseClaimsJws(token)
                 .getBody();
     }

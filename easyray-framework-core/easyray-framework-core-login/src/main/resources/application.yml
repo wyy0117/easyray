@@ -1,0 +1,7 @@
+#server port
+server:
+  port: 6000
+
+dubbo:
+  application:
+    name: @project.name@

@@ -8,6 +8,7 @@ import com.easyray.common.util.ApplicationContextUtil;
 import com.easyray.coreapi.entity.User;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 
@@ -53,7 +54,10 @@ public abstract class AbstractTokenFilter extends BasicAuthenticationFilter {
             throw new ServletException(new CustomThrowable(AuthError.PRINCIPAL_ERROR, principal.toString()));
         }
         // 如果请求头中有token，则进行解析，并且设置认证信息
-        SecurityContextHolder.getContext().setAuthentication(authentication);
+
+        SecurityContext context = SecurityContextHolder.createEmptyContext();
+        context.setAuthentication(authentication);
+        SecurityContextHolder.setContext(context);
         chain.doFilter(request, response);
     }
 

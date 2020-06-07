@@ -82,5 +82,6 @@
     //必须指定只扫描Mapper.class，否者会扫描2次spring的component，导致重复而报错
     @MapperScan(annotationClass = Mapper.class, basePackages = {"com.easyray.*"})
     ```    
-        
+#### todo
+1. url白名单        
                 

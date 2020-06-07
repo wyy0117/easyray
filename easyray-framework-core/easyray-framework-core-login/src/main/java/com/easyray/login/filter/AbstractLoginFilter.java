@@ -1,7 +1,6 @@
-package com.easyray.auth.filter;
+package com.easyray.login.filter;
 
 import com.easyray.auth.entity.Login;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
@@ -26,12 +25,7 @@ public abstract class AbstractLoginFilter extends UsernamePasswordAuthentication
 
     @Override
     public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException {
-        try {
-            Login login = new ObjectMapper().readValue(request.getInputStream(), Login.class);
-            loginThreadLocal.set(login);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+
         return checkLogin(request, response);
     }
 
@@ -42,7 +36,7 @@ public abstract class AbstractLoginFilter extends UsernamePasswordAuthentication
      * @param response
      * @return
      */
-    public abstract Authentication checkLogin(HttpServletRequest request, HttpServletResponse response);
+    public abstract Authentication checkLogin(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException;
 
     @Override
     protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain, Authentication authResult) throws IOException, ServletException {

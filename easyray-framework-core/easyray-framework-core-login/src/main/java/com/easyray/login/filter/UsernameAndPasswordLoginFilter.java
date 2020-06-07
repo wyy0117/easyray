@@ -1,14 +1,16 @@
-package com.easyray.auth.filter;
+package com.easyray.login.filter;
 
 import com.easyray.auth.entity.JwtToken;
 import com.easyray.auth.entity.Login;
 import com.easyray.auth.entity.UserDetailsImpl;
-import com.easyray.auth.util.JwtTokenUtil;
+import com.easyray.login.util.JwtTokenUtil;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 import org.springframework.http.MediaType;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.AuthenticationException;
 
 import javax.servlet.FilterChain;
 import javax.servlet.http.Cookie;
@@ -21,21 +23,28 @@ import java.util.ArrayList;
  * @Date: 20-2-1
  * @Author: wyy
  */
-public class JwtLoginFilter extends AbstractLoginFilter {
+public class UsernameAndPasswordLoginFilter extends AbstractLoginFilter {
 
     private AuthenticationManager authenticationManager;
 
-    public JwtLoginFilter(AuthenticationManager authenticationManager) {
+    public UsernameAndPasswordLoginFilter(AuthenticationManager authenticationManager) {
         this.authenticationManager = authenticationManager;
     }
 
     @Override
-    public Authentication checkLogin(HttpServletRequest request, HttpServletResponse response) {
-        // 从输入流中获取到登录的信息
-        Login login = super.loginThreadLocal.get();
-        return authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(login.getUsername(), login.getPassword(), new ArrayList<>())
-        );
+    public Authentication checkLogin(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException {
+        Login login = null;
+        try {
+            login = new ObjectMapper().readValue(request.getInputStream(), Login.class);
+            // 从输入流中获取到登录的信息
+            return authenticationManager.authenticate(
+                    new UsernamePasswordAuthenticationToken(login.getUsername(), login.getPassword(), new ArrayList<>())
+            );
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
+
     }
 
     @Override

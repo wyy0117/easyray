@@ -1,4 +1,4 @@
-package com.easyray.auth.service.impl;
+package com.easyray.login.service.impl;
 
 import com.alibaba.dubbo.config.annotation.Reference;
 import com.easyray.auth.entity.UserDetailsImpl;
@@ -13,7 +13,7 @@ import org.springframework.stereotype.Component;
  * @Date: 20-1-30
  * @Author: wyy
  */
-@Component("userDetailServiceImpl")
+@Component
 public class UserDetailServiceImpl implements UserDetailsService {
 
     @Reference(check = false)

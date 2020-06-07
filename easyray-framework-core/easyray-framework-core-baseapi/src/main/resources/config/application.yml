@@ -8,9 +8,6 @@ spring:
     type: com.alibaba.druid.pool.DruidDataSource
   http:
     encoding:
-      charset: utf-8
-      force: true
-      enabled: true
 
 #dubbo config
 dubbo:
