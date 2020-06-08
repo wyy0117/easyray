@@ -2,7 +2,6 @@ package com.easyray.teamprovider;
 
 import com.alibaba.dubbo.config.annotation.Reference;
 import com.easyray.auth.service.impl.SpringSecurityThreadLocal;
-import com.easyray.auth.service.impl.UserDetailServiceImpl;
 import com.easyray.baseapi.constant.ActionScopeConstant;
 import com.easyray.common.exception.EntityNotExistException;
 import com.easyray.coreapi.entity.*;
@@ -29,9 +28,6 @@ class TeamProviderApplicationTests {
 
     @Autowired
     private SpringSecurityThreadLocal springSecurityThreadLocal;
-
-    @Autowired
-    private UserDetailServiceImpl userDetailService;
 
     @Autowired
     @Qualifier("teamLocalProviderImpl")
