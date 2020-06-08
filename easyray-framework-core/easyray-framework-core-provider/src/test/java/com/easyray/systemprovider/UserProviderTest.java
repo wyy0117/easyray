@@ -28,7 +28,7 @@ public class UserProviderTest {
     public void testAddUser() {
         User user = new User(idService.nextId(User.class.getName()));
         user.setUsername(System.currentTimeMillis() + "")
-                .setPassword("123456");
+                .setPasswordAndEncode("123456");
         user.setUserId(user.getId())
                 .setFullName(user.getUsername());
         userLocalProviderImpl.save(user);

@@ -1,5 +1,5 @@
 server:
-  port: ${random.int[1000,9999]}
+  port: 7000
 
 dubbo:
   application:

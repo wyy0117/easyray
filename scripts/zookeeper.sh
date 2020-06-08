@@ -1,4 +1,4 @@
-base_path=/Volumes/home/docker/data/zookeeper
+base_path=~/docker/data/zookeeper
 port1=2181
 port2=2888
 port3=3888

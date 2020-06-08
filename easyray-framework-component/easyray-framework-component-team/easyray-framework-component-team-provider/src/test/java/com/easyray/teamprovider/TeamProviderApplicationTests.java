@@ -93,7 +93,7 @@ class TeamProviderApplicationTests {
         //create user
         user = new User(idService.nextId(User.class.getName()));
         user.setUsername(System.currentTimeMillis() + "")
-                .setPassword("123456");
+                .setPasswordAndEncode("123456");
         user.setUserId(user.getId())
                 .setFullName(user.getUsername());
         userLocalProvider.save(user);
@@ -119,7 +119,7 @@ class TeamProviderApplicationTests {
         //create tenant creator
         User tenantCreator = new User(idService.nextId(User.class.getName()));
         tenantCreator.setUsername(System.currentTimeMillis() + "")
-                .setPassword("123456");
+                .setPasswordAndEncode("123456");
         tenantCreator.setUserId(tenantCreator.getId())
                 .setFullName(tenantCreator.getUsername());
         userLocalProvider.save(tenantCreator);
@@ -132,7 +132,7 @@ class TeamProviderApplicationTests {
 //创建普通用户
         User user = new User(idService.nextId(User.class.getName()));
         user.setUsername(System.currentTimeMillis() + "")
-                .setPassword("123456");
+                .setPasswordAndEncode("123456");
         user.setUserId(user.getId())
                 .setFullName(user.getUsername());
         userLocalProvider.save(user);
@@ -162,7 +162,7 @@ class TeamProviderApplicationTests {
         //create tenant creator
         User tenantCreator = new User(idService.nextId(User.class.getName()));
         tenantCreator.setUsername(System.currentTimeMillis() + "")
-                .setPassword("123456");
+                .setPasswordAndEncode("123456");
         tenantCreator.setUserId(tenantCreator.getId())
                 .setFullName(tenantCreator.getUsername());
         userLocalProvider.save(tenantCreator);
@@ -175,7 +175,7 @@ class TeamProviderApplicationTests {
 //创建普通用户
         User user = new User(idService.nextId(User.class.getName()));
         user.setUsername(System.currentTimeMillis() + "")
-                .setPassword("123456");
+                .setPasswordAndEncode("123456");
         user.setUserId(user.getId())
                 .setFullName(user.getUsername());
         userLocalProvider.save(user);

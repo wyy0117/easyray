@@ -1,22 +1,22 @@
 package com.easyray.login.config;
 
+import com.alibaba.dubbo.config.annotation.Reference;
 import com.easyray.auth.annotation.EasyrayNoAuth;
+import com.easyray.coreapi.service.UserLocalProvider;
+import com.easyray.login.filter.EasyrayUsernamePasswordAuthenticationFilter;
 import com.easyray.login.service.impl.UserDetailServiceImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
-import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -30,7 +30,7 @@ import java.util.Set;
  * @Author: wyy
  */
 @EnableWebSecurity
-@EnableGlobalMethodSecurity(prePostEnabled = true)
+//@EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final Logger log = LoggerFactory.getLogger(SecurityConfig.class);
@@ -46,45 +46,36 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         return new BCryptPasswordEncoder();
     }
 
+    @Reference
+    private UserLocalProvider userLocalProvider;
+
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-//        auth
-//                .userDetailsService(userDetailsServiceImpl)
-//                .passwordEncoder(bCryptPasswordEncoder());
+        auth
+                .userDetailsService(userDetailsServiceImpl)
+                .passwordEncoder(bCryptPasswordEncoder());
     }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-//        http.cors();
-//        http.csrf().disable();
-//        ExpressionUrlAuthorizationConfigurer<HttpSecurity>.ExpressionInterceptUrlRegistry requests = http.authorizeRequests();
-//        requests.antMatchers(HttpMethod.OPTIONS, "/**").permitAll()// 跨域预检请求
-//                // 登录URL
-//                .antMatchers("/login").permitAll()
-//                // swagger
-//                .antMatchers("/swagger**/**").permitAll()
-//                .antMatchers("/webjars/**").permitAll()
-//                .antMatchers("/v2/**").permitAll();
-//        Set<String> allNoAuthMethod = findAllNoAuthMethod();
-//        log.debug("these url need no auth : {}", allNoAuthMethod);
-//        requests.antMatchers(allNoAuthMethod.toArray(new String[0])).permitAll();
-//        AuthenticationManager authenticationManager = authenticationManagerBean();
-////        http.addFilter(new JwtLoginFilter(authenticationManager));
-//        http.addFilter(new JWTTokenFilter(authenticationManager));
-//        // 其他所有请求需要身份认证
-//        requests.anyRequest().authenticated();
+        Set<String> allNoAuthMethod = findAllNoAuthMethod();
+        log.debug("these url need no auth : {}", allNoAuthMethod);
 
-        http
+        http.cors()
+                .and()
+                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                .and()
+                .csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/", "/home").permitAll()
+                // 跨域预检请求
+                .antMatchers(HttpMethod.OPTIONS, "/**").permitAll()
+                //swagger
+                .antMatchers("/swagger**/**", "/webjars/**", "/v2/**").permitAll()
+                .antMatchers(allNoAuthMethod.toArray(new String[0])).permitAll()
                 .anyRequest().authenticated()
                 .and()
-                .formLogin()
-                .loginPage("/login")
-                .permitAll()
-                .and()
-                .logout()
-                .permitAll();
+                .addFilter(new EasyrayUsernamePasswordAuthenticationFilter(authenticationManagerBean()));
+//                .addFilter(new JWTTokenFilter(authenticationManager));
     }
 
     private Set<String> findAllNoAuthMethod() throws ClassNotFoundException {
@@ -160,18 +151,5 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             }
         }
         return ignoreAuthUriList;
-    }
-
-    @Bean
-    @Override
-    public UserDetailsService userDetailsService() {
-        UserDetails user =
-                User.withDefaultPasswordEncoder()
-                        .username("user")
-                        .password("password")
-                        .roles("USER")
-                        .build();
-
-        return new InMemoryUserDetailsManager(user);
     }
 }

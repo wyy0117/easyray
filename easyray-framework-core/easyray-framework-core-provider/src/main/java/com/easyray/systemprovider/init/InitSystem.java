@@ -92,7 +92,7 @@ public class InitSystem implements IEasyInit {
             user = new User(adminUserId);
             user.setUsername(securityProperties.getUser().getName());
             user.setFullName(securityProperties.getUser().getName());
-            user.setPassword(securityProperties.getUser().getPassword());
+            user.setPasswordAndEncode(securityProperties.getUser().getPassword());
             user.setCreateDate(new Date());
             userLocalProvider.save(user);
         }

@@ -1,11 +1,11 @@
 package com.easyray.systemprovider;
 
 import com.alibaba.dubbo.config.annotation.Reference;
-import com.easyray.idgeneratorapi.provider.IdService;
 import com.easyray.coreapi.entity.Tenant;
 import com.easyray.coreapi.entity.User;
 import com.easyray.coreapi.service.TenantLocalProvider;
 import com.easyray.coreapi.service.UserLocalProvider;
+import com.easyray.idgeneratorapi.provider.IdService;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -39,7 +39,7 @@ class SystemProviderApplicationTests {
         User user = new User(idService.nextId(User.class.getName()))
 //                .setUsername(System.currentTimeMillis() + "")
                 .setUsername("test2")
-                .setPassword("test");
+                .setPasswordAndEncode("test");
         user.setUserId(user.getId())
                 .setFullName("test");
 //                .setCreateDate(new Date());

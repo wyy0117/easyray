@@ -103,10 +103,21 @@ public class User extends BaseEntity<Long> {
     /**
      * 密码会自动加密
      *
-     * @param password 未加密
+     * @param password 已加密
      * @return
      */
     public User setPassword(String password) {
+        this.password = password;
+        return this;
+    }
+
+    /**
+     * 会自动加密密码
+     *
+     * @param password 未加密
+     * @return
+     */
+    public User setPasswordAndEncode(String password) {
         this.password = new BCryptPasswordEncoder().encode(password);
         return this;
     }

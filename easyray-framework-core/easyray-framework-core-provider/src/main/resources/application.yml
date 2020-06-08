@@ -1,6 +1,6 @@
 #server port
 server:
-  port: ${random.int[1000,9999]}
+  port: 7001
 
 dubbo:
   application:

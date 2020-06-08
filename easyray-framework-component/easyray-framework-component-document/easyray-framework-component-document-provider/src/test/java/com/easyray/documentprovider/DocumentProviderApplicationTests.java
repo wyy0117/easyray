@@ -3,15 +3,15 @@ package com.easyray.documentprovider;
 import com.alibaba.dubbo.config.annotation.Reference;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.easyray.coreapi.entity.Tenant;
+import com.easyray.coreapi.entity.User;
+import com.easyray.coreapi.service.TenantLocalProvider;
+import com.easyray.coreapi.service.UserLocalProvider;
 import com.easyray.documentapi.entity.DFile;
 import com.easyray.documentapi.entity.DFolder;
 import com.easyray.documentapi.provider.DFileLocalProvider;
 import com.easyray.documentapi.provider.DFolderLocalProvider;
 import com.easyray.idgeneratorapi.provider.IdService;
-import com.easyray.coreapi.entity.Tenant;
-import com.easyray.coreapi.entity.User;
-import com.easyray.coreapi.service.TenantLocalProvider;
-import com.easyray.coreapi.service.UserLocalProvider;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -113,7 +113,7 @@ class DocumentProviderApplicationTests {
     private User doAddUser() {
         User user = new User(idService.nextId(User.class.getName()))
                 .setUsername(System.currentTimeMillis() + "")
-                .setPassword("test");
+                .setPasswordAndEncode("test");
         user.setUserId(user.getId())
                 .setFullName("test")
                 .setCreateDate(new Date());
