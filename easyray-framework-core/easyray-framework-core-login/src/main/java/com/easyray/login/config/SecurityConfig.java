@@ -29,7 +29,6 @@ import java.util.Set;
  * @Author: wyy
  */
 @EnableWebSecurity
-//@EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final Logger log = LoggerFactory.getLogger(SecurityConfig.class);
@@ -73,6 +72,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .addFilter(new EasyrayUsernamePasswordAuthenticationFilter(authenticationManagerBean()));
 //                .addFilter(new JWTTokenFilter(authenticationManager));
+
     }
 
     private Set<String> findAllNoAuthMethod() throws ClassNotFoundException {

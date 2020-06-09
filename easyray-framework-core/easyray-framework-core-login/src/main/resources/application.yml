@@ -5,3 +5,7 @@ server:
 dubbo:
   application:
     name: @project.name@
+spring:
+  redis:
+    host: localhost
+    port: 6379

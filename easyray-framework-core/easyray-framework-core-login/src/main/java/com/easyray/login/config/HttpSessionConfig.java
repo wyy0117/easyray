@@ -18,6 +18,4 @@ public class HttpSessionConfig {
     public HttpSessionIdResolver httpSessionIdResolver() {
         return HeaderHttpSessionIdResolver.xAuthToken();
     }
-
-
 }
