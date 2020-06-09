@@ -9,10 +9,10 @@
     启动服务脚本
 #### 框架使用介绍
 框架设计为4层结构  
-    - api层提供基础接口（interface）  
-    - provider层提供基础service（dubbo），操作数据库，权限底层检查  
-    - 业务层(consumer)做业务操作，提供service  
-    - controller对外提供接口（rest service）  
+    * api层提供基础接口（interface）  
+    * provider层提供基础service（dubbo），操作数据库，权限底层检查  
+    * 业务层(consumer)做业务操作，提供service  
+    * controller对外提供接口（rest service）  
 #### 注意事项
 1. 所有的依赖关系全部从根pom文件查找，禁止模块引入特殊依赖
 #### 开发步骤
@@ -84,4 +84,9 @@
     ```    
 #### todo
 1. url白名单        
-                
+1. auth组件对web模块的请求做拦截
+1. auth组件中实现dubbo跨服务器之间的认证上下文环境初始化
+1. 字典模块开发
+1. redis组件开发
+1. 登录退出登录日志记录
+1. web请求拦截，日志记录组件与模块开发                
