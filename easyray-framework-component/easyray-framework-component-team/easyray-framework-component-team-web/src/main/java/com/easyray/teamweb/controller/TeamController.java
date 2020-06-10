@@ -23,13 +23,13 @@ public class TeamController {
     private SpringSecurityUtil springSecurityUtil;
 
     /**
-     * curl -v -H 'X-Auth-Token: 3bed0327-e096-4cfb-88ab-09f3bed59544' 'localhost:7003/team/teams'
+     * curl -v -H 'X-Auth-Token: 44249470-c254-49f0-ab98-6b4c49099f77' 'localhost:7003/team/teams'
      * @return
      */
     @GetMapping("teams")
     public List<Team> teams(){
         SecurityContextHolder.getContext().getAuthentication();
-//         teamService.test();
+         teamService.test();
          return null;
     }
 

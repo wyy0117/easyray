@@ -18,4 +18,6 @@ public abstract class FieldNameConstant {
     public static final String fullName = "fullName";
     public static final String modifiedUserId = "modifiedUserId";
     public static final String modifiedUserFullName = "modifiedUserFullName";
+
+    public static final String user = "user";
 }

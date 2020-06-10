@@ -7,6 +7,7 @@ import com.easyray.auth.service.impl.SpringSecurityUtil;
 import com.easyray.baseapi.constant.FieldNameConstant;
 import com.easyray.common.util.ApplicationContextUtil;
 import com.easyray.coreapi.entity.User;
+import com.google.gson.Gson;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -27,7 +28,7 @@ public class AuthContextConsumerFilter implements Filter {
         SpringSecurityUtil springSecurityUtil = ApplicationContextUtil.getBean(SpringSecurityUtil.class);
         User user = springSecurityUtil.getOrSetUser();
         if (user != null) {
-            RpcContext.getContext().setAttachment(FieldNameConstant.username, user.getUsername());
+            RpcContext.getContext().setAttachment(FieldNameConstant.user, new Gson().toJson(user));
         }
         return invoker.invoke(invocation);
     }

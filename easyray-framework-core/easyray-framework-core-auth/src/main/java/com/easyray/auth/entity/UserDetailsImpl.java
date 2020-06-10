@@ -1,6 +1,7 @@
 package com.easyray.auth.entity;
 
 import com.easyray.coreapi.entity.User;
+import org.springframework.beans.BeanUtils;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -11,16 +12,11 @@ import java.util.Collection;
  * @Date: 20-1-30
  * @Author: wyy
  */
-public class UserDetailsImpl implements UserDetails {
+public class UserDetailsImpl extends User implements UserDetails {
 
-    private User user;
 
     public UserDetailsImpl(User user) {
-        this.user = user;
-    }
-
-    public User getUser() {
-        return user;
+        BeanUtils.copyProperties(user, this);
     }
 
     @Override
@@ -30,12 +26,12 @@ public class UserDetailsImpl implements UserDetails {
 
     @Override
     public String getPassword() {
-        return user.getPassword();
+        return super.getPassword();
     }
 
     @Override
     public String getUsername() {
-        return user.getUsername();
+        return super.getUsername();
     }
 
     @Override
