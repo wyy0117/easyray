@@ -1,8 +1,8 @@
 package com.easyray.resourcepermission.util;
 
-import com.easyray.auth.service.impl.SpringSecurityThreadLocal;
-import com.easyray.resourcepermission.service.ResourcePermissionLocalProvider;
+import com.easyray.auth.service.impl.SpringSecurityUtil;
 import com.easyray.coreapi.entity.User;
+import com.easyray.resourcepermission.service.ResourcePermissionLocalProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -14,10 +14,10 @@ import org.springframework.stereotype.Component;
 public class PermissionUtil {
 
     @Autowired
-    private SpringSecurityThreadLocal springSecurityThreadLocal;
+    private ResourcePermissionLocalProvider resourcePermissionLocalProvider;
 
     @Autowired
-    private ResourcePermissionLocalProvider resourcePermissionLocalProvider;
+    private SpringSecurityUtil springSecurityUtil;
 
     public boolean havePermission(long userId, long tenantId, String action, String name) {
 
@@ -25,7 +25,7 @@ public class PermissionUtil {
     }
 
     public boolean havePermission(long tenantId, String action, String name) {
-        User user = springSecurityThreadLocal.getUser();
+        User user = springSecurityUtil.getOrSetUser();
         return havePermission(user.getId(), tenantId, action, name);
     }
 }

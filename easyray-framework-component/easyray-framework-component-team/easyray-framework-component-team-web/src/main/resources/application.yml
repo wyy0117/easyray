@@ -1,0 +1,13 @@
+server:
+  servlet:
+    context-path: /team
+  port: 7003
+
+dubbo:
+  application:
+    name: @project.name@
+
+spring:
+  redis:
+    host: localhost
+    port: 6379

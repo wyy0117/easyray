@@ -1,4 +1,4 @@
-package com.easyray.login.config;
+package com.easyray.auth.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

@@ -1,6 +1,6 @@
 package com.easyray.auth.config;
 
-import com.easyray.auth.service.impl.SpringSecurityThreadLocal;
+import com.easyray.auth.service.impl.SpringSecurityUtil;
 import com.easyray.baseapi.autofill.EasyrayMetaObjectHandler;
 import com.easyray.baseapi.constant.FieldNameConstant;
 import com.easyray.coreapi.entity.User;
@@ -27,7 +27,7 @@ public class AutoFillUserPropertyHandler {
     private final Logger logger = LoggerFactory.getLogger(AutoFillUserPropertyHandler.class);
 
     @Autowired
-    private SpringSecurityThreadLocal springSecurityThreadLocal;
+    private SpringSecurityUtil springSecurityUtil;
 
     @Pointcut("execution(void com.easyray.baseapi.autofill.EasyrayMetaObjectHandler.insertFill(..))")
     public void fillUser() {
@@ -37,7 +37,7 @@ public class AutoFillUserPropertyHandler {
     public void insertFill(JoinPoint joinPoint) {
         Object target = joinPoint.getTarget();
         Object[] args = joinPoint.getArgs();
-        User user = springSecurityThreadLocal.getUser();
+        User user = springSecurityUtil.getOrSetUser();
         if (target instanceof EasyrayMetaObjectHandler
                 && args.length > 0 && args[0] instanceof MetaObject
                 && user != null) {
@@ -65,7 +65,7 @@ public class AutoFillUserPropertyHandler {
     public void updateFill(JoinPoint joinPoint) {
         Object target = joinPoint.getTarget();
         Object[] args = joinPoint.getArgs();
-        User user = springSecurityThreadLocal.getUser();
+        User user = springSecurityUtil.getOrSetUser();
         if (target instanceof EasyrayMetaObjectHandler
                 && args.length > 0 && args[0] instanceof MetaObject
                 && user != null) {

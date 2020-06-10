@@ -14,6 +14,8 @@
     <modules>
         <module>easyray-framework-component-team-api</module>
         <module>easyray-framework-component-team-provider</module>
+        <module>easyray-framework-component-team-service</module>
+        <module>easyray-framework-component-team-web</module>
     </modules>
 
 

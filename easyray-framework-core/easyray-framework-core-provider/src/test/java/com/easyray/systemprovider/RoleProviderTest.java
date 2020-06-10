@@ -1,7 +1,7 @@
 package com.easyray.systemprovider;
 
 import com.alibaba.dubbo.config.annotation.Reference;
-import com.easyray.auth.service.impl.SpringSecurityThreadLocal;
+import com.easyray.auth.service.impl.SpringSecurityUtil;
 import com.easyray.baseapi.constant.RoleTypeConstant;
 import com.easyray.coreapi.entity.Role;
 import com.easyray.coreapi.entity.User;
@@ -35,12 +35,12 @@ public class RoleProviderTest {
     private UserLocalProviderImpl userLocalProviderImpl;
 
     @Autowired
-    private SpringSecurityThreadLocal springSecurityThreadLocal;
+    private SpringSecurityUtil springSecurityUtil;
 
     @BeforeAll
     public void before() {
         User user = userLocalProviderImpl.fetchByUsername("admin");
-        springSecurityThreadLocal.setUser(user);
+        springSecurityUtil.setUser(user);
     }
 
     @Test

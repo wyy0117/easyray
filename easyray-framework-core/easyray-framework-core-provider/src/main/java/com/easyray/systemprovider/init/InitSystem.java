@@ -89,6 +89,7 @@ public class InitSystem implements IEasyInit {
         if (user == null) {
             log.debug("init user");
             log.debug("add user {}", securityProperties.getUser().getName());
+            adminUserId = idService.nextId(User.class.getName());
             user = new User(adminUserId);
             user.setUsername(securityProperties.getUser().getName());
             user.setFullName(securityProperties.getUser().getName());

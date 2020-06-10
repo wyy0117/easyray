@@ -1,4 +1,4 @@
-package com.easyray.login.service.impl;
+package com.easyray.auth.service.impl;
 
 import com.alibaba.dubbo.config.annotation.Reference;
 import com.easyray.auth.entity.UserDetailsImpl;

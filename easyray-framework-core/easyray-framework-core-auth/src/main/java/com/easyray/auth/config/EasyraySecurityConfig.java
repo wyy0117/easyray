@@ -1,16 +1,16 @@
-package com.easyray.login.config;
+package com.easyray.auth.config;
 
-import com.alibaba.dubbo.config.annotation.Reference;
 import com.easyray.auth.annotation.EasyrayNoAuth;
-import com.easyray.coreapi.service.UserLocalProvider;
-import com.easyray.login.filter.EasyrayUsernamePasswordAuthenticationFilter;
-import com.easyray.login.service.impl.UserDetailServiceImpl;
+import com.easyray.auth.autoconfig.EasyrayAuthConfiguration;
+import com.easyray.auth.service.impl.UserDetailServiceImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpMethod;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -29,9 +29,13 @@ import java.util.Set;
  * @Author: wyy
  */
 @EnableWebSecurity
-public class SecurityConfig extends WebSecurityConfigurerAdapter {
+@ConditionalOnMissingBean(value = WebSecurityConfigurerAdapter.class)
+public class EasyraySecurityConfig extends WebSecurityConfigurerAdapter {
 
-    private final Logger log = LoggerFactory.getLogger(SecurityConfig.class);
+    private final Logger log = LoggerFactory.getLogger(EasyraySecurityConfig.class);
+
+    @Autowired
+    private EasyrayAuthConfiguration easyrayAuthConfiguration;
 
     @Autowired
     private UserDetailServiceImpl userDetailsServiceImpl;
@@ -39,19 +43,19 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private ApplicationContext applicationContext;
 
-    @Bean
-    public BCryptPasswordEncoder bCryptPasswordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
+    @Autowired
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
 
-    @Reference
-    private UserLocalProvider userLocalProvider;
+    @Bean
+    public AuthenticationManager authenticationManager() throws Exception {
+        return authenticationManagerBean();
+    }
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth
                 .userDetailsService(userDetailsServiceImpl)
-                .passwordEncoder(bCryptPasswordEncoder());
+                .passwordEncoder(bCryptPasswordEncoder);
     }
 
     @Override
@@ -67,12 +71,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.OPTIONS, "/**").permitAll()
                 //swagger
                 .antMatchers("/swagger**/**", "/webjars/**", "/v2/**").permitAll()
+                //com.easyray.auth.annotation.EasyrayNoAuth注解标注的请求
                 .antMatchers(allNoAuthMethod.toArray(new String[0])).permitAll()
+                //配置的白名单
+                .antMatchers(easyrayAuthConfiguration.getWhiteList()).permitAll()
                 .anyRequest().authenticated()
-                .and()
-                .addFilter(new EasyrayUsernamePasswordAuthenticationFilter(authenticationManagerBean()));
-//                .addFilter(new JWTTokenFilter(authenticationManager));
-
+                .and();
     }
 
     private Set<String> findAllNoAuthMethod() throws ClassNotFoundException {

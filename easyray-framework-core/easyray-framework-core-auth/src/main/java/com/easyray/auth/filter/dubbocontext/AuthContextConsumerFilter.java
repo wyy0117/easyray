@@ -3,9 +3,10 @@ package com.easyray.auth.filter.dubbocontext;
 import com.alibaba.dubbo.common.Constants;
 import com.alibaba.dubbo.common.extension.Activate;
 import com.alibaba.dubbo.rpc.*;
-import com.easyray.auth.service.impl.SpringSecurityThreadLocal;
+import com.easyray.auth.service.impl.SpringSecurityUtil;
 import com.easyray.baseapi.constant.FieldNameConstant;
 import com.easyray.common.util.ApplicationContextUtil;
+import com.easyray.coreapi.entity.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -23,10 +24,10 @@ public class AuthContextConsumerFilter implements Filter {
     public Result invoke(Invoker<?> invoker, Invocation invocation) throws RpcException {
         logger.debug("application {} doFilter for {}:{}", invoker.getUrl().getParameter("application"), invoker.getInterface().getSimpleName(), invocation.getMethodName());
 
-        SpringSecurityThreadLocal springSecurityThreadLocal = ApplicationContextUtil.getBean(SpringSecurityThreadLocal.class);
-        if (springSecurityThreadLocal != null
-                && springSecurityThreadLocal.getUser() != null) {
-            RpcContext.getContext().setAttachment(FieldNameConstant.userId, springSecurityThreadLocal.getUser().getId().toString());
+        SpringSecurityUtil springSecurityUtil = ApplicationContextUtil.getBean(SpringSecurityUtil.class);
+        User user = springSecurityUtil.getOrSetUser();
+        if (user != null) {
+            RpcContext.getContext().setAttachment(FieldNameConstant.username, user.getUsername());
         }
         return invoker.invoke(invocation);
     }

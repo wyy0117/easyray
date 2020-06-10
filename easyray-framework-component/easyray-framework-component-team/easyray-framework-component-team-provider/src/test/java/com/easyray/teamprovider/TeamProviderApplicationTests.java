@@ -1,7 +1,7 @@
 package com.easyray.teamprovider;
 
 import com.alibaba.dubbo.config.annotation.Reference;
-import com.easyray.auth.service.impl.SpringSecurityThreadLocal;
+import com.easyray.auth.service.impl.SpringSecurityUtil;
 import com.easyray.baseapi.constant.ActionScopeConstant;
 import com.easyray.common.exception.EntityNotExistException;
 import com.easyray.coreapi.entity.*;
@@ -25,9 +25,6 @@ import java.util.Arrays;
 @SpringBootTest
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 class TeamProviderApplicationTests {
-
-    @Autowired
-    private SpringSecurityThreadLocal springSecurityThreadLocal;
 
     @Autowired
     @Qualifier("teamLocalProviderImpl")
@@ -58,18 +55,21 @@ class TeamProviderApplicationTests {
     private UserTenantRoleLocalProvider userTenantRoleLocalProvider;
 
     @Autowired
+    private SpringSecurityUtil springSecurityUtil;
+
+    @Autowired
     private ResourceActionLocalProvider resourceActionLocalProvider;
 
     private User initSpringSecurityThreadLocal(String fullName) throws EntityNotExistException {
         User user = userLocalProvider.findByUsername(fullName);
 
-        springSecurityThreadLocal.setUser(user);
+        springSecurityUtil.setUser(user);
         return user;
     }
 
     @Test
     public void test() {
-        User user = springSecurityThreadLocal.getUser();
+        User user = springSecurityUtil.getOrSetUser();
         assert user != null;
     }
 

@@ -17,5 +17,4 @@ public class EasyrayUsernamePasswordAuthenticationFilter extends UsernamePasswor
         setAuthenticationManager(authenticationManager);
         setAuthenticationSuccessHandler(new EasyrayAuthenticationSuccessHandler());
     }
-
 }

@@ -2,14 +2,16 @@ package com.easyray.teamprovider.service.impl;
 
 import com.alibaba.dubbo.config.annotation.Reference;
 import com.alibaba.dubbo.config.annotation.Service;
+import com.easyray.auth.service.impl.SpringSecurityUtil;
 import com.easyray.baseapi.constant.RoleTypeConstant;
 import com.easyray.baseapi.provider.EasyrayServiceImpl;
-import com.easyray.idgeneratorapi.provider.IdService;
 import com.easyray.coreapi.entity.Role;
 import com.easyray.coreapi.service.RoleLocalProvider;
+import com.easyray.idgeneratorapi.provider.IdService;
 import com.easyray.teamapi.entity.Team;
 import com.easyray.teamapi.service.TeamLocalProvider;
 import com.easyray.teamprovider.mapper.TeamMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -27,6 +29,9 @@ public class TeamLocalProviderImpl extends EasyrayServiceImpl<TeamMapper, Team> 
 
     @Reference
     private IdService idService;
+
+    @Autowired
+    private SpringSecurityUtil springSecurityUtil;
 
     /**
      * 添加team的同时添加team对应的角色
@@ -46,4 +51,12 @@ public class TeamLocalProviderImpl extends EasyrayServiceImpl<TeamMapper, Team> 
 
         return super.save(entity);
     }
+
+    @Override
+    public void test() {
+        springSecurityUtil.getOrSetUser();
+        System.out.println();
+    }
+
+
 }

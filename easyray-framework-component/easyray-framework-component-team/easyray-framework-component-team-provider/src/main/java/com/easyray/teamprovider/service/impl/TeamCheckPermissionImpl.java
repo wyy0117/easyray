@@ -17,4 +17,9 @@ public class TeamCheckPermissionImpl extends EasyrayServiceImpl<TeamMapper, Team
     public boolean save(Team entity) {
         return false;
     }
+
+    @Override
+    public void test() {
+
+    }
 }

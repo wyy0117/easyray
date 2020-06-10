@@ -11,6 +11,7 @@ package com.easyray.baseapi.constant;
 public abstract class FieldNameConstant {
     public static final String id = "id";
     public static final String name = "name";
+    public static final String username = "username";
     public static final String createDate = "createDate";
     public static final String modifiedDate = "modifiedDate";
     public static final String userId = "userId";
