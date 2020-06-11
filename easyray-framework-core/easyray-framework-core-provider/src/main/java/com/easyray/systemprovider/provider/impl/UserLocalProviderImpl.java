@@ -69,4 +69,9 @@ public class UserLocalProviderImpl extends EasyrayServiceImpl<UserMapper, User> 
         return fetchOneByQuery(new QueryWrapper<User>().lambda().eq(User::getUsername, username));
     }
 
+    @Override
+    public User fetchByPhone(String phone) {
+        return fetchOneByQuery(new QueryWrapper<User>().lambda().eq(User::getPhone, phone));
+    }
+
 }

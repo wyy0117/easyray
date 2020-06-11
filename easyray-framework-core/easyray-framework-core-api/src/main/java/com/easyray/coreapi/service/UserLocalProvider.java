@@ -14,4 +14,12 @@ public interface UserLocalProvider extends BaseLocalProvider<User> {
 
     public User fetchByUsername(String username);
 
+    /**
+     * 使用手机号登录时用得到，不能检查权限
+     *
+     * @param phone
+     * @return
+     */
+    public User fetchByPhone(String phone);
+
 }

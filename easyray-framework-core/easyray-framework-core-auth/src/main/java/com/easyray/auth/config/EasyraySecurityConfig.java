@@ -32,7 +32,7 @@ import java.util.Set;
 @ConditionalOnMissingBean(value = WebSecurityConfigurerAdapter.class)
 public class EasyraySecurityConfig extends WebSecurityConfigurerAdapter {
 
-    private final Logger log = LoggerFactory.getLogger(EasyraySecurityConfig.class);
+    private final Logger logger = LoggerFactory.getLogger(EasyraySecurityConfig.class);
 
     @Autowired
     private EasyrayAuthConfiguration easyrayAuthConfiguration;
@@ -61,7 +61,7 @@ public class EasyraySecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         Set<String> allNoAuthMethod = findAllNoAuthMethod();
-        log.debug("these url need no auth : {}", allNoAuthMethod);
+        logger.debug("these url need no auth : {}", allNoAuthMethod);
 
         http.cors()
                 .and()

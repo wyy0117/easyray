@@ -21,4 +21,9 @@ public class UserCheckPermissionImpl extends EasyrayServiceImpl<UserMapper, User
     public User fetchByUsername(String username) {
         return null;
     }
+
+    @Override
+    public User fetchByPhone(String phone) {
+        return null;
+    }
 }
