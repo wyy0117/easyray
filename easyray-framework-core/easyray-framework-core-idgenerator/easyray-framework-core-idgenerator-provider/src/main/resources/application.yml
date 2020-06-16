@@ -4,7 +4,51 @@ server:
 dubbo:
   application:
     name: @project.name@
+  protocol:
+    name: dubbo
+    port: -1
+  registry:
+    address: zookeeper://localhost:2181
+  consumer:
+    retries: -1
+    timeout: -1
 
 #生成多少个id写入数据库一次
 id:
   skip-num: 10000
+
+#db config
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost/easyray?useUnicode=true&characterEncoding=utf8
+    username: easyray
+    password: easyray
+    type: com.alibaba.druid.pool.DruidDataSource
+  http:
+    encoding:
+
+#actable config
+actable:
+  database:
+    type: mysql
+  model:
+    pack: com.easyray
+  create:
+    mode: update
+  execute:
+    sql: true
+  print:
+    sql: true
+
+#log
+logging:
+  file:
+    path: .
+  level:
+    com.easyray: debug
+
+mybatis-plus:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+

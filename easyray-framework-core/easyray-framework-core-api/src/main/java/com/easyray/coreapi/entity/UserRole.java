@@ -29,7 +29,12 @@ public class UserRole extends PrimeKeyEntity<Long> {
         this.roleId = roleId;
     }
 
-    public UserRole(long l) {
+    public UserRole(Long id) {
+        super(id);
+    }
+
+    public UserRole() {
+        super();
     }
 
     @Override

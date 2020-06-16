@@ -1,12 +1,11 @@
 package com.easyray.idgeneratorprovider.init;
 
-import com.easyray.baseapi.constant.InitOrderConstant;
-import com.easyray.baseapi.init.IEasyInit;
 import com.easyray.idgeneratorapi.entity.IdSequence;
 import com.easyray.idgeneratorapi.provider.IdSequenceLocalProvider;
 import com.easyray.idgeneratorapi.provider.IdService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
+import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Component;
 
 /**
@@ -14,7 +13,7 @@ import org.springframework.stereotype.Component;
  * @Author: wyy
  */
 @Component
-public class InitIdSequence implements IEasyInit {
+public class InitIdSequence implements ApplicationRunner {
 
     @Autowired
     private IdSequenceLocalProvider idSequenceLocalProvider;
@@ -24,13 +23,7 @@ public class InitIdSequence implements IEasyInit {
     private long initId = 1;
 
     @Override
-    public int getOrder() {
-        return InitOrderConstant.INIT_ID_SEQUENCE;
-    }
-
-    @Override
-    public void init(ApplicationArguments args) throws Exception {
-
+    public void run(ApplicationArguments args) throws Exception {
         IdSequence idSequence = idSequenceLocalProvider.fetchById(initId);
         if (idSequence == null) {
             idSequence = new IdSequence(initId)

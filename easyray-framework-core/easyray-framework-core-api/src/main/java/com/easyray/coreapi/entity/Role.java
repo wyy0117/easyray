@@ -4,7 +4,6 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import com.easyray.baseapi.entity.BaseEntity;
 import com.wyy.actable.annotation.Column;
 import com.wyy.actable.annotation.Table;
-import com.wyy.actable.annotation.Unique;
 
 import static com.wyy.actable.constants.MySqlDataType.INT;
 import static com.wyy.actable.constants.MySqlDataType.VARCHAR;
@@ -17,11 +16,9 @@ import static com.wyy.actable.constants.MySqlDataType.VARCHAR;
 @Table(name = "sys_role")
 public class Role extends BaseEntity<Long> {
 
-    @Unique(name = "uni_name_type")
-    @Column(name = "name", type = VARCHAR, length = 20, nullable = false)
+    @Column(name = "name", type = VARCHAR, length = 75, nullable = false)
     private String name;
 
-    @Unique(name = "uni_name_type")
     @Column(name = "type", type = INT, length = 1, nullable = false)
     private int type;
 

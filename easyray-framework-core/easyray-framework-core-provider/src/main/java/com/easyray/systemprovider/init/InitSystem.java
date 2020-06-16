@@ -4,7 +4,7 @@ import com.alibaba.dubbo.config.annotation.Reference;
 import com.easyray.baseapi.constant.InitOrderConstant;
 import com.easyray.baseapi.constant.RoleNameConstant;
 import com.easyray.baseapi.constant.RoleTypeConstant;
-import com.easyray.baseapi.init.IEasyInit;
+import com.easyray.baseapi.init.IEasyrayInit;
 import com.easyray.coreapi.entity.Role;
 import com.easyray.coreapi.entity.Tenant;
 import com.easyray.coreapi.entity.User;
@@ -33,7 +33,7 @@ import java.util.List;
  */
 @Component
 @Transactional
-public class InitSystem implements IEasyInit {
+public class InitSystem implements IEasyrayInit {
     private Logger log = LoggerFactory.getLogger(InitSystem.class.getName());
 
     @Autowired

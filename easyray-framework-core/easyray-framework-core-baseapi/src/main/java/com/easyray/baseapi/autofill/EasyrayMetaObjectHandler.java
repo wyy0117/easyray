@@ -1,7 +1,9 @@
 package com.easyray.baseapi.autofill;
 
+import com.alibaba.dubbo.config.annotation.Reference;
 import com.baomidou.mybatisplus.core.handlers.MetaObjectHandler;
 import com.easyray.baseapi.constant.FieldNameConstant;
+import com.easyray.idgeneratorapi.provider.IdService;
 import org.apache.ibatis.reflection.MetaObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,26 +24,48 @@ public class EasyrayMetaObjectHandler implements MetaObjectHandler {
 
     private final Logger logger = LoggerFactory.getLogger(EasyrayMetaObjectHandler.class);
 
+    @Reference
+    private IdService idService;
+
     @Override
     public void insertFill(MetaObject metaObject) {
         String createDate = metaObject.findProperty(FieldNameConstant.createDate, true);
         if (createDate != null) {
-            logger.debug("{} auto set {} value: {}", metaObject.getOriginalObject().getClass().getSimpleName(), FieldNameConstant.createDate, new Date());
-            this.setFieldValByName(FieldNameConstant.createDate, new Date(), metaObject);
+            Object value = this.getFieldValByName(createDate, metaObject);
+            if (value == null) {
+                logger.debug("{} auto set {} value: {}", metaObject.getOriginalObject().getClass().getSimpleName(), FieldNameConstant.createDate, new Date());
+                this.setFieldValByName(FieldNameConstant.createDate, new Date(), metaObject);
+            }
         }
+
         String modifiedDate = metaObject.findProperty(FieldNameConstant.modifiedDate, true);
         if (modifiedDate != null) {
-            logger.debug("{} auto set {} value: {}", metaObject.getOriginalObject().getClass().getSimpleName(), FieldNameConstant.modifiedDate, new Date());
-            this.setFieldValByName(FieldNameConstant.modifiedDate, new Date(), metaObject);
+            Object value = this.getFieldValByName(modifiedDate, metaObject);
+            if (value == null) {
+                logger.debug("{} auto set {} value: {}", metaObject.getOriginalObject().getClass().getSimpleName(), FieldNameConstant.modifiedDate, new Date());
+                this.setFieldValByName(FieldNameConstant.modifiedDate, new Date(), metaObject);
+            }
         }
+        String id = metaObject.findProperty(FieldNameConstant.id, true);
+        if (id != null) {
+            Object value = this.getFieldValByName(id, metaObject);
+            if (value == null) {
+                logger.debug("{} auto set {} value: {}", metaObject.getOriginalObject().getClass().getSimpleName(), FieldNameConstant.modifiedDate, new Date());
+                this.setFieldValByName(FieldNameConstant.id, idService.nextId(metaObject.getOriginalObject().getClass().getName()), metaObject);
+            }
+        }
+
     }
 
     @Override
     public void updateFill(MetaObject metaObject) {
         String modifiedDate = metaObject.findProperty(FieldNameConstant.modifiedDate, true);
         if (modifiedDate != null) {
-            logger.debug("auto set {} value: {}", FieldNameConstant.modifiedDate, new Date());
-            this.setFieldValByName(FieldNameConstant.modifiedDate, new Date(), metaObject);
+            Object value = this.getFieldValByName(modifiedDate, metaObject);
+            if (value == null) {
+                logger.debug("auto set {} value: {}", FieldNameConstant.modifiedDate, new Date());
+                this.setFieldValByName(FieldNameConstant.modifiedDate, new Date(), metaObject);
+            }
         }
     }
 }

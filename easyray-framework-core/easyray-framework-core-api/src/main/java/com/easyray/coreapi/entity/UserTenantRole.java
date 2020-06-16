@@ -29,6 +29,12 @@ public class UserTenantRole extends PrimeKeyEntity<Long> {
         this.roleId = roleId;
     }
 
+    public UserTenantRole(long userId, long tenantId, long roleId) {
+        this.userId = userId;
+        this.tenantId = tenantId;
+        this.roleId = roleId;
+    }
+
     public UserTenantRole() {
     }
 

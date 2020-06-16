@@ -26,6 +26,18 @@ public interface EasyrayBaseMapper<T> extends BaseMapper<T> {
     List<T> filterFindByQuery(@Param(Constants.WRAPPER) AbstractWrapper queryWrapper, long tenantId, long userId);
 
     /**
+     * 使用sql注入，{@link com.easyray.baseapi.sqlinject.FilterFindByQuery}
+     *
+     * @param page
+     * @param queryWrapper
+     * @param tenantId
+     * @param userId
+     * @return
+     */
+    IPage<T> filterFindByQuery(IPage<T> page, @Param(Constants.WRAPPER) AbstractWrapper queryWrapper, long tenantId, long userId);
+
+
+    /**
      * sql注入 {@link com.easyray.baseapi.sqlinject.FetchOneByQueryAndTenantId}
      *
      * @param queryWrapper

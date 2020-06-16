@@ -10,12 +10,14 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>easyray-framework-core-idgenerator-api</artifactId>
-
     <dependencies>
         <dependency>
-            <groupId>com.easyray</groupId>
-            <artifactId>easyray-framework-core-baseapi</artifactId>
-            <version>1.0.0</version>
+            <groupId>com.baomidou</groupId>
+            <artifactId>mybatis-plus-extension</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.wyy</groupId>
+            <artifactId>actable</artifactId>
         </dependency>
     </dependencies>
 </project>

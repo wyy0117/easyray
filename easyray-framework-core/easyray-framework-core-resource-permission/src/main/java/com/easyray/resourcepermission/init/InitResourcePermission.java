@@ -2,7 +2,7 @@ package com.easyray.resourcepermission.init;
 
 import com.alibaba.dubbo.config.annotation.Reference;
 import com.easyray.baseapi.constant.InitOrderConstant;
-import com.easyray.baseapi.init.IEasyInit;
+import com.easyray.baseapi.init.IEasyrayInit;
 import com.easyray.common.exception.EasyCustomException;
 import com.easyray.common.exception.EntityNotExistException;
 import com.easyray.common.exception.filter.CustomThrowable;
@@ -39,7 +39,7 @@ import java.util.stream.Collectors;
  */
 @Component
 @Transactional
-public class InitResourcePermission implements IEasyInit {
+public class InitResourcePermission implements IEasyrayInit {
 
     private Logger logger = LoggerFactory.getLogger(InitResourcePermission.class);
 

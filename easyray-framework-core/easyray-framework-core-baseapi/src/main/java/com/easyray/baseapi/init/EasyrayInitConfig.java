@@ -26,23 +26,23 @@ public class EasyrayInitConfig implements ApplicationRunner {
     @Autowired
     private ApplicationContext applicationContext;
 
-    public List<IEasyInit> getInits() {
-        Map<String, IEasyInit> iEasyIniterMap = applicationContext.getBeansOfType(IEasyInit.class);
+    public List<IEasyrayInit> getInits() {
+        Map<String, IEasyrayInit> iEasyIniterMap = applicationContext.getBeansOfType(IEasyrayInit.class);
         return new ArrayList<>(iEasyIniterMap.values());
     }
 
     @Override
     public void run(ApplicationArguments args) throws Exception {
 
-        List<IEasyInit> initList = getInits();
+        List<IEasyrayInit> initList = getInits();
         if (initList.size() > 1) {
             Collections.sort(initList);
         }
 
-        for (IEasyInit iEasyInit : initList) {
-            log.debug("{} initing...", iEasyInit);
+        for (IEasyrayInit iEasyrayInit : initList) {
+            log.debug("{} initing...", iEasyrayInit);
             try {
-                iEasyInit.init(args);
+                iEasyrayInit.init(args);
             } catch (EntityNotExistException | EasyCustomException e) {
                 e.printStackTrace();
                 throw new Exception(e);

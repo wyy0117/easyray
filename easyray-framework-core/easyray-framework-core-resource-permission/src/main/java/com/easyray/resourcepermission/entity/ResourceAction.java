@@ -1,6 +1,7 @@
 package com.easyray.resourcepermission.entity;
 
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.easyray.baseapi.constant.ColumnNameConstant;
 import com.easyray.baseapi.entity.PrimeKeyEntity;
 import com.wyy.actable.annotation.Column;
 import com.wyy.actable.annotation.Index;
@@ -20,7 +21,7 @@ public class ResourceAction extends PrimeKeyEntity<Long> {
 
     @Index(name = "idx_name_action")
     @Unique(name = "uni_name_action")
-    @Column(name = "name", type = VARCHAR, length = 75, nullable = false)
+    @Column(name = ColumnNameConstant.name, type = VARCHAR, length = 75, nullable = false)
     private String name;
 
     @Index(name = "idx_name_action")
@@ -28,7 +29,7 @@ public class ResourceAction extends PrimeKeyEntity<Long> {
     @Column(name = "action", type = VARCHAR, length = 75, nullable = false)
     private String action;
 
-    @Column(name = "bitwise_value", type = INT, length = 10, nullable = false)
+    @Column(name = ColumnNameConstant.bitwise_value, type = INT, length = 10, nullable = false)
     private int bitwiseValue;
 
     public ResourceAction() {

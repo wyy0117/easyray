@@ -1,10 +1,13 @@
 package com.easyray.idgeneratorapi.entity;
 
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
-import com.easyray.baseapi.entity.PrimeKeyEntity;
 import com.wyy.actable.annotation.Column;
 import com.wyy.actable.annotation.Table;
 import com.wyy.actable.annotation.Unique;
+
+import java.io.Serializable;
 
 import static com.wyy.actable.constants.MySqlDataType.BIGINT;
 import static com.wyy.actable.constants.MySqlDataType.VARCHAR;
@@ -15,7 +18,12 @@ import static com.wyy.actable.constants.MySqlDataType.VARCHAR;
  */
 @TableName("sys_id_sequence")
 @Table(name = "sys_id_sequence")
-public class IdSequence extends PrimeKeyEntity<Long> {
+public class IdSequence implements Serializable {
+
+    @Column(name ="id", type = BIGINT, length = 20, nullable = false, key = true)
+    @TableId(type = IdType.INPUT)
+    private long id;
+
     @Unique
     @Column(name = "class_name", type = VARCHAR, length = 75, nullable = false)
     private String className;
@@ -23,11 +31,8 @@ public class IdSequence extends PrimeKeyEntity<Long> {
     @Column(name = "value", type = BIGINT, length = 20, nullable = false)
     private long value = 1L;
 
-    public IdSequence() {
-    }
-
     public IdSequence(long id) {
-        super(id);
+        this.id = id;
     }
 
     public String getClassName() {
@@ -48,11 +53,22 @@ public class IdSequence extends PrimeKeyEntity<Long> {
         return this;
     }
 
+
+    public long getId() {
+        return id;
+    }
+
+    public IdSequence setId(long id) {
+        this.id = id;
+        return this;
+    }
+
     @Override
     public String toString() {
         return "IdSequence{" +
-                "className='" + className + '\'' +
+                "id=" + id +
+                ", className='" + className + '\'' +
                 ", value=" + value +
-                "} " + super.toString();
+                '}';
     }
 }

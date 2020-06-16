@@ -1,6 +1,7 @@
 package com.easyray.resourcepermission.entity;
 
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.easyray.baseapi.constant.ColumnNameConstant;
 import com.easyray.baseapi.entity.PrimeKeyEntity;
 import com.wyy.actable.annotation.Column;
 import com.wyy.actable.annotation.Table;
@@ -14,22 +15,19 @@ import com.wyy.actable.constants.MySqlDataType;
 @Table(name = "sys_resource_permission")
 public class ResourcePermission extends PrimeKeyEntity<Long> {
 
-    @Column(name = "name", type = MySqlDataType.VARCHAR, length = 75, nullable = false)
+    @Column(name = ColumnNameConstant.name, type = MySqlDataType.VARCHAR, length = 75, nullable = false)
     private String name;
 
-    @Column(name = "scope", type = MySqlDataType.INT, length = 1, nullable = false)
+    @Column(name = ColumnNameConstant.scope, type = MySqlDataType.INT, length = 1, nullable = false)
     private int scope;
 
     @Column(name = "prim_key", type = MySqlDataType.VARCHAR, length = 20, nullable = false, defaultValue = "")
     private String primKey;
 
-    @Column(name = "role_id", type = MySqlDataType.BIGINT, length = 20, nullable = false)
+    @Column(name = ColumnNameConstant.role_id, type = MySqlDataType.BIGINT, length = 20, nullable = false)
     private long roleId;
 
-    @Column(name = "owner_id", type = MySqlDataType.BIGINT, length = 20, nullable = false)
-    private long ownerId;
-
-    @Column(name = "action_ids", type = MySqlDataType.INT, length = 10, nullable = false)
+    @Column(name = ColumnNameConstant.action_ids, type = MySqlDataType.INT, length = 10, nullable = false)
     private int actionIds;
 
     public ResourcePermission() {
@@ -46,7 +44,6 @@ public class ResourcePermission extends PrimeKeyEntity<Long> {
                 ", scope=" + scope +
                 ", primKey='" + primKey + '\'' +
                 ", roleId=" + roleId +
-                ", ownerId=" + ownerId +
                 ", actionIds=" + actionIds +
                 "} " + super.toString();
     }
@@ -96,12 +93,4 @@ public class ResourcePermission extends PrimeKeyEntity<Long> {
         return this;
     }
 
-    public long getOwnerId() {
-        return ownerId;
-    }
-
-    public ResourcePermission setOwnerId(long ownerId) {
-        this.ownerId = ownerId;
-        return this;
-    }
 }

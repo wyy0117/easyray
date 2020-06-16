@@ -45,14 +45,20 @@ public class AutoFillUserPropertyHandler {
             MetaObject metaObject = (MetaObject) args[0];
             String userId = metaObject.findProperty(FieldNameConstant.userId, true);
             if (userId != null) {
-                logger.debug("{} auto set {} value: {}", metaObject.getOriginalObject().getClass().getSimpleName(), FieldNameConstant.userId, user.getId());
-                easyrayMetaObjectHandler.setFieldValByName(FieldNameConstant.userId, user.getId(), metaObject);
+                Object value = easyrayMetaObjectHandler.getFieldValByName(userId, metaObject);
+                if (value == null) {
+                    logger.debug("{} auto set {} value: {}", metaObject.getOriginalObject().getClass().getSimpleName(), FieldNameConstant.userId, user.getId());
+                    easyrayMetaObjectHandler.setFieldValByName(FieldNameConstant.userId, user.getId(), metaObject);
+                }
             }
 
             String fullName = metaObject.findProperty(FieldNameConstant.fullName, true);
             if (fullName != null) {
-                logger.debug("{} auto set {} value: {}", metaObject.getOriginalObject().getClass().getSimpleName(), FieldNameConstant.fullName, user.getFullName());
-                easyrayMetaObjectHandler.setFieldValByName(FieldNameConstant.fullName, user.getFullName(), metaObject);
+                Object value = easyrayMetaObjectHandler.getFieldValByName(fullName, metaObject);
+                if (value == null) {
+                    logger.debug("{} auto set {} value: {}", metaObject.getOriginalObject().getClass().getSimpleName(), FieldNameConstant.fullName, user.getFullName());
+                    easyrayMetaObjectHandler.setFieldValByName(FieldNameConstant.fullName, user.getFullName(), metaObject);
+                }
             }
         }
     }
@@ -73,14 +79,20 @@ public class AutoFillUserPropertyHandler {
             MetaObject metaObject = (MetaObject) args[0];
             String modifiedUserId = metaObject.findProperty(FieldNameConstant.modifiedUserId, true);
             if (modifiedUserId != null) {
-                logger.debug("{} auto set {} value: {}", metaObject.getOriginalObject().getClass().getSimpleName(), FieldNameConstant.modifiedUserId, user.getId());
-                easyrayMetaObjectHandler.setFieldValByName(FieldNameConstant.modifiedUserId, user.getId(), metaObject);
+                Object value = easyrayMetaObjectHandler.getFieldValByName(modifiedUserId, metaObject);
+                if (value == null) {
+                    logger.debug("{} auto set {} value: {}", metaObject.getOriginalObject().getClass().getSimpleName(), FieldNameConstant.modifiedUserId, user.getId());
+                    easyrayMetaObjectHandler.setFieldValByName(FieldNameConstant.modifiedUserId, user.getId(), metaObject);
+                }
             }
 
             String modifiedUserFullName = metaObject.findProperty(FieldNameConstant.modifiedUserFullName, true);
             if (modifiedUserFullName != null) {
-                logger.debug("{} auto set {} value: {}", metaObject.getOriginalObject().getClass().getSimpleName(), FieldNameConstant.modifiedUserFullName, user.getFullName());
-                easyrayMetaObjectHandler.setFieldValByName(FieldNameConstant.modifiedUserFullName, user.getFullName(), metaObject);
+                Object value = easyrayMetaObjectHandler.getFieldValByName(modifiedUserFullName, metaObject);
+                if (value == null) {
+                    logger.debug("{} auto set {} value: {}", metaObject.getOriginalObject().getClass().getSimpleName(), FieldNameConstant.modifiedUserFullName, user.getFullName());
+                    easyrayMetaObjectHandler.setFieldValByName(FieldNameConstant.modifiedUserFullName, user.getFullName(), metaObject);
+                }
             }
         }
     }
