@@ -101,7 +101,6 @@ public class User extends BaseEntity<Long> {
     }
 
     /**
-     * 密码会自动加密
      *
      * @param password 已加密
      * @return
