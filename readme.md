@@ -17,7 +17,7 @@
 1. 所有的依赖关系全部从根pom文件查找，禁止模块引入特殊依赖
 #### 开发步骤
 1. 创建api模块（maven）
-    1. api模块添加依赖
+    1. api模块添加依赖(根据需要)
         ```
         <dependency>
             <groupId>com.easyray</groupId>
@@ -26,7 +26,7 @@
         </dependency>
         ```
 1. 创建provider模块（springboot）
-    1. provider模块修改pom修改parent
+    1. provider模块修改pom修改parent(参考api模块的parent)
     1. provider模块修改依赖
         ```
         <dependency>
