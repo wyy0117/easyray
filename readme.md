@@ -3,9 +3,11 @@
     框架核心模块
 1. easyray-framework-component  
     框架层组件
-1. easyray-framework-util 
+1. easyray-framework-util   
     框架层工具
-1. scripts
+1. easyray-framework-sample  
+    第三方组件使用示例        
+1. scripts  
     启动服务脚本
 #### 框架使用介绍
 框架设计为4层结构  
@@ -33,7 +35,7 @@
             <!-- Import dependency management from Spring Boot -->
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-dependencies</artifactId>
-            <version>${springboot.version}</version>
+            <version>${spring-boot.version}</version>
             <type>pom</type>
             <scope>import</scope>
         </dependency>
@@ -125,7 +127,7 @@
             <!-- Import dependency management from Spring Boot -->
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-dependencies</artifactId>
-            <version>${springboot.version}</version>
+            <version>${spring-boot.version}</version>
             <type>pom</type>
             <scope>import</scope>
         </dependency>

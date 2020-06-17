@@ -1,0 +1,13 @@
+spring:
+  mail:
+    host: smtp.qq.com
+    port: 587
+    username: xxx@qq.com
+    password: xxx
+    default-encoding: UTF-8
+    protocol: smtp
+    properties:
+      - mail.smtp.ssl.enable: true
+      - mail.smtp.auth: true
+  profiles:
+    active: wyy
