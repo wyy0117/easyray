@@ -96,21 +96,21 @@
     1. 添加依赖
         ```
        <dependency>
-               <groupId>org.springframework</groupId>
-               <artifactId>spring-context</artifactId>
-           </dependency>
-   
-           <!-- https://mvnrepository.com/artifact/com.alibaba.boot/dubbo-spring-boot-starter -->
-           <dependency>
-               <groupId>com.alibaba.boot</groupId>
-               <artifactId>dubbo-spring-boot-starter</artifactId>
-               <exclusions>
-                   <exclusion>
-                       <artifactId>spring-boot-starter</artifactId>
-                       <groupId>org.springframework.boot</groupId>
-                   </exclusion>
-               </exclusions>
-           </dependency>
+           <groupId>org.springframework</groupId>
+           <artifactId>spring-context</artifactId>
+       </dependency>
+
+       <!-- https://mvnrepository.com/artifact/com.alibaba.boot/dubbo-spring-boot-starter -->
+       <dependency>
+           <groupId>com.alibaba.boot</groupId>
+           <artifactId>dubbo-spring-boot-starter</artifactId>
+           <exclusions>
+               <exclusion>
+                   <artifactId>spring-boot-starter</artifactId>
+                   <groupId>org.springframework.boot</groupId>
+               </exclusion>
+           </exclusions>
+       </dependency>
        ```  
     1. 添加对api模块的依赖
 1. 创建web模块（springboot）
