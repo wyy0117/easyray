@@ -1,5 +1,8 @@
 package com.easyray.codegen
 
+import freemarker.template.Configuration
+import freemarker.template.Template
+import org.junit.Before
 import org.junit.Test
 
 import java.text.SimpleDateFormat
@@ -9,54 +12,57 @@ import java.text.SimpleDateFormat
  * @Author: wyy
  */
 class CodeGen {
+    private Configuration configuration;
+
+    @Before
+    void before() {
+        configuration = new Configuration(Configuration.VERSION_2_3_30)
+        configuration.setClassForTemplateLoading(this.class, "/template")
+        configuration.setDefaultEncoding("UTF-8")
+    }
+
     @Test
     void gen() {
-        String entity = "DFileVersion"
+        String entityName = "DFileVersion"
+        String apiBasePackage = "com.easyray.documentapi"
+        String providerBasePackge = "com.easyray.documentprovider"
         String basePath = CodeGen.classLoader.getResource(".").path
         List<String> pathList = basePath.split("/") as List
         pathList = pathList.subList(0, pathList.size() - 2)
         basePath = pathList.join("/") + "/src/test/resources"
 
-        genCode(entity, basePath, "entity")
-        genCode(entity, basePath, "mapper")
-        genCode(entity, basePath, "provider")
-        genCode(entity, basePath, "provider/impl")
-        genCode(entity, basePath, "error")
+        Map variableMap = [
+                ENTITY               : entityName,
+                DATE                 : new SimpleDateFormat("yyyy-MM-dd").format(new Date()),
+                AUTHOR               : System.getProperty("user.name"),
+                ENTITY_PACKAGE       : "${apiBasePackage}.entity",
+                ERROR_PACKAGE        : "${apiBasePackage}.error",
+                PROVIDER_PACKAGE     : "${apiBasePackage}.provider",
+                MAPPER_PACKAGE       : "${providerBasePackge}.mapper",
+                PROVIDER_IMPL_PACKAGE: "${providerBasePackge}.provider.impl"
+        ]
+        genCode(entityName, variableMap, basePath + "/entity", "Entity.ftl")
+        genCode(entityName, variableMap, basePath + "/provider", "EntityCheckPermission.ftl")
+        genCode(entityName, variableMap, basePath + "/provider/impl", "EntityCheckPermissionAspect.ftl")
+        genCode(entityName, variableMap, basePath + "/provider/impl", "EntityCheckPermissionImpl.ftl")
+        genCode(entityName, variableMap, basePath + "/error", "EntityErrorCode.ftl")
+        genCode(entityName, variableMap, basePath + "/provider", "EntityLocalProvider.ftl")
+        genCode(entityName, variableMap, basePath + "/provider/impl", "EntityLocalProviderImpl.ftl")
+        genCode(entityName, variableMap, basePath + "/mapper", "EntityMapper.ftl")
+        genCode(entityName, variableMap, basePath + "/provider", "EntityProvider.ftl")
+        genCode(entityName, variableMap, basePath + "/provider/impl", "EntityProviderImpl.ftl")
     }
 
-    private void genCode(String entity, String basePath, String folderName) {
-        File srcFolder = new File(basePath + "/template/${folderName}")
-        File resFolder = new File(basePath + "/${folderName}")
+
+    private void genCode(String entityName, Map variableMap, String resFolderPath, String templateFileName) {
+        Template template = configuration.getTemplate(templateFileName)
+        File resFolder = new File(resFolderPath)
         if (!resFolder.exists()) {
             resFolder.mkdirs()
-        } else {
-            resFolder.listFiles(new FileFilter() {
-                @Override
-                boolean accept(File pathname) {
-                    return pathname.isFile()
-                }
-            }).each {
-                it.delete()
-            }
         }
-
-        srcFolder.listFiles(new FileFilter() {
-            @Override
-            boolean accept(File pathname) {
-                return pathname.isFile()
-            }
-        }).each {
-            File file = new File(resFolder, it.name.replace("Entity", entity))
-            file.text = replace(it.text, entity)
-        }
+        String resFileName = templateFileName.replace("Entity", entityName).replace("ftl", "java")
+        OutputStreamWriter writer = new OutputStreamWriter(new FileOutputStream(new File(resFolder, resFileName)))
+        template.process(variableMap, writer)
     }
-
-
-    private String replace(String src, String entity) {
-        String date = new SimpleDateFormat("yyyy-MM_dd").format(new Date())
-        String author = System.getProperty("user.name")
-        src.replace('${DATE}', date).replace('${AUTHOR}', author).replace('${ENTITY}', entity)
-    }
-
 
 }

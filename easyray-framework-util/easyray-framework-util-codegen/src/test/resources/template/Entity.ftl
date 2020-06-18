@@ -1,6 +1,8 @@
+package ${ENTITY_PACKAGE};
+
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.wyy.actable.annotation.Table;
-
+import com.easyray.baseapi.entity.BaseEntity;
 import static com.wyy.actable.constants.MySqlDataType.*;
 
 /**
@@ -9,9 +11,6 @@ import static com.wyy.actable.constants.MySqlDataType.*;
  */
 @TableName("")
 @Table(name = "")
-public class $ {
-    ENTITY
-} extends BaseEntity<Long> {
+public class ${ENTITY} extends BaseEntity<Long> {
 
-
-        }
+}
