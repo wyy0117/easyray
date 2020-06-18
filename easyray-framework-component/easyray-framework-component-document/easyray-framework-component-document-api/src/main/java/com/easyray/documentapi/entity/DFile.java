@@ -21,19 +21,53 @@ public class DFile extends BaseEntity<Long> {
 
     @Column(name = "extension", type = VARCHAR, length = 10, nullable = false)
     private String extension;
+
     @Column(name = "media_type", type = VARCHAR, length = 10, nullable = false)
     private String mediaType;
+
     @Column(name = "folder_id", type = BIGINT, length = 10, nullable = false)
     private long folderId;
+
     @Column(name = "folder_path", type = VARCHAR, length = 75, nullable = false)
     private String folderPath;
+
     @Column(name = "tenant_id", type = BIGINT, length = 10, nullable = false)
     private long tenantId;
+
     @Column(name = "url", type = VARCHAR, length = 75, nullable = false)
     private String url;
 
+    /**
+     * 因为版本不仅可以是1.0还可以是1.0.0，还可以是日期作为版本，所以这里只能使用String类型
+     */
+    @Column(name = "version", type = VARCHAR, length = 20, nullable = false, defaultValue = "1.0")
+    private String version;
+
     public String getUrl() {
         return url;
+    }
+
+    @Override
+    public String toString() {
+        return "DFile{" +
+                "name='" + name + '\'' +
+                ", extension='" + extension + '\'' +
+                ", mediaType='" + mediaType + '\'' +
+                ", folderId=" + folderId +
+                ", folderPath='" + folderPath + '\'' +
+                ", tenantId=" + tenantId +
+                ", url='" + url + '\'' +
+                ", version='" + version + '\'' +
+                "} " + super.toString();
+    }
+
+    public String getVersion() {
+        return version;
+    }
+
+    public DFile setVersion(String version) {
+        this.version = version;
+        return this;
     }
 
     public DFile setUrl(String url) {
@@ -46,18 +80,6 @@ public class DFile extends BaseEntity<Long> {
     }
 
     public DFile() {
-    }
-
-    @Override
-    public String toString() {
-        return "DFile{" +
-                "name='" + name + '\'' +
-                ", extension='" + extension + '\'' +
-                ", mediaType='" + mediaType + '\'' +
-                ", folderId=" + folderId +
-                ", folderPath='" + folderPath + '\'' +
-                ", tenantId=" + tenantId +
-                "} " + super.toString();
     }
 
     public long getTenantId() {

@@ -11,7 +11,7 @@ import java.text.SimpleDateFormat
 class CodeGen {
     @Test
     void gen() {
-        String entity = "Team"
+        String entity = "DFileVersion"
         String basePath = CodeGen.classLoader.getResource(".").path
         List<String> pathList = basePath.split("/") as List
         pathList = pathList.subList(0, pathList.size() - 2)

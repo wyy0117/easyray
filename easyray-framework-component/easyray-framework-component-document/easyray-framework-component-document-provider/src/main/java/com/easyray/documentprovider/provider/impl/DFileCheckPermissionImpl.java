@@ -3,11 +3,13 @@ package com.easyray.documentprovider.provider.impl;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.easyray.baseapi.provider.EasyrayServiceImpl;
 import com.easyray.documentapi.entity.DFile;
+import com.easyray.documentapi.entity.DFileVersion;
 import com.easyray.documentapi.provider.DFileCheckPermission;
 import com.easyray.documentprovider.mapper.DFileMapper;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 
 /**
@@ -33,7 +35,12 @@ public class DFileCheckPermissionImpl extends EasyrayServiceImpl<DFileMapper, DF
     }
 
     @Override
-    public String uploadFile(MultipartFile file) {
+    public String uploadFile(DFile dFile, MultipartFile multipartFile) throws IOException {
+        return null;
+    }
+
+    @Override
+    public String updateFile(DFile dFile, DFileVersion dFileVersion, MultipartFile multipartFile) throws IOException {
         return null;
     }
 

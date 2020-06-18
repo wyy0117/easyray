@@ -11,6 +11,7 @@ import com.easyray.documentapi.entity.DFile;
 import com.easyray.documentapi.entity.DFolder;
 import com.easyray.documentapi.provider.DFileLocalProvider;
 import com.easyray.documentapi.provider.DFolderLocalProvider;
+import com.easyray.fastdfsprovider.FastDFSClient;
 import com.easyray.idgeneratorapi.provider.IdService;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
@@ -47,6 +48,8 @@ class DocumentProviderApplicationTests {
     private DFileLocalProvider dFileLocalProvider;
     @Reference
     private TenantLocalProvider tenantLocalProvider;
+    @Autowired
+    private FastDFSClient fastDFSClient;
 
     private User user;
     private Tenant tenant;
@@ -92,7 +95,7 @@ class DocumentProviderApplicationTests {
         ClassPathResource classPathResource = new ClassPathResource("2.jpg");
         String contentType = Files.probeContentType(Paths.get(classPathResource.getURI()));
         MockMultipartFile multipartFile = new MockMultipartFile(classPathResource.getFilename(), classPathResource.getFilename(), contentType, classPathResource.getInputStream());
-        String url = dFileLocalProvider.uploadFile(multipartFile);
+        String url = fastDFSClient.uploadFile(multipartFile);
         System.out.println("url = " + url);
     }
 
