@@ -20,4 +20,8 @@ public interface DFSClient {
     byte[] download(String fileUrl);
 
     void deleteFile(String fileUrl);
+
+    String uploadImageAndCrtThumbImage(MultipartFile multipartFile) throws IOException;
+
+    String uploadImageAndCrtThumbImage(MultipartFile multipartFile, int width, int height) throws IOException;
 }

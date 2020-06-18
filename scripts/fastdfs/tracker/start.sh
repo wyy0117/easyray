@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
-base_path=/data/fastdfs/tracker
-container_name=fastdfs-tracker
+base_path=/data/fastdfs/tracker1
+container_name=fastdfs-tracker1
 
 docker build . -t fastdfs-tracker
 

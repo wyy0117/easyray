@@ -20,7 +20,7 @@
             <action-key>DELETE</action-key>
         </resource-permission>
         <resource-permission>
-            <role-name>GROUP_OWNER</role-name>
+            <role-name>TENANT_OWNER</role-name>
             <scope>2</scope>
             <entity-name>com.easyray.documentapi.entity.DFile</entity-name>
             <action-key>ADD</action-key>
@@ -29,7 +29,7 @@
             <action-key>DELETE</action-key>
         </resource-permission>
         <resource-permission>
-            <role-name>GROUP_OWNER</role-name>
+            <role-name>TENANT_OWNER</role-name>
             <scope>2</scope>
             <entity-name>com.easyray.documentapi.entity.DFolder</entity-name>
             <action-key>ADD</action-key>

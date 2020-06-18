@@ -1,8 +1,11 @@
 package com.easyray.fastdfsprovider;
 
+import com.easyray.common.util.FileUtil;
 import com.easyray.dfsapi.DFSClient;
 import com.github.tobato.fastdfs.domain.fdfs.StorePath;
 import com.github.tobato.fastdfs.domain.proto.storage.DownloadByteArray;
+import com.github.tobato.fastdfs.domain.upload.FastImageFile;
+import com.github.tobato.fastdfs.domain.upload.ThumbImage;
 import com.github.tobato.fastdfs.exception.FdfsUnsupportStorePathException;
 import com.github.tobato.fastdfs.service.FastFileStorageClient;
 import org.apache.commons.io.FilenameUtils;
@@ -18,6 +21,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.nio.charset.Charset;
+import java.util.HashSet;
 
 
 /**
@@ -105,5 +109,17 @@ public class FastDFSClient implements DFSClient {
         } catch (FdfsUnsupportStorePathException e) {
             log.warn(e.getMessage());
         }
+    }
+
+    @Override
+    public String uploadImageAndCrtThumbImage(MultipartFile multipartFile) throws IOException {
+        StorePath storePath = storageClient.uploadImageAndCrtThumbImage(multipartFile.getInputStream(), multipartFile.getSize(), FileUtil.getExtension(multipartFile), new HashSet<>());
+        return storePath.getFullPath();
+    }
+
+    @Override
+    public String uploadImageAndCrtThumbImage(MultipartFile multipartFile, int width, int height) throws IOException {
+        StorePath storePath = storageClient.uploadImage(new FastImageFile(multipartFile.getInputStream(), multipartFile.getSize(), FileUtil.getExtension(multipartFile), null, new ThumbImage(width, height)));
+        return storePath.getFullPath();
     }
 }

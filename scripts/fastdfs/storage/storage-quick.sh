@@ -1,8 +1,6 @@
 #!/usr/bin/env bash
-base_path=/Users/wyy/docker/data/fastdfs/storage1
-container_name=fastdfs-storage1
-
-docker build . -t fastdfs-storage
+base_path=/data/fastdfs/storage
+container_name=fastdfs-storage
 
 mkdir -p $base_path/{conf,dfs}
 cp ./storage.conf.sample $base_path/conf/storage.conf
@@ -18,6 +16,6 @@ docker run -itd --restart=always --name $container_name --network=host \
 -v $base_path/conf/mime.types:/etc/fdfs/mime.types \
 -v $base_path/conf/nginx.conf:/usr/local/nginx/conf/nginx.conf \
 -v $base_path/dfs:/home/dfs \
--v $base_path/dfs/logs:/usr/local/nginx/logs fastdfs-storage
+-v $base_path/dfs/logs:/usr/local/nginx/logs wyy349093330/fastdfs-storage:6.06
 
 

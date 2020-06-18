@@ -91,6 +91,15 @@ class DocumentProviderApplicationTests {
         doUploadFile();
     }
 
+    @Test
+    void thumbNail() throws IOException {
+        ClassPathResource classPathResource = new ClassPathResource("2.jpg");
+        String contentType = Files.probeContentType(Paths.get(classPathResource.getURI()));
+        MockMultipartFile multipartFile = new MockMultipartFile(classPathResource.getFilename(), classPathResource.getFilename(), contentType, classPathResource.getInputStream());
+        String url = fastDFSClient.uploadImageAndCrtThumbImage(multipartFile);
+        System.out.println("url = " + url);
+    }
+
     private void doUploadFile() throws IOException {
         ClassPathResource classPathResource = new ClassPathResource("2.jpg");
         String contentType = Files.probeContentType(Paths.get(classPathResource.getURI()));

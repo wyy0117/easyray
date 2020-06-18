@@ -1,4 +1,4 @@
-#### storage.conf
+### storage.conf
 固定修改 
 1. 数据和日志文件存储根目录    
     ```
@@ -22,7 +22,7 @@
     ```
     group_name = group1
     ``` 
-配合nginx使用     
+### 配合nginx使用     
 1. http.conf
 1. mime.types  
 1. store.conf修改http访问文件的端口(默认8888,看情况修改,和nginx中保持一致)
@@ -53,3 +53,4 @@
     ```
     group_name=group1
     ```                
+### 修改启动脚本
