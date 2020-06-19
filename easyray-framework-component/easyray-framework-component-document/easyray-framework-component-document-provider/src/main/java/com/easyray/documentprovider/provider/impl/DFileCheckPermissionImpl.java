@@ -40,7 +40,22 @@ public class DFileCheckPermissionImpl extends EasyrayServiceImpl<DFileMapper, DF
     }
 
     @Override
+    public String updateFile(DFile dFile, MultipartFile multipartFile) throws IOException {
+        return null;
+    }
+
+    @Override
     public String updateFile(DFile dFile, DFileVersion dFileVersion, MultipartFile multipartFile) throws IOException {
+        return null;
+    }
+
+    @Override
+    public String updateFile(DFile dFile, DFileVersion dFileVersion, String version, MultipartFile multipartFile) throws IOException {
+        return null;
+    }
+
+    @Override
+    public String updateFile(DFile dFile, DFileVersion dFileVersion, String version, MultipartFile multipartFile, String changeLog) throws IOException {
         return null;
     }
 

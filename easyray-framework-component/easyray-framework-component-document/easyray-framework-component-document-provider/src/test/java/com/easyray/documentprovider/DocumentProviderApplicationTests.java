@@ -22,7 +22,6 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.mock.web.MockMultipartFile;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -32,7 +31,6 @@ import java.util.List;
 
 @SpringBootTest
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-@Transactional
 class DocumentProviderApplicationTests {
 
     @Reference
@@ -100,6 +98,17 @@ class DocumentProviderApplicationTests {
         System.out.println("url = " + url);
     }
 
+    @Test
+    void testVersion() throws IOException {
+        DFolder dFolder = doAddFolder();
+        DFile dFile = doAddFile(dFolder);
+        System.out.println("dFile = " + dFile);
+        ClassPathResource classPathResource = new ClassPathResource("2.jpg");
+        String contentType = Files.probeContentType(Paths.get(classPathResource.getURI()));
+        MockMultipartFile multipartFile = new MockMultipartFile(classPathResource.getFilename(), classPathResource.getFilename(), contentType, classPathResource.getInputStream());
+        String s = dFileLocalProvider.updateFile(dFile, multipartFile);
+    }
+
     private void doUploadFile() throws IOException {
         ClassPathResource classPathResource = new ClassPathResource("2.jpg");
         String contentType = Files.probeContentType(Paths.get(classPathResource.getURI()));
@@ -151,7 +160,9 @@ class DocumentProviderApplicationTests {
                 .setExtension("txt")
                 .setMediaType("text")
                 .setFolderId(folder.getId())
+                .setUrl("123")
                 .setFolderPath(folder.getTreePath());
+
 
         dFile.setUserId(user.getId())
                 .setFullName(user.getFullName())

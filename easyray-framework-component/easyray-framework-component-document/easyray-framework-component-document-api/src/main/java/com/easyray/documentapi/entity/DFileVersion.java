@@ -42,6 +42,15 @@ public class DFileVersion extends DFile {
                 "} " + super.toString();
     }
 
+    public String getChangeLog() {
+        return changeLog;
+    }
+
+    public DFileVersion setChangeLog(String changeLog) {
+        this.changeLog = changeLog;
+        return this;
+    }
+
     public long getFileId() {
         return fileId;
     }

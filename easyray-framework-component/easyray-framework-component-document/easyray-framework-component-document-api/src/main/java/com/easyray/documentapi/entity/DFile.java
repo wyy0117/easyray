@@ -2,6 +2,7 @@ package com.easyray.documentapi.entity;
 
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.easyray.baseapi.entity.BaseEntity;
+import com.easyray.documentapi.util.FileVersionUtil;
 import com.wyy.actable.annotation.Column;
 import com.wyy.actable.annotation.Table;
 
@@ -40,8 +41,8 @@ public class DFile extends BaseEntity<Long> {
     /**
      * 因为版本不仅可以是1.0还可以是1.0.0，还可以是日期作为版本，所以这里只能使用String类型
      */
-    @Column(name = "version", type = VARCHAR, length = 20, nullable = false, defaultValue = "1.0")
-    private String version;
+    @Column(name = "version", type = VARCHAR, length = 20, nullable = false, defaultValue = "1")
+    private String version = FileVersionUtil.defaultVersion;
 
     public String getUrl() {
         return url;

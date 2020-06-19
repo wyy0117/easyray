@@ -34,4 +34,11 @@ public class PrimeKeyEntity<T> implements Serializable {
         this.id = id;
         return this;
     }
+
+    @Override
+    public String toString() {
+        return "PrimeKeyEntity{" +
+                "id=" + id +
+                '}';
+    }
 }

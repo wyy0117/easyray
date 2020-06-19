@@ -31,6 +31,8 @@ public interface DFileLocalProvider extends BaseLocalProvider<DFile> {
      */
     String uploadFile(DFile dFile, MultipartFile multipartFile) throws IOException;
 
+    String updateFile(DFile dFile, MultipartFile multipartFile) throws IOException;
+
     /**
      * 更新文件
      *
@@ -41,4 +43,8 @@ public interface DFileLocalProvider extends BaseLocalProvider<DFile> {
      * @throws IOException
      */
     String updateFile(DFile dFile, DFileVersion dFileVersion, MultipartFile multipartFile) throws IOException;
+
+    String updateFile(DFile dFile, DFileVersion dFileVersion, String version, MultipartFile multipartFile) throws IOException;
+
+    String updateFile(DFile dFile, DFileVersion dFileVersion, String version, MultipartFile multipartFile, String changeLog) throws IOException;
 }

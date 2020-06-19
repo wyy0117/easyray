@@ -8,6 +8,7 @@ import com.easyray.dfsapi.DFSClient;
 import com.easyray.documentapi.entity.DFile;
 import com.easyray.documentapi.entity.DFileVersion;
 import com.easyray.documentapi.provider.DFileLocalProvider;
+import com.easyray.documentapi.util.FileVersionUtil;
 import com.easyray.documentprovider.mapper.DFileMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -33,6 +34,15 @@ public class DFileLocalProviderImpl extends EasyrayServiceImpl<DFileMapper, DFil
     private DFileVersionLocalProviderImpl dFileVersionLocalProviderImpl;
 
     @Override
+    public boolean save(DFile dFile) {
+        getBaseMapper().insert(dFile);
+        DFileVersion dFileVersion = new DFileVersion(dFile);
+
+        dFileVersionLocalProviderImpl.save(dFileVersion);
+        return false;
+    }
+
+    @Override
     public IPage<DFile> findByName(IPage<DFile> page, String name, long tenantId) {
         return getBaseMapper().fetchByQueryAndTenantId(page, new QueryWrapper<DFile>().lambda().eq(DFile::getName, name), tenantId);
     }
@@ -49,18 +59,36 @@ public class DFileLocalProviderImpl extends EasyrayServiceImpl<DFileMapper, DFil
 
     @Override
     public String uploadFile(DFile dFile, MultipartFile multipartFile) throws IOException {
-        String url = dfsClient.uploadFile(multipartFile);
-        dFile.setUrl(url);
-        save(dFile);
-        return url;
+        return updateFile(dFile, new DFileVersion(dFile), multipartFile);
+    }
+
+    @Override
+    public String updateFile(DFile dFile, MultipartFile multipartFile) throws IOException {
+        return updateFile(dFile, new DFileVersion(dFile), multipartFile);
     }
 
     @Override
     public String updateFile(DFile dFile, DFileVersion dFileVersion, MultipartFile multipartFile) throws IOException {
+
+        return updateFile(dFile, dFileVersion, FileVersionUtil.nextVersion(dFile.getVersion()), multipartFile);
+    }
+
+
+    @Override
+    public String updateFile(DFile dFile, DFileVersion dFileVersion, String version, MultipartFile multipartFile) throws IOException {
+        return updateFile(dFile, dFileVersion, version, multipartFile, "");
+    }
+
+    @Override
+    public String updateFile(DFile dFile, DFileVersion dFileVersion, String version, MultipartFile multipartFile, String changeLog) throws IOException {
         String url = dfsClient.uploadFile(multipartFile);
         dFile.setUrl(url);
-        dFileVersion.setUrl(url);
+        dFile.setVersion(version);
         saveOrUpdate(dFile);
+
+        dFileVersion.setUrl(url);
+        dFileVersion.setVersion(version);
+        dFileVersion.setChangeLog(changeLog);
         dFileVersionLocalProviderImpl.save(dFileVersion);
         return url;
     }

@@ -4,6 +4,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Map;
 
 /**
  * @Date: 20-3-24
@@ -15,7 +16,12 @@ public interface DFSClient {
 
     String uploadFile(File file) throws IOException;
 
-    String uploadFile(String content, String fileExtension);
+    /**
+     * @param content
+     * @param fileName 包含后缀
+     * @return
+     */
+    String uploadFile(String content, String fileName);
 
     byte[] download(String fileUrl);
 
@@ -24,4 +30,6 @@ public interface DFSClient {
     String uploadImageAndCrtThumbImage(MultipartFile multipartFile) throws IOException;
 
     String uploadImageAndCrtThumbImage(MultipartFile multipartFile, int width, int height) throws IOException;
+
+    Map<String, Object> getMetaData(String url);
 }
