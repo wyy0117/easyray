@@ -1,10 +1,10 @@
 package com.easyray.auth.filter.dubbocontext;
 
-import com.alibaba.dubbo.common.Constants;
-import com.alibaba.dubbo.common.extension.Activate;
-import com.alibaba.dubbo.rpc.*;
 import com.easyray.auth.service.impl.SpringSecurityUtil;
 import com.easyray.common.util.ApplicationContextUtil;
+import org.apache.dubbo.common.constants.CommonConstants;
+import org.apache.dubbo.common.extension.Activate;
+import org.apache.dubbo.rpc.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -12,7 +12,7 @@ import org.slf4j.LoggerFactory;
  * @Date: 20-5-2
  * @Author: wyy
  */
-@Activate(group = Constants.PROVIDER)
+@Activate(group = CommonConstants.PROVIDER)
 public class AuthContextProviderFilter implements Filter {
 
     private final Logger logger = LoggerFactory.getLogger(AuthContextProviderFilter.class);

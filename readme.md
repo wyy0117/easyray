@@ -61,15 +61,15 @@
             <artifactId>druid</artifactId>
         </dependency>
     
+        <!-- https://mvnrepository.com/artifact/org.apache.dubbo/dubbo-registry-nacos -->
         <dependency>
-            <groupId>com.alibaba.boot</groupId>
+            <groupId>org.apache.dubbo</groupId>
+            <artifactId>dubbo-registry-nacos</artifactId>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/org.apache.dubbo/dubbo-spring-boot-starter -->
+        <dependency>
+            <groupId>org.apache.dubbo</groupId>
             <artifactId>dubbo-spring-boot-starter</artifactId>
-            <exclusions>
-                <exclusion>
-                    <artifactId>spring-boot-starter</artifactId>
-                    <groupId>org.springframework.boot</groupId>
-                </exclusion>
-            </exclusions>
         </dependency>
     
         <dependency>
@@ -80,7 +80,7 @@
     1. provider模块添加组件扫描
         ```
         @SpringBootApplication(scanBasePackages = {"com.wyy.*", "com.easyray.*"})
-        @EnableDubbo(scanBasePackages = "com.easyray.*")
+        @DubboComponentScan(basePackages = {"com.easyray.*"})
         //必须指定只扫描Mapper.class，否者会扫描2次spring的component，导致重复而报错
         @MapperScan(annotationClass = Mapper.class, basePackages = {"com.easyray.*"})
         ```    

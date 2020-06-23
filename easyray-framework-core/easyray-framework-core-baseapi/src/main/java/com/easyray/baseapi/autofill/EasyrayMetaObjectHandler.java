@@ -1,9 +1,9 @@
 package com.easyray.baseapi.autofill;
 
-import com.alibaba.dubbo.config.annotation.Reference;
 import com.baomidou.mybatisplus.core.handlers.MetaObjectHandler;
 import com.easyray.baseapi.constant.FieldNameConstant;
 import com.easyray.idgeneratorapi.provider.IdService;
+import org.apache.dubbo.config.annotation.DubboReference;
 import org.apache.ibatis.reflection.MetaObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,7 +24,7 @@ public class EasyrayMetaObjectHandler implements MetaObjectHandler {
 
     private final Logger logger = LoggerFactory.getLogger(EasyrayMetaObjectHandler.class);
 
-    @Reference
+    @DubboReference
     private IdService idService;
 
     @Override

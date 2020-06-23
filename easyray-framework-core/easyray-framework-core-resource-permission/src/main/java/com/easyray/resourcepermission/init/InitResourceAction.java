@@ -1,6 +1,5 @@
 package com.easyray.resourcepermission.init;
 
-import com.alibaba.dubbo.config.annotation.Reference;
 import com.easyray.baseapi.constant.InitOrderConstant;
 import com.easyray.baseapi.init.IEasyrayInit;
 import com.easyray.common.util.MergeUtil;
@@ -15,6 +14,7 @@ import com.easyray.resourcepermission.service.ResourceActionVersionLocalProvider
 import com.easyray.resourcepermission.service.ResourcePermissionLocalProvider;
 import com.easyray.resourcepermission.service.ResourcePermissionVersionLocalProvider;
 import com.easyray.resourcepermission.util.XMLUtil;
+import org.apache.dubbo.config.annotation.DubboReference;
 import org.dom4j.DocumentException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -52,7 +52,7 @@ public class InitResourceAction implements IEasyrayInit {
     @Autowired
     private ResourcePermissionLocalProvider resourcePermissionLocalProvider;
 
-    @Reference
+    @DubboReference
     private IdService idService;
 
     @Override

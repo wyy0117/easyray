@@ -1,6 +1,5 @@
 package com.easyray.systemprovider.provider.impl;
 
-import com.alibaba.dubbo.config.annotation.Reference;
 import com.alibaba.dubbo.config.annotation.Service;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.easyray.baseapi.constant.RoleNameConstant;
@@ -14,6 +13,7 @@ import com.easyray.coreapi.service.UserLocalProvider;
 import com.easyray.coreapi.service.UserRoleLocalProvider;
 import com.easyray.idgeneratorapi.provider.IdService;
 import com.easyray.systemprovider.mapper.UserMapper;
+import org.apache.dubbo.config.annotation.DubboReference;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
@@ -40,7 +40,7 @@ public class UserLocalProviderImpl extends EasyrayServiceImpl<UserMapper, User> 
     @Qualifier("userRoleLocalProviderImpl")
     private UserRoleLocalProvider userRoleLocalProvider;
 
-    @Reference
+    @DubboReference
     private IdService idService;
 
     /**

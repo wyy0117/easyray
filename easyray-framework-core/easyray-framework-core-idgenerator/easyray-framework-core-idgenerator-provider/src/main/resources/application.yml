@@ -8,7 +8,7 @@ dubbo:
     name: dubbo
     port: -1
   registry:
-    address: zookeeper://localhost:2181
+    address: nacos://localhost:8848
   consumer:
     retries: -1
     timeout: -1

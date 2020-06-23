@@ -1,9 +1,9 @@
 package com.easyray.systemprovider;
 
-import com.alibaba.dubbo.config.annotation.Reference;
 import com.easyray.coreapi.entity.User;
 import com.easyray.idgeneratorapi.provider.IdService;
 import com.easyray.systemprovider.provider.impl.UserLocalProviderImpl;
+import org.apache.dubbo.config.annotation.DubboReference;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,7 +18,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 public class UserProviderTest {
     private Logger logger = LoggerFactory.getLogger(UserProviderTest.class);
 
-    @Reference
+    @DubboReference
     private IdService idService;
 
     @Autowired

@@ -1,6 +1,5 @@
 package com.easyray.teamprovider.service.impl;
 
-import com.alibaba.dubbo.config.annotation.Reference;
 import com.alibaba.dubbo.config.annotation.Service;
 import com.easyray.auth.service.impl.SpringSecurityUtil;
 import com.easyray.baseapi.constant.RoleTypeConstant;
@@ -11,6 +10,7 @@ import com.easyray.idgeneratorapi.provider.IdService;
 import com.easyray.teamapi.entity.Team;
 import com.easyray.teamapi.service.TeamLocalProvider;
 import com.easyray.teamprovider.mapper.TeamMapper;
+import org.apache.dubbo.config.annotation.DubboReference;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
@@ -24,10 +24,10 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public class TeamLocalProviderImpl extends EasyrayServiceImpl<TeamMapper, Team> implements TeamLocalProvider {
 
-    @Reference
+    @DubboReference
     private RoleLocalProvider roleLocalProvider;
 
-    @Reference
+    @DubboReference
     private IdService idService;
 
     @Autowired

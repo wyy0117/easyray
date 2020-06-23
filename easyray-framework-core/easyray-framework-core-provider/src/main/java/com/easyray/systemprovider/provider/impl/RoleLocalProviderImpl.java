@@ -1,6 +1,5 @@
 package com.easyray.systemprovider.provider.impl;
 
-import com.alibaba.dubbo.config.annotation.Reference;
 import com.alibaba.dubbo.config.annotation.Service;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.easyray.baseapi.provider.EasyrayServiceImpl;
@@ -9,6 +8,7 @@ import com.easyray.coreapi.entity.Role;
 import com.easyray.coreapi.service.RoleLocalProvider;
 import com.easyray.idgeneratorapi.provider.IdService;
 import com.easyray.systemprovider.mapper.RoleMapper;
+import org.apache.dubbo.config.annotation.DubboReference;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -21,7 +21,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public class RoleLocalProviderImpl extends EasyrayServiceImpl<RoleMapper, Role> implements RoleLocalProvider {
 
-    @Reference
+    @DubboReference
     private IdService idService;
 
     @Override

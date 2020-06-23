@@ -1,6 +1,5 @@
 package com.easyray.teamprovider;
 
-import com.alibaba.dubbo.config.annotation.Reference;
 import com.easyray.auth.service.impl.SpringSecurityUtil;
 import com.easyray.baseapi.constant.ActionScopeConstant;
 import com.easyray.baseapi.constant.ResourceActionConstant;
@@ -17,6 +16,7 @@ import com.easyray.resourcepermission.util.PermissionUtil;
 import com.easyray.teamapi.entity.Team;
 import com.easyray.teamapi.service.TeamLocalProvider;
 import com.easyray.teamapi.service.TeamProvider;
+import org.apache.dubbo.config.annotation.DubboReference;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 import org.slf4j.Logger;
@@ -42,28 +42,28 @@ class TeamProviderApplicationTests {
     @Autowired
     private TeamProvider teamProvider;
 
-    @Reference
+    @DubboReference
     private UserLocalProvider userLocalProvider;
 
     @Autowired
     private ResourcePermissionLocalProvider resourcePermissionLocalProvider;
 
-    @Reference
+    @DubboReference
     private IdService idService;
 
-    @Reference
+    @DubboReference
     private RoleLocalProvider roleLocalProvider;
 
     @Autowired
     private PermissionUtil permissionUtil;
 
-    @Reference
+    @DubboReference
     private UserRoleLocalProvider userRoleLocalProvider;
 
-    @Reference
+    @DubboReference
     private TenantLocalProvider tenantLocalProvider;
 
-    @Reference
+    @DubboReference
     private UserTenantRoleLocalProvider userTenantRoleLocalProvider;
 
     @Autowired

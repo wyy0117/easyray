@@ -1,6 +1,5 @@
 package com.easyray.auth.service.impl;
 
-import com.alibaba.dubbo.config.annotation.Reference;
 import com.alibaba.dubbo.rpc.RpcContext;
 import com.easyray.auth.entity.UserDetailsImpl;
 import com.easyray.baseapi.constant.FieldNameConstant;
@@ -8,6 +7,7 @@ import com.easyray.coreapi.entity.User;
 import com.easyray.coreapi.service.UserLocalProvider;
 import com.google.gson.Gson;
 import org.apache.commons.collections4.map.PassiveExpiringMap;
+import org.apache.dubbo.config.annotation.DubboReference;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
@@ -25,7 +25,7 @@ public class SpringSecurityUtil {
     private Map<Long, User> userId_user_map = new PassiveExpiringMap<>(30, TimeUnit.MINUTES);
     private Map<Thread, User> thread_user_map = new PassiveExpiringMap<>(30, TimeUnit.MINUTES);
 
-    @Reference
+    @DubboReference
     private UserLocalProvider userLocalProvider;
 
     /**

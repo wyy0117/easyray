@@ -1,6 +1,5 @@
 package com.easyray.documentprovider;
 
-import com.alibaba.dubbo.config.annotation.Reference;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.easyray.coreapi.entity.Tenant;
@@ -13,6 +12,7 @@ import com.easyray.documentapi.provider.DFileLocalProvider;
 import com.easyray.documentapi.provider.DFolderLocalProvider;
 import com.easyray.fastdfsprovider.FastDFSClient;
 import com.easyray.idgeneratorapi.provider.IdService;
+import org.apache.dubbo.config.annotation.DubboReference;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -33,9 +33,9 @@ import java.util.List;
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 class DocumentProviderApplicationTests {
 
-    @Reference
+    @DubboReference
     private IdService idService;
-    @Reference
+    @DubboReference
     private UserLocalProvider userLocalProvider;
 
     @Autowired
@@ -44,7 +44,7 @@ class DocumentProviderApplicationTests {
     @Autowired
     @Qualifier("DFileLocalProviderImpl")
     private DFileLocalProvider dFileLocalProvider;
-    @Reference
+    @DubboReference
     private TenantLocalProvider tenantLocalProvider;
     @Autowired
     private FastDFSClient fastDFSClient;

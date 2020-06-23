@@ -1,9 +1,9 @@
 package com.easyray.auth.service.impl;
 
-import com.alibaba.dubbo.config.annotation.Reference;
 import com.easyray.auth.entity.UserDetailsImpl;
 import com.easyray.coreapi.entity.User;
 import com.easyray.coreapi.service.UserLocalProvider;
+import org.apache.dubbo.config.annotation.DubboReference;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -16,7 +16,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class UserDetailServiceImpl implements UserDetailsService {
 
-    @Reference(check = false)
+    @DubboReference(check = false)
     private UserLocalProvider userLocalProvider;
 
     @Override

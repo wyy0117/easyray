@@ -1,6 +1,5 @@
 package com.easyray.systemprovider.init;
 
-import com.alibaba.dubbo.config.annotation.Reference;
 import com.easyray.baseapi.constant.InitOrderConstant;
 import com.easyray.baseapi.constant.RoleNameConstant;
 import com.easyray.baseapi.constant.RoleTypeConstant;
@@ -15,6 +14,7 @@ import com.easyray.coreapi.service.UserLocalProvider;
 import com.easyray.coreapi.service.UserRoleLocalProvider;
 import com.easyray.idgeneratorapi.provider.IdService;
 import com.easyray.systemprovider.autoconfig.SystemTenantProperties;
+import org.apache.dubbo.config.annotation.DubboReference;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,7 +43,7 @@ public class InitSystem implements IEasyrayInit {
     @Autowired
     @Qualifier("roleLocalProviderImpl")
     private RoleLocalProvider roleLocalProvider;
-    @Reference
+    @DubboReference
     private IdService idService;
     @Autowired
     @Qualifier("userRoleLocalProviderImpl")

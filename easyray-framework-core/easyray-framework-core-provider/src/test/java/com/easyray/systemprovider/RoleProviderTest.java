@@ -1,6 +1,5 @@
 package com.easyray.systemprovider;
 
-import com.alibaba.dubbo.config.annotation.Reference;
 import com.easyray.auth.service.impl.SpringSecurityUtil;
 import com.easyray.baseapi.constant.RoleTypeConstant;
 import com.easyray.coreapi.entity.Role;
@@ -8,6 +7,7 @@ import com.easyray.coreapi.entity.User;
 import com.easyray.idgeneratorapi.provider.IdService;
 import com.easyray.systemprovider.provider.impl.RoleLocalProviderImpl;
 import com.easyray.systemprovider.provider.impl.UserLocalProviderImpl;
+import org.apache.dubbo.config.annotation.DubboReference;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
@@ -26,7 +26,7 @@ public class RoleProviderTest {
 
     private Logger logger = LoggerFactory.getLogger(RoleProviderTest.class);
 
-    @Reference
+    @DubboReference
     private IdService idService;
 
     @Autowired

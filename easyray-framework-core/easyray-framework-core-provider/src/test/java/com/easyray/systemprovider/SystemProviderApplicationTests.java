@@ -1,11 +1,11 @@
 package com.easyray.systemprovider;
 
-import com.alibaba.dubbo.config.annotation.Reference;
 import com.easyray.coreapi.entity.Tenant;
 import com.easyray.coreapi.entity.User;
 import com.easyray.coreapi.service.TenantLocalProvider;
 import com.easyray.coreapi.service.UserLocalProvider;
 import com.easyray.idgeneratorapi.provider.IdService;
+import org.apache.dubbo.config.annotation.DubboReference;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -27,7 +27,7 @@ class SystemProviderApplicationTests {
     @Qualifier("tenantLocalProviderImpl")
     private TenantLocalProvider tenantLocalProvider;
 
-    @Reference
+    @DubboReference
     private IdService idService;
 
     @Test

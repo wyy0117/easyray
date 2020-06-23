@@ -1,6 +1,5 @@
 package com.easyray.resourcepermission.init;
 
-import com.alibaba.dubbo.config.annotation.Reference;
 import com.easyray.baseapi.constant.InitOrderConstant;
 import com.easyray.baseapi.init.IEasyrayInit;
 import com.easyray.common.exception.EasyCustomException;
@@ -21,6 +20,7 @@ import com.easyray.resourcepermission.service.ResourceActionLocalProvider;
 import com.easyray.resourcepermission.service.ResourcePermissionLocalProvider;
 import com.easyray.resourcepermission.service.ResourcePermissionVersionLocalProvider;
 import com.easyray.resourcepermission.util.XMLUtil;
+import org.apache.dubbo.config.annotation.DubboReference;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,9 +47,9 @@ public class InitResourcePermission implements IEasyrayInit {
     private ResourcePermissionConfigurationProperties resourcePermissionConfigurationProperties;
     @Autowired
     private ResourcePermissionVersionLocalProvider resourcePermissionVersionLocalProvider;
-    @Reference
+    @DubboReference
     private IdService idService;
-    @Reference(check = false)
+    @DubboReference(check = false)
     private RoleLocalProvider roleLocalProvider;
     @Autowired
     private ResourceActionLocalProvider resourceActionLocalProvider;
