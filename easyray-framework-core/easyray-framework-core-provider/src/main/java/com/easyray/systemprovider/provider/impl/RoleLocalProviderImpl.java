@@ -1,6 +1,5 @@
 package com.easyray.systemprovider.provider.impl;
 
-import com.alibaba.dubbo.config.annotation.Service;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.easyray.baseapi.provider.EasyrayServiceImpl;
 import com.easyray.common.exception.EntityNotExistException;
@@ -9,15 +8,16 @@ import com.easyray.coreapi.service.RoleLocalProvider;
 import com.easyray.idgeneratorapi.provider.IdService;
 import com.easyray.systemprovider.mapper.RoleMapper;
 import org.apache.dubbo.config.annotation.DubboReference;
-import org.springframework.stereotype.Component;
+import org.apache.dubbo.config.annotation.DubboService;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
  * @author wyy
  * @since 2020-02_08
  */
+@DubboService
 @Service
-@Component
 @Transactional
 public class RoleLocalProviderImpl extends EasyrayServiceImpl<RoleMapper, Role> implements RoleLocalProvider {
 

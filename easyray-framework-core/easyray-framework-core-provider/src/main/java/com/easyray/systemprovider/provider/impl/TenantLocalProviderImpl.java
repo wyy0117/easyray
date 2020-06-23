@@ -1,6 +1,5 @@
 package com.easyray.systemprovider.provider.impl;
 
-import com.alibaba.dubbo.config.annotation.Service;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.easyray.baseapi.constant.RoleNameConstant;
 import com.easyray.baseapi.provider.EasyrayServiceImpl;
@@ -13,16 +12,17 @@ import com.easyray.coreapi.service.UserTenantRoleLocalProvider;
 import com.easyray.idgeneratorapi.provider.IdService;
 import com.easyray.systemprovider.mapper.TenantMapper;
 import org.apache.dubbo.config.annotation.DubboReference;
+import org.apache.dubbo.config.annotation.DubboService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 /**
  * @author wyy
  * @since 2020-02_12
  */
+@DubboService
 @Service
-@Component
 public class TenantLocalProviderImpl extends EasyrayServiceImpl<TenantMapper, Tenant> implements TenantLocalProvider {
 
     @Autowired

@@ -11,16 +11,16 @@ import com.easyray.teamapi.entity.Team;
 import com.easyray.teamapi.service.TeamLocalProvider;
 import com.easyray.teamprovider.mapper.TeamMapper;
 import org.apache.dubbo.config.annotation.DubboReference;
+import org.apache.dubbo.config.annotation.DubboService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
  * @author wyy
  * @since 2020-02_11
  */
+@DubboService
 @Service
-@Component
 @Transactional
 public class TeamLocalProviderImpl extends EasyrayServiceImpl<TeamMapper, Team> implements TeamLocalProvider {
 

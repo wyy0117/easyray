@@ -1,6 +1,5 @@
 package com.easyray.documentprovider.provider.impl;
 
-import com.alibaba.dubbo.config.annotation.Service;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.easyray.baseapi.provider.EasyrayServiceImpl;
 import com.easyray.documentapi.entity.DFile;
@@ -8,9 +7,10 @@ import com.easyray.documentapi.entity.DFolder;
 import com.easyray.documentapi.provider.DFileLocalProvider;
 import com.easyray.documentapi.provider.DFolderLocalProvider;
 import com.easyray.documentprovider.mapper.DFolderMapper;
+import org.apache.dubbo.config.annotation.DubboService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
@@ -18,8 +18,8 @@ import java.util.List;
  * @author wyy
  * @since 2020-02_13
  */
+@DubboService
 @Service
-@Component
 public class DFolderLocalProviderImpl extends EasyrayServiceImpl<DFolderMapper, DFolder> implements DFolderLocalProvider {
 
 

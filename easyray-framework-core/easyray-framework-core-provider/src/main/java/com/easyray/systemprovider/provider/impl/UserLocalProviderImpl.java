@@ -14,9 +14,9 @@ import com.easyray.coreapi.service.UserRoleLocalProvider;
 import com.easyray.idgeneratorapi.provider.IdService;
 import com.easyray.systemprovider.mapper.UserMapper;
 import org.apache.dubbo.config.annotation.DubboReference;
+import org.apache.dubbo.config.annotation.DubboService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
@@ -27,8 +27,8 @@ import org.springframework.transaction.annotation.Transactional;
  * @author wyy
  * @since 2020-01-26
  */
+@DubboService
 @Service
-@Component
 @Transactional
 public class UserLocalProviderImpl extends EasyrayServiceImpl<UserMapper, User> implements UserLocalProvider {
 

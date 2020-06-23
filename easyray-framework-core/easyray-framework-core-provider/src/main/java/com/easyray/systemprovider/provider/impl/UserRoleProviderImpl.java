@@ -1,15 +1,15 @@
 package com.easyray.systemprovider.provider.impl;
 
-import com.alibaba.dubbo.config.annotation.Service;
 import com.easyray.coreapi.service.UserRoleProvider;
-import org.springframework.stereotype.Component;
+import org.apache.dubbo.config.annotation.DubboService;
+import org.springframework.stereotype.Service;
 
 /**
  * @Date: 2020-02_12
  * @Author: wyy
  */
+@DubboService
 @Service
-@Component
 public class UserRoleProviderImpl extends UserRoleLocalProviderImpl implements UserRoleProvider {
 
 }

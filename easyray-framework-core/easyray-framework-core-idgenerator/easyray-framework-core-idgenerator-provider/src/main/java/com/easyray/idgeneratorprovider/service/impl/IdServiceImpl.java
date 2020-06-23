@@ -1,14 +1,14 @@
 package com.easyray.idgeneratorprovider.service.impl;
 
-import com.alibaba.dubbo.config.annotation.Service;
 import com.easyray.idgeneratorapi.entity.IdSequence;
 import com.easyray.idgeneratorapi.provider.IdSequenceLocalProvider;
 import com.easyray.idgeneratorapi.provider.IdService;
+import org.apache.dubbo.config.annotation.DubboService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
 import java.util.List;
@@ -19,8 +19,8 @@ import java.util.concurrent.ConcurrentHashMap;
  * @Date: 20-2-4
  * @Author: wyy
  */
+@DubboService
 @Service
-@Component
 public class IdServiceImpl implements IdService {
     private final Logger log = LoggerFactory.getLogger(IdServiceImpl.class);
 

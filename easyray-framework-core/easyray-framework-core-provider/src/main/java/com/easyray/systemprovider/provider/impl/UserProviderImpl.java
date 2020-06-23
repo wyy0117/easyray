@@ -1,15 +1,15 @@
 package com.easyray.systemprovider.provider.impl;
 
-import com.alibaba.dubbo.config.annotation.Service;
 import com.easyray.coreapi.service.UserProvider;
-import org.springframework.stereotype.Component;
+import org.apache.dubbo.config.annotation.DubboService;
+import org.springframework.stereotype.Service;
 
 /**
  * @Date: 20-1-27
  * @Author: wyy
  */
+@DubboService
 @Service
-@Component
 public class UserProviderImpl extends UserLocalProviderImpl implements UserProvider {
 
 }

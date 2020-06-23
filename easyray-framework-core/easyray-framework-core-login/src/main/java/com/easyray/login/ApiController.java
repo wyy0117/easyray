@@ -20,16 +20,16 @@ public class ApiController {
     private final Logger logger = LoggerFactory.getLogger(ApiController.class);
 
     @GetMapping("status")
-    public void status(){
+    public void status() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         System.out.println("authentication = " + authentication);
     }
 
     @GetMapping("sms-code")
     @EasyrayNoAuth
-    public String smsCode(@RequestParam String phone){
+    public String smsCode(@RequestParam String phone) {
         String code = RandomStringUtils.randomNumeric(6);
-        logger.debug("generate code for phone:{},code:{}",phone,code);
+        logger.debug("generate code for phone:{},code:{}", phone, code);
         return code;
     }
 

@@ -1,6 +1,5 @@
 package com.easyray.documentprovider.provider.impl;
 
-import com.alibaba.dubbo.config.annotation.Service;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.easyray.baseapi.provider.EasyrayServiceImpl;
@@ -10,9 +9,10 @@ import com.easyray.documentapi.entity.DFileVersion;
 import com.easyray.documentapi.provider.DFileLocalProvider;
 import com.easyray.documentapi.util.FileVersionUtil;
 import com.easyray.documentprovider.mapper.DFileMapper;
+import org.apache.dubbo.config.annotation.DubboService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
@@ -22,8 +22,8 @@ import java.util.List;
  * @author wyy
  * @since 2020-02_13
  */
+@DubboService
 @Service
-@Component
 public class DFileLocalProviderImpl extends EasyrayServiceImpl<DFileMapper, DFile> implements DFileLocalProvider {
 
     @Autowired

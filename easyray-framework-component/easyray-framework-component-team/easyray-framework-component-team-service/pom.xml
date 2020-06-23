@@ -21,10 +21,6 @@
             <artifactId>easyray-framework-component-team-api</artifactId>
             <version>1.0.0</version>
         </dependency>
-        <dependency>
-            <groupId>org.apache.dubbo</groupId>
-            <artifactId>dubbo</artifactId>
-        </dependency>
     </dependencies>
 
 

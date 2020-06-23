@@ -1,15 +1,15 @@
 package com.easyray.documentprovider.provider.impl;
 
-import com.alibaba.dubbo.config.annotation.Service;
 import com.easyray.documentapi.provider.DFileVersionProvider;
-import org.springframework.stereotype.Component;
+import org.apache.dubbo.config.annotation.DubboService;
+import org.springframework.stereotype.Service;
 
 /**
  * @Date: 2020-06_18
  * @Author: wyy
  */
+@DubboService
 @Service
-@Component
 public class DFileVersionProviderImpl extends DFileVersionLocalProviderImpl implements DFileVersionProvider {
 
 }

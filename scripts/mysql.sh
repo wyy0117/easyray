@@ -3,8 +3,8 @@ port=3306
 container_name=mysql
 root_password=root
 
-mkdir -p $base_path/{conf,dbdata} \
-&& echo "[mysql]
+mkdir -p $base_path/{conf,dbdata} &&
+  echo "[mysql]
 default-character-set=utf8
 
 [mysqld]
@@ -15,5 +15,5 @@ skip-host-cache
 skip-name-resolve
 default-time-zone = '+08:00'
 max_allowed_packet=1024M
-max_connections=1000">~/docker/data/mysql5.7/conf/config-file.cnf \
-&& docker run --restart=always -m 4g --name $container_name -p $port:3306 -v $base_path/conf:/etc/mysql/conf.d -v $base_path/dbdata:/var/lib/mysql -e MYSQL_ROOT_PASSWORD=$root_password -d mysql:5.7
+max_connections=1000" >~/docker/data/mysql5.7/conf/config-file.cnf &&
+  docker run --restart=always -m 4g --name $container_name -p $port:3306 -v $base_path/conf:/etc/mysql/conf.d -v $base_path/dbdata:/var/lib/mysql -e MYSQL_ROOT_PASSWORD=$root_password -d mysql:5.7

@@ -9,6 +9,6 @@ cd easyray-framework-core-api && mvn -Dmaven.test.skip=true install && cd ..
 mvn -Dmaven.test.skip=true install
 
 cd ../easyray-framework-component
-componentPath=`pwd`
+componentPath=$(pwd)
 find . -type d -name '*-api' -exec cd $componentPath/{} \; && mvn -Dmaven.test.skip=true install
 cd $componentPath/..

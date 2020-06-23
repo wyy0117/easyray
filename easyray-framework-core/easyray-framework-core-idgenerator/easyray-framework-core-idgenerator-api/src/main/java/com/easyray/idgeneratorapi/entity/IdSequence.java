@@ -20,7 +20,7 @@ import static com.wyy.actable.constants.MySqlDataType.VARCHAR;
 @Table(name = "sys_id_sequence")
 public class IdSequence implements Serializable {
 
-    @Column(name ="id", type = BIGINT, length = 20, nullable = false, key = true)
+    @Column(name = "id", type = BIGINT, length = 20, nullable = false, key = true)
     @TableId(type = IdType.INPUT)
     private long id;
 
