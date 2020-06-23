@@ -1,6 +1,5 @@
 package com.easyray.teamprovider.service.impl;
 
-import com.alibaba.dubbo.config.annotation.Service;
 import com.easyray.auth.service.impl.SpringSecurityUtil;
 import com.easyray.baseapi.constant.RoleTypeConstant;
 import com.easyray.baseapi.provider.EasyrayServiceImpl;
@@ -13,6 +12,7 @@ import com.easyray.teamprovider.mapper.TeamMapper;
 import org.apache.dubbo.config.annotation.DubboReference;
 import org.apache.dubbo.config.annotation.DubboService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 /**

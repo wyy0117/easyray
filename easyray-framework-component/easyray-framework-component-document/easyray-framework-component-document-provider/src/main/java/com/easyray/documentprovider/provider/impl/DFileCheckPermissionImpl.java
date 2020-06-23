@@ -6,7 +6,7 @@ import com.easyray.documentapi.entity.DFile;
 import com.easyray.documentapi.entity.DFileVersion;
 import com.easyray.documentapi.provider.DFileCheckPermission;
 import com.easyray.documentprovider.mapper.DFileMapper;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
@@ -16,7 +16,7 @@ import java.util.List;
  * @Date: 2020-02_13
  * @Author: wyy
  */
-@Component
+@Service
 public class DFileCheckPermissionImpl extends EasyrayServiceImpl<DFileMapper, DFile> implements DFileCheckPermission {
 
     @Override
