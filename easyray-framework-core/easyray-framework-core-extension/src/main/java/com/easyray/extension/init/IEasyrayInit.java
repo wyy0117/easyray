@@ -1,4 +1,4 @@
-package com.easyray.baseapi.init;
+package com.easyray.extension.init;
 
 import org.springframework.boot.ApplicationArguments;
 

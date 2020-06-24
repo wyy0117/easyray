@@ -5,3 +5,7 @@ server:
 dubbo:
   application:
     name: @project.name@
+
+spring:
+  profiles:
+    include: common

@@ -6,7 +6,6 @@
         <groupId>com.easyray</groupId>
         <artifactId>easyray-framework-core</artifactId>
         <version>1.0.0</version>
-        <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.easyray</groupId>
     <artifactId>easyray-framework-core-login</artifactId>
@@ -47,6 +46,12 @@
         <dependency>
             <groupId>com.easyray</groupId>
             <artifactId>easyray-framework-core-auth</artifactId>
+            <version>1.0.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.easyray</groupId>
+            <artifactId>easyray-framework-core-properties</artifactId>
             <version>1.0.0</version>
         </dependency>
 

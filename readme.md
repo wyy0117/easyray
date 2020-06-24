@@ -26,6 +26,16 @@
             <artifactId>easyray-framework-core-baseapi</artifactId>
             <version>1.0.0</version>
         </dependency>
+       <dependency>
+           <groupId>com.wyy</groupId>
+           <artifactId>actable</artifactId>
+           <scope>provided</scope>
+       </dependency>
+       <dependency>
+           <groupId>com.baomidou</groupId>
+           <artifactId>mybatis-plus-boot-starter</artifactId>
+           <scope>provided</scope>
+       </dependency>
         ```
 1. 创建provider模块（springboot）
     1. provider模块修改pom修改parent(参考api模块的parent)
@@ -55,12 +65,21 @@
             </exclusions>
         </dependency>
     
-        <!-- https://mvnrepository.com/artifact/com.alibaba/druid -->
-        <dependency>
-            <groupId>com.alibaba</groupId>
-            <artifactId>druid</artifactId>
-        </dependency>
-    
+       <!-- https://mvnrepository.com/artifact/com.alibaba/druid -->
+       <dependency>
+           <groupId>com.alibaba</groupId>
+           <artifactId>druid</artifactId>
+       </dependency>
+       <dependency>
+           <groupId>mysql</groupId>
+           <artifactId>mysql-connector-java</artifactId>
+           <scope>runtime</scope>
+       </dependency>
+       <dependency>
+           <groupId>com.wyy</groupId>
+           <artifactId>actable</artifactId>
+       </dependency>
+       
         <!-- https://mvnrepository.com/artifact/org.apache.dubbo/dubbo-registry-nacos -->
         <dependency>
             <groupId>org.apache.dubbo</groupId>
@@ -72,11 +91,18 @@
             <artifactId>dubbo-spring-boot-starter</artifactId>
         </dependency>
     
-        <dependency>
-            <groupId>com.baomidou</groupId>
-            <artifactId>mybatis-plus-boot-starter</artifactId>
-        </dependency>
+       <dependency>
+           <groupId>com.easyray</groupId>
+           <artifactId>easyray-framework-core-properties</artifactId>
+           <version>1.0.0</version>
+       </dependency>
+       <dependency>
+           <groupId>com.easyray</groupId>
+           <artifactId>easyray-framework-core-extension</artifactId>
+           <version>1.0.0</version>
+       </dependency>
         ```   
+    1. 添加api层的依赖
     1. provider模块添加组件扫描
         ```
         @SpringBootApplication(scanBasePackages = {"com.wyy.*", "com.easyray.*"})
@@ -93,6 +119,10 @@
        dubbo:
          application:
            name: @project.name@
+       
+       spring:
+         profiles:
+           include: common
        ```
 1. 创建service模块
     1. 添加依赖
@@ -100,6 +130,7 @@
        <dependency>
            <groupId>org.springframework</groupId>
            <artifactId>spring-context</artifactId>
+           <scope>provided</scope>
        </dependency>
 
        <!-- https://mvnrepository.com/artifact/com.alibaba.boot/dubbo-spring-boot-starter -->
@@ -113,13 +144,17 @@
                </exclusion>
            </exclusions>
        </dependency>
+       <dependency>
+           <groupId>com.baomidou</groupId>
+           <artifactId>mybatis-plus-extension</artifactId>
+       </dependency>
        ```  
     1. 添加对api模块的依赖
 1. 创建web模块（springboot）
     1. 修改注解
         ```
        @SpringBootApplication(scanBasePackages = "com.easyray.*")
-       @EnableDubbo
+       @DubboComponentScan(basePackages = {"com.easyray.*"})
        ```
     1. 添加依赖
         ```
@@ -148,8 +183,13 @@
                 </exclusion>
             </exclusions>
         </dependency>
-       ```   
-    1. 添加service模块的依赖  
+       
+       <dependency>
+           <groupId>com.easyray</groupId>
+           <artifactId>easyray-framework-core-properties</artifactId>
+           <version>1.0.0</version>
+       </dependency>
+       ```    
     1. 添加认证模块（如果需要）
         1. 添加依赖
            ```
@@ -158,14 +198,22 @@
                 <artifactId>easyray-framework-core-auth</artifactId>
                 <version>1.0.0</version>
             </dependency>
-           ```    
-        1. 添加redis配置
-           ```
-           spring:
-             redis:
-               host: localhost
-               port: 6379
-           ```
+           ```  
+    1. 添加配置
+        ```
+       server:
+         servlet:
+           context-path: 
+         port: 7003
+       
+       dubbo:
+         application:
+           name: @project.name@
+       
+       spring:
+         profiles:
+           include: common
+       ```  
 #### todo
 1. ~~url白名单~~ 20200610       
 1. ~~auth组件对web模块的请求做拦截~~ 20200610  

@@ -1,15 +1,15 @@
 package com.easyray.login;
 
-import com.alibaba.dubbo.config.spring.context.annotation.EnableDubbo;
+import org.apache.dubbo.config.spring.context.annotation.DubboComponentScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication(scanBasePackages = {"com.easyray.*"})
-@EnableDubbo
-public class EasyrayFrameworkCoreLoginApplication {
+@DubboComponentScan(basePackages = "com.easyray.*")
+public class EasyrayLoginApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(EasyrayFrameworkCoreLoginApplication.class, args);
+        SpringApplication.run(EasyrayLoginApplication.class, args);
     }
 
 }

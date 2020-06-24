@@ -1,1 +1,1 @@
-提供基础api，与建表，springboot，dubbo，mybatis-plus强相关
+提供基础api，提供dubbo服务接口和实体类型

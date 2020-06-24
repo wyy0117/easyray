@@ -1,7 +1,7 @@
 package com.easyray.resourcepermission.init;
 
 import com.easyray.baseapi.constant.InitOrderConstant;
-import com.easyray.baseapi.init.IEasyrayInit;
+import com.easyray.extension.init.IEasyrayInit;
 import com.easyray.common.util.MergeUtil;
 import com.easyray.idgeneratorapi.provider.IdService;
 import com.easyray.resourcepermission.autoconfig.ResourcePermissionConfigurationProperties;

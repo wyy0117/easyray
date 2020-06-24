@@ -4,7 +4,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 //@SpringBootTest
-class EasyrayFrameworkCoreLoginApplicationTests {
+class EasyrayLoginApplicationTests {
 
     @Test
     void contextLoads() {

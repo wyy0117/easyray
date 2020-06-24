@@ -4,6 +4,10 @@ dubbo:
 server:
   port: 7005
 
+spring:
+  profiles:
+    include: common
+
 fdfs:
   so-timeout: 1501
   connect-timeout: 601

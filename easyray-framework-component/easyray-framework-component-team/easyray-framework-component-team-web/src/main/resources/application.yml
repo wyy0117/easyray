@@ -8,6 +8,5 @@ dubbo:
     name: @project.name@
 
 spring:
-  redis:
-    host: localhost
-    port: 6379
+  profiles:
+    include: common

@@ -22,6 +22,8 @@
         <module>easyray-framework-core-idgenerator</module>
         <module>easyray-framework-core-api</module>
         <module>easyray-framework-core-login</module>
+        <module>easyray-framework-core-properties</module>
+        <module>easyray-framework-core-extension</module>
     </modules>
 
 </project>

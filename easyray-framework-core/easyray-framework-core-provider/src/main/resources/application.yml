@@ -11,6 +11,8 @@ spring:
     user:
       name: admin
       password: admin
+  profiles:
+    include: common
 
 system:
   group:

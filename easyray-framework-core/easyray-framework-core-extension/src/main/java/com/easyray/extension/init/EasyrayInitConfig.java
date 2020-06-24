@@ -1,4 +1,4 @@
-package com.easyray.baseapi.init;
+package com.easyray.extension.init;
 
 import com.easyray.common.exception.EasyCustomException;
 import com.easyray.common.exception.EntityNotExistException;

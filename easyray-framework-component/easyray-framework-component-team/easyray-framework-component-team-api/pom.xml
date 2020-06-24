@@ -17,6 +17,16 @@
             <artifactId>easyray-framework-core-baseapi</artifactId>
             <version>1.0.0</version>
         </dependency>
+        <dependency>
+            <groupId>com.wyy</groupId>
+            <artifactId>actable</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.baomidou</groupId>
+            <artifactId>mybatis-plus-boot-starter</artifactId>
+            <scope>provided</scope>
+        </dependency>
     </dependencies>
 
 </project>

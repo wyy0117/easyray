@@ -1,7 +1,7 @@
 package com.easyray.auth.config;
 
 import com.easyray.auth.service.impl.SpringSecurityUtil;
-import com.easyray.baseapi.autofill.EasyrayMetaObjectHandler;
+import com.easyray.extension.autofill.EasyrayMetaObjectHandler;
 import com.easyray.baseapi.constant.FieldNameConstant;
 import com.easyray.coreapi.entity.User;
 import org.apache.ibatis.reflection.MetaObject;
@@ -29,7 +29,7 @@ public class AutoFillUserPropertyHandler {
     @Autowired
     private SpringSecurityUtil springSecurityUtil;
 
-    @Pointcut("execution(void com.easyray.baseapi.autofill.EasyrayMetaObjectHandler.insertFill(..))")
+    @Pointcut("execution(void com.easyray.extension.autofill.EasyrayMetaObjectHandler.insertFill(..))")
     public void fillUser() {
     }
 
@@ -63,7 +63,7 @@ public class AutoFillUserPropertyHandler {
         }
     }
 
-    @Pointcut("execution(void com.easyray.baseapi.autofill.EasyrayMetaObjectHandler.updateFill(..))")
+    @Pointcut("execution(void com.easyray.extension.autofill.EasyrayMetaObjectHandler.updateFill(..))")
     public void updateUser() {
     }
 

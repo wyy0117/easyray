@@ -6,8 +6,12 @@ spring:
     username: easyray
     password: easyray
     type: com.alibaba.druid.pool.DruidDataSource
-  http:
+  servlet:
     encoding:
+      charset: UTF-8
+  redis:
+    host: localhost
+    port: 6379
 
 #dubbo config
 dubbo:
@@ -43,4 +47,3 @@ logging:
 mybatis-plus:
   configuration:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
-

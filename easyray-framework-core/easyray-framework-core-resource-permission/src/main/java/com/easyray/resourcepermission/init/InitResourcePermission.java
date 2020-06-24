@@ -1,7 +1,7 @@
 package com.easyray.resourcepermission.init;
 
 import com.easyray.baseapi.constant.InitOrderConstant;
-import com.easyray.baseapi.init.IEasyrayInit;
+import com.easyray.extension.init.IEasyrayInit;
 import com.easyray.common.exception.EasyCustomException;
 import com.easyray.common.exception.EntityNotExistException;
 import com.easyray.common.exception.filter.CustomThrowable;

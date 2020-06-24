@@ -3,7 +3,7 @@ package com.easyray.systemprovider.init;
 import com.easyray.baseapi.constant.InitOrderConstant;
 import com.easyray.baseapi.constant.RoleNameConstant;
 import com.easyray.baseapi.constant.RoleTypeConstant;
-import com.easyray.baseapi.init.IEasyrayInit;
+import com.easyray.extension.init.IEasyrayInit;
 import com.easyray.coreapi.entity.Role;
 import com.easyray.coreapi.entity.Tenant;
 import com.easyray.coreapi.entity.User;

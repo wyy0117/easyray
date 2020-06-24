@@ -50,6 +50,11 @@
             <artifactId>druid</artifactId>
         </dependency>
 
+        <dependency>
+            <groupId>com.wyy</groupId>
+            <artifactId>actable</artifactId>
+        </dependency>
+
         <!-- https://mvnrepository.com/artifact/org.apache.dubbo/dubbo-registry-nacos -->
         <dependency>
             <groupId>org.apache.dubbo</groupId>
@@ -68,6 +73,11 @@
         <dependency>
             <groupId>com.easyray</groupId>
             <artifactId>easyray-framework-core-idgenerator-api</artifactId>
+            <version>1.0.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.easyray</groupId>
+            <artifactId>easyray-framework-core-properties</artifactId>
             <version>1.0.0</version>
         </dependency>
     </dependencies>

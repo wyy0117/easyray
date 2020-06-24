@@ -1,4 +1,4 @@
-package com.easyray.baseapi.autofill;
+package com.easyray.extension.autofill;
 
 import com.baomidou.mybatisplus.core.handlers.MetaObjectHandler;
 import com.easyray.baseapi.constant.FieldNameConstant;
