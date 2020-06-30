@@ -24,6 +24,7 @@
         <module>easyray-framework-core-login</module>
         <module>easyray-framework-core-properties</module>
         <module>easyray-framework-core-extension</module>
+        <module>easyray-framework-core-printlog</module>
     </modules>
 
 </project>

@@ -2,9 +2,9 @@
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost/easyray?useUnicode=true&characterEncoding=utf8
-    username: easyray
-    password: easyray
+    url: jdbc:mysql://192.168.99.240:3309/wyy_easyray?useUnicode=true&characterEncoding=utf8
+    username: wangyuyuan
+    password: wangyuyuan
     type: com.alibaba.druid.pool.DruidDataSource
   servlet:
     encoding:
@@ -37,13 +37,6 @@ actable:
   print:
     sql: true
 
-#log
-logging:
-  file:
-    path: .
-  level:
-    com.easyray: debug
-
-mybatis-plus:
-  configuration:
-    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+#mybatis-plus:
+#  configuration:
+#    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl

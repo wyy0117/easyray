@@ -11,4 +11,4 @@ dubbo:
 
 spring:
   profiles:
-    include: common
+    active: common,default
