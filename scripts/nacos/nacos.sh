@@ -1,12 +1,12 @@
 #!/usr/bin/env bash
-base_path=/Users/wyy/home/docker/data/nacos
+base_path=/Users/wyy/docker/data/nacos
 port=8848
 container_name=nacos
-mysql_host=192.168.3.26
-mysql_port=3306
-mysql_username=nacos
-mysql_password=nacos
-mysql_db=nacos
+mysql_host=192.168.99.240
+mysql_port=3309
+mysql_username=wangyuyuan
+mysql_password=wangyuyuan
+mysql_db=wyy_nacos
 
 mkdir -p $base_path/{logs,init.d}
 cp ./custom.properties $base_path/init.d/.
