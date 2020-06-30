@@ -157,7 +157,7 @@
         addtivity:是否向上级logger传递打印信息。默认是true。
     -->
     <!--<logger name="org.springframework.web" level="info"/>-->
-    <logger name="com.easyray" level="debug"/>
+    <!--    <logger name="com.easyray" level="debug"/>-->
     <!--
         使用mybatis的时候，sql语句是debug下才会打印，而这里我们只配置了info，所以想要查看sql语句的话，有以下两种操作：
         第一种把<root level="info">改成<root level="DEBUG">这样就会打印sql，不过这样日志那边会出现很多其他消息
@@ -173,27 +173,27 @@
 
     <!--默认环境:打印控制台-->
     <springProfile name="default">
-        <root level="${log.level}">
+        <logger name="com.easyray" level="${log.level}">
             <appender-ref ref="CONSOLE"/>
-        </root>
+        </logger>
     </springProfile>
 
     <!--    开发环境:打印控制台-->
     <springProfile name="dev">
-        <root level="${log.level}">
+        <logger name="com.easyray" level="${log.level}">
             <appender-ref ref="CONSOLE"/>
-        </root>
+        </logger>
     </springProfile>
 
     <!--生产环境:打印控制台和输出日志文件-->
     <springProfile name="prod">
-        <root level="${log.level}">
+        <logger name="com.easyray" level="${log.level}">
             <appender-ref ref="CONSOLE"/>
             <appender-ref ref="DEBUG_FILE"/>
             <appender-ref ref="INFO_FILE"/>
             <appender-ref ref="ERROR_FILE"/>
             <appender-ref ref="WARN_FILE"/>
-        </root>
+        </logger>
     </springProfile>
 
 
