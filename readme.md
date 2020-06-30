@@ -122,7 +122,7 @@
        
        spring:
          profiles:
-           include: common
+           active: common,default
        ```
 1. 创建service模块
     1. 添加依赖
@@ -212,7 +212,7 @@
        
        spring:
          profiles:
-           include: common
+           active: common,default
        ```  
 #### todo
 1. ~~url白名单~~ 20200610       
