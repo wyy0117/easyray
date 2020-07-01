@@ -6,6 +6,7 @@ import com.easyray.documentapi.provider.DFolderCheckPermission;
 import com.easyray.documentprovider.mapper.DFolderMapper;
 import org.springframework.stereotype.Component;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -16,12 +17,7 @@ import java.util.List;
 public class DFolderCheckPermissionImpl extends EasyrayServiceImpl<DFolderMapper, DFolder> implements DFolderCheckPermission {
 
     @Override
-    public void deleteFolder(long id) {
-
-    }
-
-    @Override
-    public List<DFolder> getSubFolderList(long parentFolderId) {
+    public List<DFolder> getSubFolderList(Serializable parentFolderId) {
         return null;
     }
 }
