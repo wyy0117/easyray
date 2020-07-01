@@ -25,6 +25,8 @@ public class InitSeataConfig implements IEasyrayInit {
     private String nacosHost;
     @Value("${seata.tx-group-value}")
     private String txGroupValue;
+    @Value("${seata.tx-group}")
+    private String txGroup;
 
     @Autowired
     private SeataProperties seataProperties;
@@ -38,8 +40,7 @@ public class InitSeataConfig implements IEasyrayInit {
     public void init(ApplicationArguments args) throws Exception {
         String dataId = "service.vgroupMapping." + seataProperties.getTxServiceGroup();
         ConfigService configService = NacosFactory.createConfigService(nacosHost);
-        String txServiceGroup = seataProperties.getTxServiceGroup();
-        logger.debug("init seata tx,dataId:{} , txServiceGroup:{} , txGroupValue:{} ", dataId, txServiceGroup, txGroupValue);
-        configService.publishConfig(dataId, txServiceGroup, txGroupValue);
+        logger.debug("init seata tx,dataId:{} , txGroup:{} , txGroupValue:{} ", dataId, txGroup, txGroupValue);
+        configService.publishConfig(dataId, txGroup, txGroupValue);
     }
 }

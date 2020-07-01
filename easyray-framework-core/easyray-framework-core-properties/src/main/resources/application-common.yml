@@ -58,3 +58,4 @@ seata:
     nacos:
       server-addr: ${nacos.host}
   tx-group-value: default
+  tx-group: SEATA_GROUP
