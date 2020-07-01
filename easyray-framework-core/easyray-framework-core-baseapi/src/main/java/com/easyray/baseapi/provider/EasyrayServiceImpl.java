@@ -1,10 +1,11 @@
 package com.easyray.baseapi.provider;
 
 import com.baomidou.mybatisplus.core.conditions.AbstractWrapper;
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.easyray.baseapi.mapper.EasyrayBaseMapper;
+import com.easyray.baseapi.service.IEasyrayService;
 import com.easyray.common.exception.EntityNotExistException;
 import com.easyray.common.exception.filter.CustomThrowable;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.lang.reflect.ParameterizedType;
 import java.util.List;
@@ -13,8 +14,15 @@ import java.util.List;
  * @Date: 20-2-12
  * @Author: wyy
  */
-public abstract class EasyrayServiceImpl<M extends EasyrayBaseMapper<T>, T> extends ServiceImpl<M, T> {
+@SuppressWarnings("unchecked")
+public abstract class EasyrayServiceImpl<M extends EasyrayBaseMapper<T>, T> implements IEasyrayService<T> {
 
+    @Autowired
+    protected M baseMapper;
+
+    public M getBaseMapper() {
+        return baseMapper;
+    }
 
     /**
      * 根据权限筛选过滤

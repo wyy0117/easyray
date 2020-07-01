@@ -1,8 +1,10 @@
 package com.easyray.resourcepermission.init;
 
 import com.easyray.baseapi.constant.InitOrderConstant;
-import com.easyray.extension.init.IEasyrayInit;
+import com.easyray.common.exception.EasyrayAbstractException;
+import com.easyray.common.exception.EntityDeleteFailedException;
 import com.easyray.common.util.MergeUtil;
+import com.easyray.extension.init.IEasyrayInit;
 import com.easyray.idgeneratorapi.provider.IdService;
 import com.easyray.resourcepermission.autoconfig.ResourcePermissionConfigurationProperties;
 import com.easyray.resourcepermission.entity.ResourceAction;
@@ -78,7 +80,7 @@ public class InitResourceAction implements IEasyrayInit {
                 resourceActionVersion = new ResourceActionVersion(idService.nextId(ResourceActionVersion.class.getName()));
                 resourceActionVersion.setModule(resourceActionsXML.getModule())
                         .setVersion(resourceActionsXML.getVersion());
-                resourceActionVersionLocalProvider.save(resourceActionVersion);
+                resourceActionVersionLocalProvider.add(resourceActionVersion);
                 List<ResourceActionXML> resourceActionXMLList = resourceActionsXML.getResourceActionXMLList();
                 for (ResourceActionXML resourceActionXML : resourceActionXMLList) {
                     List<String> actionKeys = resourceActionXML.getActionKeys();
@@ -89,7 +91,7 @@ public class InitResourceAction implements IEasyrayInit {
                 if (!resourceActionVersion.getVersion().equals(version)) {//版本发生了变化，需要最新的结果
                     logger.debug("resource action version is not same,old version:{},new version:{}", resourceActionVersion.getVersion(), version);
                     resourceActionVersion.setVersion(version);
-                    resourceActionVersionLocalProvider.saveOrUpdate(resourceActionVersion);
+                    resourceActionVersionLocalProvider.update(resourceActionVersion);
 
                     List<ResourceActionXML> resourceActionXMLList = resourceActionsXML.getResourceActionXMLList();
                     for (ResourceActionXML resourceActionXML : resourceActionXMLList) {
@@ -123,7 +125,7 @@ public class InitResourceAction implements IEasyrayInit {
      * @param entityName
      * @param actionSize action的bitwiseVale从多少开始
      */
-    private void addResourceAction(List<String> actionList, String entityName, int actionSize) {
+    private void addResourceAction(List<String> actionList, String entityName, int actionSize) throws EasyrayAbstractException {
         actionList = actionList.stream().distinct().collect(Collectors.toList());
         for (int i = 0; i < actionList.size(); i++) {
             String action = actionList.get(i);
@@ -132,11 +134,11 @@ public class InitResourceAction implements IEasyrayInit {
                     .setAction(action)
                     .setBitwiseValue(((int) Math.pow(2.0, (actionSize++))));
             logger.debug("add ResourceAction:{}", resourceAction);
-            resourceActionLocalProvider.save(resourceAction);
+            resourceActionLocalProvider.add(resourceAction);
         }
     }
 
-    private void deleteResourceAction(List<String> actionList, String entityName) {
+    private void deleteResourceAction(List<String> actionList, String entityName) throws EntityDeleteFailedException {
         resourceActionLocalProvider.deleteByNameAndActions(entityName, actionList);
     }
 }

@@ -10,8 +10,5 @@ import com.easyray.teamapi.entity.Team;
 public interface TeamLocalProvider extends BaseLocalProvider<Team> {
 
 
-    @Override
-    boolean save(Team entity);
-
     void test();
 }

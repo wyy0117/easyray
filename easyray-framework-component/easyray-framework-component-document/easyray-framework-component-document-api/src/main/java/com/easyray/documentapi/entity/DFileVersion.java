@@ -18,7 +18,7 @@ import org.springframework.beans.BeanUtils;
 @TableName("sys_dfile_version")
 public class DFileVersion extends DFile {
 
-    @Column(name = "file_id", type = MySqlDataType.BIGINT, length = 20, nullable = false)
+    @Column(name = "file_id", type = MySqlDataType.BIGINT, length = 10, nullable = false)
     private long fileId;
 
     @Column(name = "change_log", type = MySqlDataType.VARCHAR, length = 75, nullable = true)

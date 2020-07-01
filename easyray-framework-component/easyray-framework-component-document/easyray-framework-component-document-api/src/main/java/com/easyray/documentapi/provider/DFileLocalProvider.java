@@ -2,6 +2,7 @@ package com.easyray.documentapi.provider;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.easyray.baseapi.provider.BaseLocalProvider;
+import com.easyray.common.exception.EasyrayAbstractException;
 import com.easyray.documentapi.entity.DFile;
 import com.easyray.documentapi.entity.DFileVersion;
 import org.springframework.web.multipart.MultipartFile;
@@ -29,9 +30,9 @@ public interface DFileLocalProvider extends BaseLocalProvider<DFile> {
      * @return
      * @throws IOException
      */
-    String uploadFile(DFile dFile, MultipartFile multipartFile) throws IOException;
+    String uploadFile(DFile dFile, MultipartFile multipartFile) throws IOException, EasyrayAbstractException;
 
-    String updateFile(DFile dFile, MultipartFile multipartFile) throws IOException;
+    String updateFile(DFile dFile, MultipartFile multipartFile) throws IOException, EasyrayAbstractException;
 
     /**
      * 更新文件
@@ -42,9 +43,9 @@ public interface DFileLocalProvider extends BaseLocalProvider<DFile> {
      * @return
      * @throws IOException
      */
-    String updateFile(DFile dFile, DFileVersion dFileVersion, MultipartFile multipartFile) throws IOException;
+    String updateFile(DFile dFile, DFileVersion dFileVersion, MultipartFile multipartFile) throws IOException, EasyrayAbstractException;
 
-    String updateFile(DFile dFile, DFileVersion dFileVersion, String version, MultipartFile multipartFile) throws IOException;
+    String updateFile(DFile dFile, DFileVersion dFileVersion, String version, MultipartFile multipartFile) throws IOException, EasyrayAbstractException;
 
-    String updateFile(DFile dFile, DFileVersion dFileVersion, String version, MultipartFile multipartFile, String changeLog) throws IOException;
+    String updateFile(DFile dFile, DFileVersion dFileVersion, String version, MultipartFile multipartFile, String changeLog) throws IOException, EasyrayAbstractException;
 }

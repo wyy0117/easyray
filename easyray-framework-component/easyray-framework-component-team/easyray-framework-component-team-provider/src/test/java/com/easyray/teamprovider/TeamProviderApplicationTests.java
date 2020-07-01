@@ -4,6 +4,7 @@ import com.easyray.auth.service.impl.SpringSecurityUtil;
 import com.easyray.baseapi.constant.ActionScopeConstant;
 import com.easyray.baseapi.constant.ResourceActionConstant;
 import com.easyray.baseapi.constant.RoleTypeConstant;
+import com.easyray.common.exception.EasyrayAbstractException;
 import com.easyray.common.exception.EntityNotExistException;
 import com.easyray.coreapi.entity.*;
 import com.easyray.coreapi.service.*;
@@ -86,11 +87,11 @@ class TeamProviderApplicationTests {
     }
 
     @Test
-    public void testAdd() {
+    public void testAdd() throws EasyrayAbstractException {
         Team team = new Team(idService.nextId(Team.class.getName()));
         team.setName(System.currentTimeMillis() + "")
                 .setTenantId(3);
-        teamLocalProvider.save(team);
+        teamLocalProvider.add(team);
     }
 
     /**
@@ -99,7 +100,7 @@ class TeamProviderApplicationTests {
      * @throws EntityNotExistException
      */
     @Test
-    public void testPermission1() throws EntityNotExistException {
+    public void testPermission1() throws EasyrayAbstractException {
         //admin add role
         User user = initSpringSecurityThreadLocal("admin");
 
@@ -109,7 +110,7 @@ class TeamProviderApplicationTests {
                 .setPasswordAndEncode("123456");
         user.setUserId(user.getId())
                 .setFullName(user.getUsername());
-        userLocalProvider.save(user);
+        userLocalProvider.add(user);
 
         //don't have AA action
         assert !permissionUtil.havePermission(user.getId(), 0L, "AA", Team.class.getName());
@@ -118,10 +119,10 @@ class TeamProviderApplicationTests {
         Role role = roleLocalProvider.findByName("GLOBAL_ROLE");
         UserRole userRole = new UserRole();
         userRole.setUserId(user.getId()).setRoleId(role.getId());
-        userRoleLocalProvider.save(userRole);
+        userRoleLocalProvider.add(userRole);
 
-        userRoleLocalProvider.removeById(userRole.getId());
-        userLocalProvider.removeById(user.getId());
+        userRoleLocalProvider.delete(userRole.getId());
+        userLocalProvider.delete(user.getId());
 
         //have AA action
         assert permissionUtil.havePermission(user.getId(), 0L, "AA", Team.class.getName());
@@ -133,46 +134,46 @@ class TeamProviderApplicationTests {
      * @throws EntityNotExistException
      */
     @Test
-    public void testPermission2() throws EntityNotExistException {
+    public void testPermission2() throws EasyrayAbstractException {
         //create tenant creator
         User tenantCreator = new User(idService.nextId(User.class.getName()));
         tenantCreator.setUsername(System.currentTimeMillis() + "")
                 .setPasswordAndEncode("123456");
         tenantCreator.setUserId(tenantCreator.getId())
                 .setFullName(tenantCreator.getUsername());
-        userLocalProvider.save(tenantCreator);
+        userLocalProvider.add(tenantCreator);
 
         //create tenant
         initSpringSecurityThreadLocal(tenantCreator.getUsername());
         Tenant tenant = new Tenant(idService.nextId(Tenant.class.getName()));
         tenant.setName(System.currentTimeMillis() + "");
-        tenantLocalProvider.save(tenant);
+        tenantLocalProvider.add(tenant);
 //创建普通用户
         User user = new User(idService.nextId(User.class.getName()));
         user.setUsername(System.currentTimeMillis() + "")
                 .setPasswordAndEncode("123456");
         user.setUserId(user.getId())
                 .setFullName(user.getUsername());
-        userLocalProvider.save(user);
+        userLocalProvider.add(user);
 //添加用户到tenant中
         Role role = roleLocalProvider.findByName("USER");
         UserTenantRole userTenantRole1 = new UserTenantRole(idService.nextId(UserTenantRole.class.getName()), user.getId(), tenant.getId(), role.getId());
-        userTenantRoleLocalProvider.save(userTenantRole1);
+        userTenantRoleLocalProvider.add(userTenantRole1);
         //检查 无权限
         assert !permissionUtil.havePermission(user.getId(), tenant.getId(), "CC", Team.class.getName());
 
         //给用户TENANT_ROLE 角色
         role = roleLocalProvider.findByName("TENANT_ROLE");
         UserTenantRole userTenantRole2 = new UserTenantRole(idService.nextId(UserTenantRole.class.getName()), user.getId(), tenant.getId(), role.getId());
-        userTenantRoleLocalProvider.save(userTenantRole2);
+        userTenantRoleLocalProvider.add(userTenantRole2);
 
 //检查 有权限
         assert permissionUtil.havePermission(user.getId(), tenant.getId(), "CC", Team.class.getName());
 
         //清理数据
-        userTenantRoleLocalProvider.removeByIds(Arrays.asList(userTenantRole1.getId(), userTenantRole2.getId()));
-        tenantLocalProvider.removeById(tenant.getId());
-        userLocalProvider.removeByIds(Arrays.asList(tenantCreator.getId(), user.getId()));
+        userTenantRoleLocalProvider.deleteByIds(Arrays.asList(userTenantRole1.getId(), userTenantRole2.getId()));
+        tenantLocalProvider.delete(tenant.getId());
+        userLocalProvider.deleteByIds(Arrays.asList(tenantCreator.getId(), user.getId()));
     }
 
     /**
@@ -181,31 +182,31 @@ class TeamProviderApplicationTests {
      * @throws EntityNotExistException
      */
     @Test
-    public void testPermission3() throws EntityNotExistException {
+    public void testPermission3() throws EasyrayAbstractException {
         //create tenant creator
         User tenantCreator = new User(idService.nextId(User.class.getName()));
         tenantCreator.setUsername(System.currentTimeMillis() + "")
                 .setPasswordAndEncode("123456");
         tenantCreator.setUserId(tenantCreator.getId())
                 .setFullName(tenantCreator.getUsername());
-        userLocalProvider.save(tenantCreator);
+        userLocalProvider.add(tenantCreator);
 
         //create tenant
         initSpringSecurityThreadLocal(tenantCreator.getUsername());
         Tenant tenant = new Tenant(idService.nextId(Tenant.class.getName()));
         tenant.setName(System.currentTimeMillis() + "");
-        tenantLocalProvider.save(tenant);
+        tenantLocalProvider.add(tenant);
 //创建普通用户
         User user = new User(idService.nextId(User.class.getName()));
         user.setUsername(System.currentTimeMillis() + "")
                 .setPasswordAndEncode("123456");
         user.setUserId(user.getId())
                 .setFullName(user.getUsername());
-        userLocalProvider.save(user);
+        userLocalProvider.add(user);
 //添加用户到tenant中
         Role role = roleLocalProvider.findByName("USER");
         UserTenantRole userTenantRole1 = new UserTenantRole(idService.nextId(UserTenantRole.class.getName()), user.getId(), tenant.getId(), role.getId());
-        userTenantRoleLocalProvider.save(userTenantRole1);
+        userTenantRoleLocalProvider.add(userTenantRole1);
 
         //给范围角色赋BB的权限
         ResourceAction resourceAction = resourceActionLocalProvider.fetchByNameAndAction(Team.class.getName(), "BB");
@@ -215,30 +216,30 @@ class TeamProviderApplicationTests {
                 .setScope(ActionScopeConstant.TENANT)
                 .setRoleId(rangeRole.getId())
                 .setActionIds(resourceAction.getBitwiseValue());
-        resourcePermissionLocalProvider.save(resourcePermission);
+        resourcePermissionLocalProvider.add(resourcePermission);
 
         //检查 无权限
         assert !permissionUtil.havePermission(user.getId(), tenant.getId(), "BB", Team.class.getName());
 
         //给用户TENANT_ROLE 角色
         UserTenantRole userTenantRole2 = new UserTenantRole(idService.nextId(UserTenantRole.class.getName()), user.getId(), tenant.getId(), rangeRole.getId());
-        userTenantRoleLocalProvider.save(userTenantRole2);
+        userTenantRoleLocalProvider.add(userTenantRole2);
 
 //检查 有权限
         assert permissionUtil.havePermission(user.getId(), tenant.getId(), "BB", Team.class.getName());
 
         //清理数据
-        userTenantRoleLocalProvider.removeByIds(Arrays.asList(userTenantRole1.getId(), userTenantRole2.getId()));
-        tenantLocalProvider.removeById(tenant.getId());
-        userLocalProvider.removeByIds(Arrays.asList(tenantCreator.getId(), user.getId()));
+        userTenantRoleLocalProvider.deleteByIds(Arrays.asList(userTenantRole1.getId(), userTenantRole2.getId()));
+        tenantLocalProvider.delete(tenant.getId());
+        userLocalProvider.deleteByIds(Arrays.asList(tenantCreator.getId(), user.getId()));
     }
 
     @Test
-    public void testTeamPermission() {
+    public void testTeamPermission() throws EasyrayAbstractException {
         Team team = new Team(idService.nextId(Team.class.getName()));
         team.setName(System.currentTimeMillis() + "")
                 .setTenantId(313002);
-        teamLocalProvider.save(team);
+        teamLocalProvider.add(team);
 
         //给团队的角色赋权限
         ResourcePermission resourcePermission = new ResourcePermission(idService.nextId(ResourcePermission.class.getName()));
@@ -247,11 +248,11 @@ class TeamProviderApplicationTests {
                 .setRoleId(team.getRoleId())
                 .setScope(ActionScopeConstant.TENANT)
                 .setActionIds(2);
-        resourcePermissionLocalProvider.save(resourcePermission);
+        resourcePermissionLocalProvider.add(resourcePermission);
     }
 
     @Test
-    public void testPermission4() throws EntityNotExistException {
+    public void testPermission4() throws EasyrayAbstractException {
         User user = initSpringSecurityThreadLocal("admin");
 
         //创建角色
@@ -259,7 +260,7 @@ class TeamProviderApplicationTests {
         Role role = new Role(idService.nextId(Role.class.getName()));
         role.setName(roleName)
                 .setType(RoleTypeConstant.GLOBAL_ROLE);
-        roleLocalProvider.save(role);
+        roleLocalProvider.add(role);
         logger.debug("create role name:{} ,id:{}", roleName, role.getId());
         //配置角色的权限
         ResourceAction resourceAction = resourceActionLocalProvider.fetchByNameAndAction(Team.class.getName(), "VIEW");
@@ -268,34 +269,34 @@ class TeamProviderApplicationTests {
                 .setScope(ActionScopeConstant.GLOBAL)
                 .setRoleId(role.getId())
                 .setActionIds(resourceAction.getBitwiseValue());
-        resourcePermissionLocalProvider.save(resourcePermission);
+        resourcePermissionLocalProvider.add(resourcePermission);
         logger.debug("set resource permission id:{}", resourcePermission.getId());
         //创建租户
         Tenant tenant = new Tenant(idService.nextId(Tenant.class.getName()));
         tenant.setName(String.valueOf(System.currentTimeMillis()));
-        tenantLocalProvider.save(tenant);
+        tenantLocalProvider.add(tenant);
         logger.debug("create tenant id:{} , name:{}", tenant.getId(), tenant.getName());
         //创建team
         Team team1 = new Team(idService.nextId(Team.class.getName()));
         team1.setName("team1")
                 .setTenantId(tenant.getId());
-        teamLocalProvider.save(team1);
+        teamLocalProvider.add(team1);
         logger.debug("create team name:{} ,id:{}", team1.getName(), team1.getId());
         Team team2 = new Team(idService.nextId(Team.class.getName()));
         team2.setName("team2")
                 .setTenantId(tenant.getId());
-        teamLocalProvider.save(team2);
+        teamLocalProvider.add(team2);
         logger.debug("create team name:{} ,id:{}", team2.getName(), team2.getId());
         Team team3 = new Team(idService.nextId(Team.class.getName()));
         team3.setName("team3")
                 .setTenantId(tenant.getId());
-        teamLocalProvider.save(team3);
+        teamLocalProvider.add(team3);
         logger.debug("create team name:{} ,id:{}", team3.getName(), team3.getId());
         //创建用户
         User user1 = new User(idService.nextId(User.class.getName()));
         user1.setUsername(String.valueOf(System.currentTimeMillis()))
                 .setPassword("123456");
-        userLocalProvider.save(user1);
+        userLocalProvider.add(user1);
         logger.debug("create user name:{} ,id:{}", user1.getUsername(), user1.getId());
         //查询
         List<Team> teamList = teamProvider.filterFindBy(null, tenant.getId(), user1.getId());
@@ -305,21 +306,21 @@ class TeamProviderApplicationTests {
         UserRole userRole = new UserRole(idService.nextId(UserRole.class.getName()));
         userRole.setUserId(user1.getId())
                 .setRoleId(role.getId());
-        userRoleLocalProvider.save(userRole);
+        userRoleLocalProvider.add(userRole);
         logger.debug("create userRole id:{} ", userRole.getId());
         //查询
         teamList = teamProvider.filterFindBy(null, tenant.getId(), user1.getId());
         assert teamList.size() >= 3;
 
         //清理数据
-        roleLocalProvider.removeById(role.getId());
-        tenantLocalProvider.removeById(tenant.getId());
-        teamLocalProvider.removeByIds(Arrays.asList(team1.getId(), team2.getId(), team3.getId()));
-        userLocalProvider.removeById(user1.getId());
+        roleLocalProvider.delete(role.getId());
+        tenantLocalProvider.delete(tenant.getId());
+        teamLocalProvider.deleteByIds(Arrays.asList(team1.getId(), team2.getId(), team3.getId()));
+        userLocalProvider.delete(user1.getId());
     }
 
     @Test
-    public void testPermission5() throws EntityNotExistException {
+    public void testPermission5() throws EasyrayAbstractException {
         User user = initSpringSecurityThreadLocal("admin");
 
         //创建角色
@@ -327,7 +328,7 @@ class TeamProviderApplicationTests {
         Role role = new Role(idService.nextId(Role.class.getName()));
         role.setName(roleName)
                 .setType(RoleTypeConstant.GLOBAL_ROLE);
-        roleLocalProvider.save(role);
+        roleLocalProvider.add(role);
         logger.debug("create role name:{} ,id:{}", roleName, role.getId());
         //配置角色的权限
         ResourceAction resourceAction = resourceActionLocalProvider.fetchByNameAndAction(Team.class.getName(), ResourceActionConstant.VIEW);
@@ -336,34 +337,34 @@ class TeamProviderApplicationTests {
                 .setScope(ActionScopeConstant.TENANT)
                 .setRoleId(role.getId())
                 .setActionIds(resourceAction.getBitwiseValue());
-        resourcePermissionLocalProvider.save(resourcePermission);
+        resourcePermissionLocalProvider.add(resourcePermission);
         logger.debug("set resource permission id:{}", resourcePermission.getId());
         //创建租户
         Tenant tenant = new Tenant(idService.nextId(Tenant.class.getName()));
         tenant.setName(String.valueOf(System.currentTimeMillis()));
-        tenantLocalProvider.save(tenant);
+        tenantLocalProvider.add(tenant);
         logger.debug("create tenant id:{} , name:{}", tenant.getId(), tenant.getName());
         //创建team
         Team team1 = new Team(idService.nextId(Team.class.getName()));
         team1.setName("team1")
                 .setTenantId(tenant.getId());
-        teamLocalProvider.save(team1);
+        teamLocalProvider.add(team1);
         logger.debug("create team name:{} ,id:{}", team1.getName(), team1.getId());
         Team team2 = new Team(idService.nextId(Team.class.getName()));
         team2.setName("team2")
                 .setTenantId(tenant.getId());
-        teamLocalProvider.save(team2);
+        teamLocalProvider.add(team2);
         logger.debug("create team name:{} ,id:{}", team2.getName(), team2.getId());
         Team team3 = new Team(idService.nextId(Team.class.getName()));
         team3.setName("team3")
                 .setTenantId(tenant.getId());
-        teamLocalProvider.save(team3);
+        teamLocalProvider.add(team3);
         logger.debug("create team name:{} ,id:{}", team3.getName(), team3.getId());
         //创建用户
         User user1 = new User(idService.nextId(User.class.getName()));
         user1.setUsername(String.valueOf(System.currentTimeMillis()))
                 .setPassword("123456");
-        userLocalProvider.save(user1);
+        userLocalProvider.add(user1);
         logger.debug("create user name:{} ,id:{}", user1.getUsername(), user1.getId());
         //查询
         List<Team> teamList = teamProvider.filterFindBy(null, tenant.getId(), user1.getId());
@@ -371,7 +372,7 @@ class TeamProviderApplicationTests {
 
         //添加角色
         UserTenantRole userTenantRole = new UserTenantRole(idService.nextId(UserTenantRole.class.getName()), user1.getId(), tenant.getId(), role.getId());
-        userTenantRoleLocalProvider.save(userTenantRole);
+        userTenantRoleLocalProvider.add(userTenantRole);
         logger.debug("create userTenantRole id:{} ", userTenantRole.getId());
         //查询
         teamList = teamProvider.filterFindBy(null, tenant.getId(), user1.getId());
@@ -380,26 +381,26 @@ class TeamProviderApplicationTests {
         //不可以view别的租户下的team
         Tenant tenant1 = new Tenant(idService.nextId(Tenant.class.getName()));
         tenant1.setName(String.valueOf(System.currentTimeMillis()));
-        tenantLocalProvider.save(tenant1);
+        tenantLocalProvider.add(tenant1);
         logger.debug("create tenant1 id:{} , name:{}", tenant1.getId(), tenant1.getName());
 
         UserTenantRole userTenantRole1 = new UserTenantRole(idService.nextId(UserTenantRole.class.getName()), user1.getId(), tenant1.getId(), role.getId());
-        userTenantRoleLocalProvider.save(userTenantRole1);
+        userTenantRoleLocalProvider.add(userTenantRole1);
         logger.debug("create userTenantRole1 id:{} ", userTenantRole1.getId());
         //查询
         teamList = teamProvider.filterFindBy(null, tenant1.getId(), user1.getId());
         assert teamList.size() == 0;
 
         //清理数据
-        roleLocalProvider.removeById(role.getId());
-        tenantLocalProvider.removeById(tenant.getId());
-        tenantLocalProvider.removeById(tenant1.getId());
-        teamLocalProvider.removeByIds(Arrays.asList(team1.getId(), team2.getId(), team3.getId()));
-        userLocalProvider.removeById(user1.getId());
+        roleLocalProvider.delete(role.getId());
+        tenantLocalProvider.delete(tenant.getId());
+        tenantLocalProvider.delete(tenant1.getId());
+        teamLocalProvider.deleteByIds(Arrays.asList(team1.getId(), team2.getId(), team3.getId()));
+        userLocalProvider.delete(user1.getId());
     }
 
     @Test
-    public void testPermission6() throws EntityNotExistException {
+    public void testPermission6() throws EasyrayAbstractException {
         User user = initSpringSecurityThreadLocal("admin");
 
         //创建角色
@@ -407,28 +408,28 @@ class TeamProviderApplicationTests {
         Role role = new Role(idService.nextId(Role.class.getName()));
         role.setName(roleName)
                 .setType(RoleTypeConstant.GLOBAL_ROLE);
-        roleLocalProvider.save(role);
+        roleLocalProvider.add(role);
         logger.debug("create role name:{} ,id:{}", roleName, role.getId());
         //创建租户
         Tenant tenant = new Tenant(idService.nextId(Tenant.class.getName()));
         tenant.setName(String.valueOf(System.currentTimeMillis()));
-        tenantLocalProvider.save(tenant);
+        tenantLocalProvider.add(tenant);
         logger.debug("create tenant id:{} , name:{}", tenant.getId(), tenant.getName());
         //创建team
         Team team1 = new Team(idService.nextId(Team.class.getName()));
         team1.setName("team1")
                 .setTenantId(tenant.getId());
-        teamLocalProvider.save(team1);
+        teamLocalProvider.add(team1);
         logger.debug("create team name:{} ,id:{}", team1.getName(), team1.getId());
         Team team2 = new Team(idService.nextId(Team.class.getName()));
         team2.setName("team2")
                 .setTenantId(tenant.getId());
-        teamLocalProvider.save(team2);
+        teamLocalProvider.add(team2);
         logger.debug("create team name:{} ,id:{}", team2.getName(), team2.getId());
         Team team3 = new Team(idService.nextId(Team.class.getName()));
         team3.setName("team3")
                 .setTenantId(tenant.getId());
-        teamLocalProvider.save(team3);
+        teamLocalProvider.add(team3);
         logger.debug("create team name:{} ,id:{}", team3.getName(), team3.getId());
         //配置角色的权限
         ResourceAction resourceAction = resourceActionLocalProvider.fetchByNameAndAction(Team.class.getName(), ResourceActionConstant.VIEW);
@@ -438,14 +439,14 @@ class TeamProviderApplicationTests {
                 .setRoleId(role.getId())
                 .setPrimKey(String.valueOf(team1.getId()))
                 .setActionIds(resourceAction.getBitwiseValue());
-        resourcePermissionLocalProvider.save(resourcePermission);
+        resourcePermissionLocalProvider.add(resourcePermission);
         logger.debug("set resource permission id:{}", resourcePermission.getId());
 
         //创建用户
         User user1 = new User(idService.nextId(User.class.getName()));
         user1.setUsername(String.valueOf(System.currentTimeMillis()))
                 .setPassword("123456");
-        userLocalProvider.save(user1);
+        userLocalProvider.add(user1);
         logger.debug("create user name:{} ,id:{}", user1.getUsername(), user1.getId());
         //查询
         List<Team> teamList = teamProvider.filterFindBy(null, tenant.getId(), user1.getId());
@@ -453,16 +454,16 @@ class TeamProviderApplicationTests {
 
         //添加角色
         UserTenantRole userTenantRole = new UserTenantRole(idService.nextId(UserTenantRole.class.getName()), user1.getId(), tenant.getId(), role.getId());
-        userTenantRoleLocalProvider.save(userTenantRole);
+        userTenantRoleLocalProvider.add(userTenantRole);
         logger.debug("create userTenantRole id:{} ", userTenantRole.getId());
         //查询
         teamList = teamProvider.filterFindBy(null, tenant.getId(), user1.getId());
         assert teamList.size() == 1;
 
         //清理数据
-        roleLocalProvider.removeById(role.getId());
-        tenantLocalProvider.removeById(tenant.getId());
-        teamLocalProvider.removeByIds(Arrays.asList(team1.getId(), team2.getId(), team3.getId()));
-        userLocalProvider.removeById(user1.getId());
+        roleLocalProvider.delete(role.getId());
+        tenantLocalProvider.delete(tenant.getId());
+        teamLocalProvider.deleteByIds(Arrays.asList(team1.getId(), team2.getId(), team3.getId()));
+        userLocalProvider.delete(user1.getId());
     }
 }

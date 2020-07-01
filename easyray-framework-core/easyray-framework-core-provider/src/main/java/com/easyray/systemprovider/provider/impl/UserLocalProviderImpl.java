@@ -3,6 +3,7 @@ package com.easyray.systemprovider.provider.impl;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.easyray.baseapi.constant.RoleNameConstant;
 import com.easyray.baseapi.provider.EasyrayServiceImpl;
+import com.easyray.common.exception.EasyrayAbstractException;
 import com.easyray.common.exception.EntityNotExistException;
 import com.easyray.coreapi.entity.Role;
 import com.easyray.coreapi.entity.User;
@@ -50,12 +51,14 @@ public class UserLocalProviderImpl extends EasyrayServiceImpl<UserMapper, User> 
      * @return
      */
     @Override
-    public boolean save(User entity) {
+    public void add(User entity) throws EasyrayAbstractException {
         Role role = roleLocalProvider.fetchByName(RoleNameConstant.USER_ROLE_NAME);
         UserRole userRole = new UserRole(idService.nextId(UserRole.class.getName()), entity.getId(), role.getId());
-        userRoleLocalProvider.save(userRole);
-        return super.save(entity);
+        userRoleLocalProvider.add(userRole);
+
+        super.add(entity);
     }
+
 
     @Override
     public User findByUsername(String username) throws EntityNotExistException {

@@ -2,6 +2,7 @@ package com.easyray.systemprovider;
 
 import com.easyray.auth.service.impl.SpringSecurityUtil;
 import com.easyray.baseapi.constant.RoleTypeConstant;
+import com.easyray.common.exception.EasyrayAbstractException;
 import com.easyray.coreapi.entity.Role;
 import com.easyray.coreapi.entity.User;
 import com.easyray.idgeneratorapi.provider.IdService;
@@ -44,11 +45,11 @@ public class RoleProviderTest {
     }
 
     @Test
-    public void testAddRole() {
+    public void testAddRole() throws EasyrayAbstractException {
         long roleId = idService.nextId(Role.class.getName());
         Role role = new Role(roleId);
         role.setName("RANGE_ROLE")
                 .setType(RoleTypeConstant.RANGE_ROLE);
-        roleLocalProviderImpl.save(role);
+        roleLocalProviderImpl.add(role);
     }
 }

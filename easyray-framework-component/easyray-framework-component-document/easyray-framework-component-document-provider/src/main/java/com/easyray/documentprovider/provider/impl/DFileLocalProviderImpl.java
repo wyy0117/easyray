@@ -3,6 +3,7 @@ package com.easyray.documentprovider.provider.impl;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.easyray.baseapi.provider.EasyrayServiceImpl;
+import com.easyray.common.exception.EasyrayAbstractException;
 import com.easyray.dfsapi.DFSClient;
 import com.easyray.documentapi.entity.DFile;
 import com.easyray.documentapi.entity.DFileVersion;
@@ -34,12 +35,11 @@ public class DFileLocalProviderImpl extends EasyrayServiceImpl<DFileMapper, DFil
     private DFileVersionLocalProviderImpl dFileVersionLocalProviderImpl;
 
     @Override
-    public boolean save(DFile dFile) {
-        getBaseMapper().insert(dFile);
-        DFileVersion dFileVersion = new DFileVersion(dFile);
+    public void add(DFile entity) throws EasyrayAbstractException {
+        getBaseMapper().insert(entity);
+        DFileVersion dFileVersion = new DFileVersion(entity);
 
-        dFileVersionLocalProviderImpl.save(dFileVersion);
-        return false;
+        dFileVersionLocalProviderImpl.add(dFileVersion);
     }
 
     @Override
@@ -58,38 +58,38 @@ public class DFileLocalProviderImpl extends EasyrayServiceImpl<DFileMapper, DFil
     }
 
     @Override
-    public String uploadFile(DFile dFile, MultipartFile multipartFile) throws IOException {
+    public String uploadFile(DFile dFile, MultipartFile multipartFile) throws IOException, EasyrayAbstractException {
         return updateFile(dFile, new DFileVersion(dFile), multipartFile);
     }
 
     @Override
-    public String updateFile(DFile dFile, MultipartFile multipartFile) throws IOException {
+    public String updateFile(DFile dFile, MultipartFile multipartFile) throws IOException, EasyrayAbstractException {
         return updateFile(dFile, new DFileVersion(dFile), multipartFile);
     }
 
     @Override
-    public String updateFile(DFile dFile, DFileVersion dFileVersion, MultipartFile multipartFile) throws IOException {
+    public String updateFile(DFile dFile, DFileVersion dFileVersion, MultipartFile multipartFile) throws IOException, EasyrayAbstractException {
 
         return updateFile(dFile, dFileVersion, FileVersionUtil.nextVersion(dFile.getVersion()), multipartFile);
     }
 
 
     @Override
-    public String updateFile(DFile dFile, DFileVersion dFileVersion, String version, MultipartFile multipartFile) throws IOException {
+    public String updateFile(DFile dFile, DFileVersion dFileVersion, String version, MultipartFile multipartFile) throws IOException, EasyrayAbstractException {
         return updateFile(dFile, dFileVersion, version, multipartFile, "");
     }
 
     @Override
-    public String updateFile(DFile dFile, DFileVersion dFileVersion, String version, MultipartFile multipartFile, String changeLog) throws IOException {
+    public String updateFile(DFile dFile, DFileVersion dFileVersion, String version, MultipartFile multipartFile, String changeLog) throws IOException, EasyrayAbstractException {
         String url = dfsClient.uploadFile(multipartFile);
         dFile.setUrl(url);
         dFile.setVersion(version);
-        saveOrUpdate(dFile);
+        update(dFile);
 
         dFileVersion.setUrl(url);
         dFileVersion.setVersion(version);
         dFileVersion.setChangeLog(changeLog);
-        dFileVersionLocalProviderImpl.save(dFileVersion);
+        dFileVersionLocalProviderImpl.add(dFileVersion);
         return url;
     }
 

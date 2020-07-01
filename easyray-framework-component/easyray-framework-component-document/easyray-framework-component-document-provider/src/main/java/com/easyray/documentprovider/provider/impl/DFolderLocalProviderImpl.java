@@ -2,6 +2,7 @@ package com.easyray.documentprovider.provider.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.easyray.baseapi.provider.EasyrayServiceImpl;
+import com.easyray.common.exception.EntityDeleteFailedException;
 import com.easyray.documentapi.entity.DFile;
 import com.easyray.documentapi.entity.DFolder;
 import com.easyray.documentapi.provider.DFileLocalProvider;
@@ -28,11 +29,13 @@ public class DFolderLocalProviderImpl extends EasyrayServiceImpl<DFolderMapper, 
     private DFileLocalProvider dFileLocalProvider;
 
     @Override
-    public void deleteFolder(long id) {
-        dFileLocalProvider.remove(new QueryWrapper<DFile>().lambda().eq(DFile::getFolderId, id));
+    public void deleteFolder(long id) throws EntityDeleteFailedException {
+        dFileLocalProvider.delete(new QueryWrapper<DFile>().lambda().eq(DFile::getFolderId, id));
         List<DFolder> subFolderList = getSubFolderList(id);
-        subFolderList.forEach(folder -> deleteFolder(folder.getId()));
-        removeById(id);
+        for (DFolder dFolder : subFolderList) {
+            deleteFolder(dFolder.getId());
+        }
+        delete(id);
     }
 
     @Override

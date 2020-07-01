@@ -3,6 +3,7 @@ package com.easyray.systemprovider.provider.impl;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.easyray.baseapi.constant.RoleNameConstant;
 import com.easyray.baseapi.provider.EasyrayServiceImpl;
+import com.easyray.common.exception.EasyrayAbstractException;
 import com.easyray.coreapi.entity.Role;
 import com.easyray.coreapi.entity.Tenant;
 import com.easyray.coreapi.entity.UserTenantRole;
@@ -43,11 +44,11 @@ public class TenantLocalProviderImpl extends EasyrayServiceImpl<TenantMapper, Te
      * @return
      */
     @Override
-    public boolean save(Tenant entity) {
+    public void add(Tenant entity) throws EasyrayAbstractException {
         Role role = roleLocalProvider.fetchByName(RoleNameConstant.TENANT_OWNER_ROLE_NAME);
         UserTenantRole userTenantRole = new UserTenantRole(idService.nextId(UserTenantRole.class.getName()), entity.getUserId(), entity.getId(), role.getId());
-        userTenantRoleLocalProvider.save(userTenantRole);
-        return super.save(entity);
+        userTenantRoleLocalProvider.add(userTenantRole);
+         super.add(entity);
     }
 
     @Override

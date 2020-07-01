@@ -1,7 +1,6 @@
 package com.easyray.baseapi.provider;
 
-import com.baomidou.mybatisplus.extension.service.IService;
-import com.easyray.baseapi.mapper.EasyrayBaseMapper;
+import com.easyray.baseapi.service.IEasyrayService;
 
 /**
  * @Date: 20-1-28
@@ -13,7 +12,6 @@ import com.easyray.baseapi.mapper.EasyrayBaseMapper;
  *
  * @param <T> 实体的类型
  */
-public interface BaseLocalProvider<T> extends IService<T> {
-    @Override
-    EasyrayBaseMapper<T> getBaseMapper();
+public interface BaseLocalProvider<T> extends IEasyrayService<T> {
+
 }

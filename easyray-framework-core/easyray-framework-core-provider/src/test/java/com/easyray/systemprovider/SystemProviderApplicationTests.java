@@ -1,5 +1,6 @@
 package com.easyray.systemprovider;
 
+import com.easyray.common.exception.EasyrayAbstractException;
 import com.easyray.coreapi.entity.Tenant;
 import com.easyray.coreapi.entity.User;
 import com.easyray.coreapi.service.TenantLocalProvider;
@@ -31,11 +32,11 @@ class SystemProviderApplicationTests {
     private IdService idService;
 
     @Test
-    void addUser() {
+    void addUser() throws EasyrayAbstractException {
         User user = doAddUser();
     }
 
-    private User doAddUser() {
+    private User doAddUser() throws EasyrayAbstractException {
         User user = new User(idService.nextId(User.class.getName()))
 //                .setUsername(System.currentTimeMillis() + "")
                 .setUsername("test2")
@@ -44,33 +45,33 @@ class SystemProviderApplicationTests {
                 .setFullName("test");
 //                .setCreateDate(new Date());
         log.debug("user = " + user);
-        userLocalProvider.save(user);
+        userLocalProvider.add(user);
         return user;
     }
 
     @Test
-    void addTenant() {
+    void addTenant() throws EasyrayAbstractException {
         User user = doAddUser();
         Tenant tenant = doAddTenant(user);
     }
 
-    private Tenant doAddTenant(User user) {
+    private Tenant doAddTenant(User user) throws EasyrayAbstractException {
         Tenant tenant = new Tenant(idService.nextId(Tenant.class.getName()))
                 .setName(System.currentTimeMillis() + "");
         tenant.setUserId(user.getId())
                 .setFullName(user.getFullName())
                 .setCreateDate(new Date());
-        tenantLocalProvider.save(tenant);
+        tenantLocalProvider.add(tenant);
         log.debug("tenant = " + tenant);
         return tenant;
     }
 
     @Test
-    void testFetchUser() {
+    void testFetchUser() throws EasyrayAbstractException {
         User user = doAddUser();
         User user1 = userLocalProvider.fetchByUsername(user.getUsername());
         assert user.getId().equals(user1.getId());
-        userLocalProvider.removeById(user.getId());
+        userLocalProvider.delete(user.getId());
     }
 
 }

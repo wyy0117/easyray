@@ -14,11 +14,6 @@ import org.springframework.stereotype.Component;
 public class TeamCheckPermissionImpl extends EasyrayServiceImpl<TeamMapper, Team> implements TeamCheckPermission {
 
     @Override
-    public boolean save(Team entity) {
-        return false;
-    }
-
-    @Override
     public void test() {
 
     }

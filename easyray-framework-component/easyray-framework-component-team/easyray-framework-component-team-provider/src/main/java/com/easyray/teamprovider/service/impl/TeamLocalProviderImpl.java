@@ -3,6 +3,7 @@ package com.easyray.teamprovider.service.impl;
 import com.easyray.auth.service.impl.SpringSecurityUtil;
 import com.easyray.baseapi.constant.RoleTypeConstant;
 import com.easyray.baseapi.provider.EasyrayServiceImpl;
+import com.easyray.common.exception.EasyrayAbstractException;
 import com.easyray.coreapi.entity.Role;
 import com.easyray.coreapi.service.RoleLocalProvider;
 import com.easyray.idgeneratorapi.provider.IdService;
@@ -40,16 +41,16 @@ public class TeamLocalProviderImpl extends EasyrayServiceImpl<TeamMapper, Team> 
      * @return
      */
     @Override
-    public boolean save(Team entity) {
+    public void add(Team entity) throws EasyrayAbstractException {
         Long id = entity.getId();
         Role role = new Role(idService.nextId(Role.class.getName()));
         role.setType(RoleTypeConstant.RANGE_ROLE)
                 .setName(id.toString());
-        roleLocalProvider.save(role);
+        roleLocalProvider.add(role);
 
         entity.setRoleId(role.getId());
 
-        return super.save(entity);
+        super.add(entity);
     }
 
     @Override

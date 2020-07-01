@@ -2,6 +2,7 @@ package com.easyray.resourcepermission.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.easyray.baseapi.provider.EasyrayServiceImpl;
+import com.easyray.common.exception.EntityDeleteFailedException;
 import com.easyray.resourcepermission.entity.ResourceAction;
 import com.easyray.resourcepermission.mapper.ResourceActionMapper;
 import com.easyray.resourcepermission.service.ResourceActionLocalProvider;
@@ -24,9 +25,9 @@ public class ResourceActionLocalProviderImpl extends EasyrayServiceImpl<Resource
     }
 
     @Override
-    public void deleteByNameAndActions(String name, List<String> actionList) {
+    public void deleteByNameAndActions(String name, List<String> actionList) throws EntityDeleteFailedException {
 
-        remove(new QueryWrapper<ResourceAction>().lambda().eq(ResourceAction::getName, name).in(ResourceAction::getAction, actionList));
+        delete(new QueryWrapper<ResourceAction>().lambda().eq(ResourceAction::getName, name).in(ResourceAction::getAction, actionList));
     }
 
     @Override

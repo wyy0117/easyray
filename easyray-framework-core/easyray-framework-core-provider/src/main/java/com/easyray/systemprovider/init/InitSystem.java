@@ -3,7 +3,7 @@ package com.easyray.systemprovider.init;
 import com.easyray.baseapi.constant.InitOrderConstant;
 import com.easyray.baseapi.constant.RoleNameConstant;
 import com.easyray.baseapi.constant.RoleTypeConstant;
-import com.easyray.extension.init.IEasyrayInit;
+import com.easyray.common.exception.EasyrayAbstractException;
 import com.easyray.coreapi.entity.Role;
 import com.easyray.coreapi.entity.Tenant;
 import com.easyray.coreapi.entity.User;
@@ -12,6 +12,7 @@ import com.easyray.coreapi.service.RoleLocalProvider;
 import com.easyray.coreapi.service.TenantLocalProvider;
 import com.easyray.coreapi.service.UserLocalProvider;
 import com.easyray.coreapi.service.UserRoleLocalProvider;
+import com.easyray.extension.init.IEasyrayInit;
 import com.easyray.idgeneratorapi.provider.IdService;
 import com.easyray.systemprovider.autoconfig.SystemTenantProperties;
 import org.apache.dubbo.config.annotation.DubboReference;
@@ -82,7 +83,7 @@ public class InitSystem implements IEasyrayInit {
                     .setFullName(securityProperties.getUser().getName())
                     .setCreateDate(new Date())
                     .setModifiedDate(new Date());
-            roleLocalProvider.save(role);
+            roleLocalProvider.add(role);
         }
 
         User user = userLocalProvider.fetchByUsername(securityProperties.getUser().getName());
@@ -95,7 +96,7 @@ public class InitSystem implements IEasyrayInit {
             user.setFullName(securityProperties.getUser().getName());
             user.setPasswordAndEncode(securityProperties.getUser().getPassword());
             user.setCreateDate(new Date());
-            userLocalProvider.save(user);
+            userLocalProvider.add(user);
         }
 
         List<User> userRoleList = userRoleLocalProvider.findUserByRoleId(role.getId());
@@ -116,7 +117,7 @@ public class InitSystem implements IEasyrayInit {
                     .setFullName(user.getFullName())
                     .setCreateDate(new Date())
                     .setModifiedDate(new Date());
-            roleLocalProvider.save(role);
+            roleLocalProvider.add(role);
         }
         userRoleList = userRoleLocalProvider.findUserByRoleId(role.getId());
         if (userRoleList.size() == 0) {
@@ -136,18 +137,18 @@ public class InitSystem implements IEasyrayInit {
                     .setFullName(user.getFullName())
                     .setCreateDate(new Date())
                     .setModifiedDate(new Date());
-            roleLocalProvider.save(role);
+            roleLocalProvider.add(role);
         }
 
         initTenant(systemTenantProperties.getName(), user);
     }
 
-    private void initUserRole(Role role, User user) {
+    private void initUserRole(Role role, User user) throws EasyrayAbstractException {
         UserRole userRole = new UserRole(idService.nextId(UserRole.class.getName()), user.getId(), role.getId());
-        userRoleLocalProvider.save(userRole);
+        userRoleLocalProvider.add(userRole);
     }
 
-    private void initTenant(String tenantName, User user) {
+    private void initTenant(String tenantName, User user) throws EasyrayAbstractException {
         Tenant tenant = tenantLocalProvider.fetchByName(tenantName);
         if (tenant == null) {
             tenant = new Tenant(idService.nextId(Tenant.class.getName()))
@@ -156,7 +157,7 @@ public class InitSystem implements IEasyrayInit {
                     .setFullName(user.getFullName())
                     .setCreateDate(new Date())
                     .setModifiedDate(new Date());
-            tenantLocalProvider.save(tenant);
+            tenantLocalProvider.add(tenant);
         }
     }
 

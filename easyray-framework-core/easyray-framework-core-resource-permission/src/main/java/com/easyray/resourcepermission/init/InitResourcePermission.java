@@ -1,13 +1,13 @@
 package com.easyray.resourcepermission.init;
 
 import com.easyray.baseapi.constant.InitOrderConstant;
-import com.easyray.extension.init.IEasyrayInit;
 import com.easyray.common.exception.EasyCustomException;
 import com.easyray.common.exception.EntityNotExistException;
 import com.easyray.common.exception.filter.CustomThrowable;
 import com.easyray.coreapi.entity.Role;
 import com.easyray.coreapi.error.RoleErrorCode;
 import com.easyray.coreapi.service.RoleLocalProvider;
+import com.easyray.extension.init.IEasyrayInit;
 import com.easyray.idgeneratorapi.provider.IdService;
 import com.easyray.resourcepermission.autoconfig.ResourcePermissionConfigurationProperties;
 import com.easyray.resourcepermission.entity.ResourceAction;
@@ -75,7 +75,7 @@ public class InitResourcePermission implements IEasyrayInit {
             resourcePermissionVersion = new ResourcePermissionVersion(idService.nextId(ResourcePermissionVersion.class.getName()));
             resourcePermissionVersion.setModule(module)
                     .setVersion(resourcePermissionsXML.getVersion());
-            resourcePermissionVersionLocalProvider.save(resourcePermissionVersion);
+            resourcePermissionVersionLocalProvider.add(resourcePermissionVersion);
 
             List<ResourcePermissionXML> resourcePermissionXMLList = resourcePermissionsXML.getResourcePermissionXMLList();
 
@@ -98,12 +98,12 @@ public class InitResourcePermission implements IEasyrayInit {
                         .setActionIds(actionIds)
                         .setPrimKey("");
                 logger.debug("create ResourcePermission:{}", resourcePermission);
-                resourcePermissionLocalProvider.save(resourcePermission);
+                resourcePermissionLocalProvider.add(resourcePermission);
             }
         } else if (!resourcePermissionVersion.getVersion().equals(resourcePermissionsXML.getVersion())) {//版本有变化
             logger.debug("ResourcePermissionVersion not save,db version:{},new version:{},update it", resourcePermissionVersion.getVersion(), resourcePermissionsXML.getVersion());
             resourcePermissionVersion.setVersion(resourcePermissionsXML.getVersion());
-            resourcePermissionVersionLocalProvider.saveOrUpdate(resourcePermissionVersion);
+            resourcePermissionVersionLocalProvider.update(resourcePermissionVersion);
 
             List<ResourcePermissionXML> resourcePermissionXMLList = resourcePermissionsXML.getResourcePermissionXMLList();
             for (ResourcePermissionXML resourcePermissionXML : resourcePermissionXMLList) {
@@ -128,7 +128,7 @@ public class InitResourcePermission implements IEasyrayInit {
                         .setRoleId(role.getId())
                         .setActionIds(actionIds);
                 logger.debug("create ResourcePermission:{}", resourcePermission);
-                resourcePermissionLocalProvider.saveOrUpdate(resourcePermission);
+                resourcePermissionLocalProvider.update(resourcePermission);
             }
         } else {
             logger.debug("ResourcePermissionVersion not changed do nothing");

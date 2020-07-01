@@ -1,5 +1,6 @@
 package com.easyray.systemprovider;
 
+import com.easyray.common.exception.EasyrayAbstractException;
 import com.easyray.coreapi.entity.User;
 import com.easyray.idgeneratorapi.provider.IdService;
 import com.easyray.systemprovider.provider.impl.UserLocalProviderImpl;
@@ -25,12 +26,12 @@ public class UserProviderTest {
     private UserLocalProviderImpl userLocalProviderImpl;
 
     @Test
-    public void testAddUser() {
+    public void testAddUser() throws EasyrayAbstractException {
         User user = new User(idService.nextId(User.class.getName()));
         user.setUsername(System.currentTimeMillis() + "")
                 .setPasswordAndEncode("123456");
         user.setUserId(user.getId())
                 .setFullName(user.getUsername());
-        userLocalProviderImpl.save(user);
+        userLocalProviderImpl.add(user);
     }
 }

@@ -1,6 +1,7 @@
 package com.easyray.resourcepermission.service;
 
 import com.easyray.baseapi.provider.BaseLocalProvider;
+import com.easyray.common.exception.EntityDeleteFailedException;
 import com.easyray.resourcepermission.entity.ResourceAction;
 
 import java.util.List;
@@ -12,7 +13,7 @@ import java.util.List;
 public interface ResourceActionLocalProvider extends BaseLocalProvider<ResourceAction> {
     public List<ResourceAction> fetchByName(String entityName);
 
-    public void deleteByNameAndActions(String entityName, List<String> actionList);
+    public void deleteByNameAndActions(String entityName, List<String> actionList) throws EntityDeleteFailedException;
 
     public int countByName(String entityName);
 
