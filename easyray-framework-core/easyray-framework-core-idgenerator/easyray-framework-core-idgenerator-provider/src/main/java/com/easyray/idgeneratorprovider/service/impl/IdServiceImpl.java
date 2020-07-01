@@ -22,7 +22,7 @@ import java.util.concurrent.ConcurrentHashMap;
 @DubboService
 @Service
 public class IdServiceImpl implements IdService {
-    private final Logger log = LoggerFactory.getLogger(IdServiceImpl.class);
+    private final Logger logger = LoggerFactory.getLogger(IdServiceImpl.class);
 
     @Value("${id.skip-num}")
     private long skipNum;
@@ -35,17 +35,27 @@ public class IdServiceImpl implements IdService {
     @Autowired
     private IdService idService;
 
+    private long initId = 1;
+
+
     @PostConstruct
-    @Override
-    public void init() {
-        log.debug("IdServiceImpl.init");
+    private void init() {
+        logger.debug("IdServiceImpl.init");
+        IdSequence idSequence = idSequenceLocalProvider.fetchById(initId);
+        if (idSequence == null) {
+            idSequence = new IdSequence(initId)
+                    .setClassName(IdSequence.class.getName())
+                    .setValue(initId);
+            idSequenceLocalProvider.save(idSequence);
+        }
+
         List<IdSequence> idSequenceList = idSequenceLocalProvider.list();
-        for (IdSequence idSequence : idSequenceList) {
-            long max = idSequence.getValue() + skipNum;
-            idSequence.setValue(max);
-            idSequenceLocalProvider.saveOrUpdate(idSequence);
-            className_max_map.put(idSequence.getClassName(), max);
-            className_current_map.put(idSequence.getClassName(), idSequence.getValue());
+        for (IdSequence sequence : idSequenceList) {
+            long max = sequence.getValue() + skipNum;
+            sequence.setValue(max);
+            idSequenceLocalProvider.saveOrUpdate(sequence);
+            className_max_map.put(sequence.getClassName(), max);
+            className_current_map.put(sequence.getClassName(), sequence.getValue());
         }
     }
 
