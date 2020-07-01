@@ -1,9 +1,9 @@
 package com.easyray.documentapi.provider;
 
 import com.easyray.baseapi.provider.BaseLocalProvider;
-import com.easyray.common.exception.EntityDeleteFailedException;
 import com.easyray.documentapi.entity.DFolder;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -12,14 +12,5 @@ import java.util.List;
  */
 public interface DFolderLocalProvider extends BaseLocalProvider<DFolder> {
 
-
-    /**
-     * auto delete file and folder under folder
-     *
-     * @param id
-     */
-    void deleteFolder(long id) throws EntityDeleteFailedException;
-
-    List<DFolder> getSubFolderList(long parentFolderId);
-
+    List<DFolder> getSubFolderList(Serializable parentFolderId);
 }

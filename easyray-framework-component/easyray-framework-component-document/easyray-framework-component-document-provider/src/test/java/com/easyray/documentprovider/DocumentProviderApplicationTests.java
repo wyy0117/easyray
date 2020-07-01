@@ -2,6 +2,8 @@ package com.easyray.documentprovider;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.easyray.common.exception.EasyrayAbstractException;
+import com.easyray.common.exception.EntityDeleteFailedException;
 import com.easyray.coreapi.entity.Tenant;
 import com.easyray.coreapi.entity.User;
 import com.easyray.coreapi.service.TenantLocalProvider;
@@ -53,20 +55,20 @@ class DocumentProviderApplicationTests {
     private Tenant tenant;
 
     @BeforeAll
-    void before() {
+    void before() throws EasyrayAbstractException {
         user = doAddUser();
         tenant = doAddTenant(user);
     }
 
 
     @AfterAll
-    void after() {
-        tenantLocalProvider.removeById(tenant.getId());
-        userLocalProvider.removeById(user.getId());
+    void after() throws EntityDeleteFailedException {
+        tenantLocalProvider.delete(tenant.getId());
+        userLocalProvider.delete(user.getId());
     }
 
     @Test
-    void addFolderAndFile() {
+    void addFolderAndFile() throws EasyrayAbstractException {
         DFolder dFolder = doAddFolder();
         for (int i = 0; i < 5; i++) {
             doAddFile(dFolder);
@@ -81,7 +83,7 @@ class DocumentProviderApplicationTests {
         List<DFile> dFileList = dFileLocalProvider.findByFolderId(dFolder.getId(), tenant.getId());
         assert dFileList.size() > 0;
 
-        dFolderLocalProvider.deleteFolder(dFolder.getId());
+        dFolderLocalProvider.delete(dFolder.getId());
     }
 
     @Test
@@ -99,7 +101,7 @@ class DocumentProviderApplicationTests {
     }
 
     @Test
-    void testVersion() throws IOException {
+    void testVersion() throws IOException, EasyrayAbstractException {
         DFolder dFolder = doAddFolder();
         DFile dFile = doAddFile(dFolder);
         System.out.println("dFile = " + dFile);
@@ -117,57 +119,57 @@ class DocumentProviderApplicationTests {
         System.out.println("url = " + url);
     }
 
-    private DFolder doAddFolder() {
+    private DFolder doAddFolder() throws EasyrayAbstractException {
         DFolder dFolder = new DFolder(idService.nextId(DFolder.class.getName()))
-                .setName(System.currentTimeMillis() + "")
-                .setTenantId(tenant.getId());
-        dFolder.setUserId(user.getId())
+                .setName(System.currentTimeMillis() + "");
+
+        dFolder.setTenantId(tenant.getId())
+                .setUserId(user.getId())
                 .setFullName(user.getFullName())
                 .setCreateDate(new Date());
         dFolder.setParentId(0L)
                 .setTreePath(dFolder.getId() + "");
-        dFolderLocalProvider.save(dFolder);
+        dFolderLocalProvider.add(dFolder);
         System.out.println("dFolder = " + dFolder);
         return dFolder;
     }
 
-    private User doAddUser() {
+    private User doAddUser() throws EasyrayAbstractException {
         User user = new User(idService.nextId(User.class.getName()))
                 .setUsername(System.currentTimeMillis() + "")
                 .setPasswordAndEncode("test");
         user.setUserId(user.getId())
                 .setFullName("test")
                 .setCreateDate(new Date());
-        userLocalProvider.save(user);
+        userLocalProvider.add(user);
         return user;
     }
 
-    private Tenant doAddTenant(User user) {
+    private Tenant doAddTenant(User user) throws EasyrayAbstractException {
         Tenant tenant = new Tenant(idService.nextId(Tenant.class.getName()))
                 .setName(System.currentTimeMillis() + "");
         tenant.setUserId(user.getId())
                 .setFullName(user.getFullName())
                 .setCreateDate(new Date());
-        tenantLocalProvider.save(tenant);
+        tenantLocalProvider.add(tenant);
         return tenant;
     }
 
 
-    private DFile doAddFile(DFolder folder) {
+    private DFile doAddFile(DFolder folder) throws EasyrayAbstractException {
         DFile dFile = new DFile(idService.nextId(DFile.class.getName()))
-                .setTenantId(tenant.getId())
                 .setName("123.txt")
                 .setExtension("txt")
                 .setMediaType("text")
                 .setFolderId(folder.getId())
                 .setUrl("123")
                 .setFolderPath(folder.getTreePath());
-
+        dFile.setTenantId(tenant.getId());
 
         dFile.setUserId(user.getId())
                 .setFullName(user.getFullName())
                 .setCreateDate(new Date());
-        dFileLocalProvider.save(dFile);
+        dFileLocalProvider.add(dFile);
         return dFile;
     }
 

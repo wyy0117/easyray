@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -28,18 +29,24 @@ public class DFolderLocalProviderImpl extends EasyrayServiceImpl<DFolderMapper, 
     @Qualifier("DFileLocalProviderImpl")
     private DFileLocalProvider dFileLocalProvider;
 
+    /**
+     * auto delete subfolder and file
+     *
+     * @param id
+     * @throws EntityDeleteFailedException
+     */
     @Override
-    public void deleteFolder(long id) throws EntityDeleteFailedException {
+    public void delete(Serializable id) throws EntityDeleteFailedException {
         dFileLocalProvider.delete(new QueryWrapper<DFile>().lambda().eq(DFile::getFolderId, id));
         List<DFolder> subFolderList = getSubFolderList(id);
         for (DFolder dFolder : subFolderList) {
-            deleteFolder(dFolder.getId());
+            delete(dFolder.getId());
         }
         delete(id);
     }
 
     @Override
-    public List<DFolder> getSubFolderList(long parentFolderId) {
+    public List<DFolder> getSubFolderList(Serializable parentFolderId) {
 
         return getBaseMapper().fetchByQuery(new QueryWrapper<DFolder>().lambda().eq(DFolder::getParentId, parentFolderId));
     }
