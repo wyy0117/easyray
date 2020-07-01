@@ -2,6 +2,7 @@ package com.easyray.extension.init;
 
 import com.easyray.common.exception.EasyCustomException;
 import com.easyray.common.exception.EntityNotExistException;
+import com.easyray.common.init.IEasyrayInit;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

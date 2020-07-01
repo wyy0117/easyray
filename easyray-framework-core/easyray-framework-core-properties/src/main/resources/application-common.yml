@@ -57,4 +57,4 @@ seata:
     type: nacos
     nacos:
       server-addr: ${nacos.host}
-
+  tx-group-value: default

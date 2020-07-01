@@ -123,6 +123,9 @@
        spring:
          profiles:
            active: common,default
+       seata:
+         application-id: @project.name@
+         tx-service-group: @project.name@ #也用来生成nacos中的dataId
        ```
 1. 创建service模块
     1. 添加依赖
@@ -213,6 +216,9 @@
        spring:
          profiles:
            active: common,default
+       seata:
+         application-id: @project.name@
+         tx-service-group: @project.name@ #也用来生成nacos中的dataId
        ```  
 #### todo
 1. ~~url白名单~~ 20200610       

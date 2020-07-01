@@ -17,3 +17,7 @@ spring:
 system:
   group:
     name: system-group
+
+seata:
+  application-id: @project.name@
+  tx-service-group: @project.name@ #也用来生成nacos中的dataId

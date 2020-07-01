@@ -15,3 +15,6 @@ fdfs:
     width: 150
     height: 150
   tracker-list: 192.168.10.91:22122,192.168.10.92:22122
+seata:
+  application-id: @project.name@
+  tx-service-group: @project.name@ #也用来生成nacos中的dataId
