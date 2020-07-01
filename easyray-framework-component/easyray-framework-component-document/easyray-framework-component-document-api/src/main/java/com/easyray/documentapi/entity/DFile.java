@@ -1,7 +1,7 @@
 package com.easyray.documentapi.entity;
 
 import com.baomidou.mybatisplus.annotation.TableName;
-import com.easyray.baseapi.entity.BaseEntity;
+import com.easyray.baseapi.entity.TenantEntity;
 import com.easyray.documentapi.util.FileVersionUtil;
 import com.wyy.actable.annotation.Column;
 import com.wyy.actable.annotation.Table;
@@ -15,7 +15,7 @@ import static com.wyy.actable.constants.MySqlDataType.VARCHAR;
  */
 @TableName("sys_dfile")
 @Table(name = "sys_dfile")
-public class DFile extends BaseEntity<Long> {
+public class DFile extends TenantEntity<Long> {
 
     @Column(name = "name", type = VARCHAR, length = 20, nullable = false)
     private String name;
@@ -31,9 +31,6 @@ public class DFile extends BaseEntity<Long> {
 
     @Column(name = "folder_path", type = VARCHAR, length = 75, nullable = false)
     private String folderPath;
-
-    @Column(name = "tenant_id", type = BIGINT, length = 10, nullable = false)
-    private long tenantId;
 
     @Column(name = "url", type = VARCHAR, length = 75, nullable = false)
     private String url;
@@ -56,7 +53,6 @@ public class DFile extends BaseEntity<Long> {
                 ", mediaType='" + mediaType + '\'' +
                 ", folderId=" + folderId +
                 ", folderPath='" + folderPath + '\'' +
-                ", tenantId=" + tenantId +
                 ", url='" + url + '\'' +
                 ", version='" + version + '\'' +
                 "} " + super.toString();
@@ -81,15 +77,6 @@ public class DFile extends BaseEntity<Long> {
     }
 
     public DFile() {
-    }
-
-    public long getTenantId() {
-        return tenantId;
-    }
-
-    public DFile setTenantId(long tenantId) {
-        this.tenantId = tenantId;
-        return this;
     }
 
     public String getName() {

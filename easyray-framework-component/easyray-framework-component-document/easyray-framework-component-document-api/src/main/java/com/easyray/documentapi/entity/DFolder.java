@@ -1,11 +1,10 @@
 package com.easyray.documentapi.entity;
 
 import com.baomidou.mybatisplus.annotation.TableName;
-import com.easyray.baseapi.entity.TreeEntity;
+import com.easyray.baseapi.entity.TenantTreeEntity;
 import com.wyy.actable.annotation.Column;
 import com.wyy.actable.annotation.Table;
 
-import static com.wyy.actable.constants.MySqlDataType.BIGINT;
 import static com.wyy.actable.constants.MySqlDataType.VARCHAR;
 
 /**
@@ -14,13 +13,10 @@ import static com.wyy.actable.constants.MySqlDataType.VARCHAR;
  */
 @TableName("sys_dfolder")
 @Table(name = "sys_dfolder")
-public class DFolder extends TreeEntity<Long> {
+public class DFolder extends TenantTreeEntity<Long> {
 
     @Column(name = "name", type = VARCHAR, length = 20, nullable = false)
     private String name;
-
-    @Column(name = "tenant_id", type = BIGINT, length = 10, nullable = false)
-    private long tenantId;
 
     public DFolder(Long id) {
         super(id);
@@ -33,17 +29,7 @@ public class DFolder extends TreeEntity<Long> {
     public String toString() {
         return "DFolder{" +
                 "name='" + name + '\'' +
-                ", tenantId=" + tenantId +
                 "} " + super.toString();
-    }
-
-    public long getTenantId() {
-        return tenantId;
-    }
-
-    public DFolder setTenantId(long tenantId) {
-        this.tenantId = tenantId;
-        return this;
     }
 
     public String getName() {

@@ -1,7 +1,7 @@
 package com.easyray.teamapi.entity;
 
 import com.baomidou.mybatisplus.annotation.TableName;
-import com.easyray.baseapi.entity.BaseEntity;
+import com.easyray.baseapi.entity.TenantEntity;
 import com.wyy.actable.annotation.Column;
 import com.wyy.actable.annotation.Index;
 import com.wyy.actable.annotation.Table;
@@ -15,16 +15,13 @@ import static com.wyy.actable.constants.MySqlDataType.VARCHAR;
  */
 @TableName("sys_team")
 @Table(name = "sys_team")
-public class Team extends BaseEntity<Long> {
+public class Team extends TenantEntity<Long> {
 
     @Index
     @Column(name = "name", type = VARCHAR, length = 20, nullable = false)
     private String name;
     @Column(name = "role_id", type = BIGINT, length = 20, nullable = false)
     private long roleId;
-
-    @Column(name = "tenant_id", type = BIGINT, length = 20, nullable = false)
-    private long tenantId;
 
     public Team(Long id) {
         super(id);
@@ -38,7 +35,6 @@ public class Team extends BaseEntity<Long> {
         return "Team{" +
                 "name='" + name + '\'' +
                 ", roleId=" + roleId +
-                ", tenantId=" + tenantId +
                 "} " + super.toString();
     }
 
@@ -60,12 +56,4 @@ public class Team extends BaseEntity<Long> {
         return this;
     }
 
-    public long getTenantId() {
-        return tenantId;
-    }
-
-    public Team setTenantId(long tenantId) {
-        this.tenantId = tenantId;
-        return this;
-    }
 }

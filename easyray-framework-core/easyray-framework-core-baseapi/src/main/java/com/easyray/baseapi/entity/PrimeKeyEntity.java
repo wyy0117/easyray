@@ -13,7 +13,7 @@ import static com.wyy.actable.constants.MySqlDataType.BIGINT;
  * @Date: 20-2-8
  * @Author: wyy
  */
-public class PrimeKeyEntity<T> implements Serializable {
+public abstract class PrimeKeyEntity<T> implements Serializable {
 
     @Column(name = ColumnNameConstant.id, type = BIGINT, length = 20, nullable = false, key = true)
     @TableId(type = IdType.INPUT)

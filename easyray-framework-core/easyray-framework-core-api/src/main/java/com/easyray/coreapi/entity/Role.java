@@ -1,7 +1,7 @@
 package com.easyray.coreapi.entity;
 
 import com.baomidou.mybatisplus.annotation.TableName;
-import com.easyray.baseapi.entity.BaseEntity;
+import com.easyray.baseapi.entity.TenantEntity;
 import com.wyy.actable.annotation.Column;
 import com.wyy.actable.annotation.Table;
 
@@ -14,7 +14,7 @@ import static com.wyy.actable.constants.MySqlDataType.VARCHAR;
  */
 @TableName("sys_role")
 @Table(name = "sys_role")
-public class Role extends BaseEntity<Long> {
+public class Role extends TenantEntity<Long> {
 
     @Column(name = "name", type = VARCHAR, length = 75, nullable = false)
     private String name;
