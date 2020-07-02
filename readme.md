@@ -109,6 +109,7 @@
         @DubboComponentScan(basePackages = {"com.easyray.*"})
         //必须指定只扫描Mapper.class，否者会扫描2次spring的component，导致重复而报错
         @MapperScan(annotationClass = Mapper.class, basePackages = {"com.easyray.*"})
+        @EnableTransactionManagement
         ```    
     1. 修改配置文件
        ```

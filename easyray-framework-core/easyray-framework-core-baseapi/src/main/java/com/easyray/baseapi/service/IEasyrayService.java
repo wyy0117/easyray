@@ -10,6 +10,7 @@ import com.easyray.common.exception.EasyrayAbstractException;
 import com.easyray.common.exception.EntityAddFailedException;
 import com.easyray.common.exception.EntityDeleteFailedException;
 import com.easyray.common.exception.EntityUpdateFailedException;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.io.Serializable;
 import java.util.Collection;
@@ -19,6 +20,7 @@ import java.util.List;
  * @Date: 2020/7/1
  * @Author: wyy
  */
+@Transactional
 public interface IEasyrayService<T> {
 
     EasyrayBaseMapper<T> getBaseMapper();

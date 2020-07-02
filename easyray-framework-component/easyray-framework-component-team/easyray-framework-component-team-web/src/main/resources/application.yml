@@ -9,7 +9,7 @@ dubbo:
 
 spring:
   profiles:
-    include: common
+    include: common,default
 seata:
   application-id: easyray-team-web
   tx-service-group: easyray-team-web #也用来生成nacos中的dataId
