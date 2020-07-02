@@ -10,5 +10,5 @@ spring:
   profiles:
     include: common
 seata:
-  application-id: @project.name@
-  tx-service-group: @project.name@ #也用来生成nacos中的dataId
+  application-id: easyray-team-provider
+  tx-service-group: easyray-team-provider #也用来生成nacos中的dataId

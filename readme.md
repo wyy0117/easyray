@@ -124,8 +124,8 @@
          profiles:
            active: common,default
        seata:
-         application-id: @project.name@
-         tx-service-group: @project.name@ #也用来生成nacos中的dataId
+         application-id: @project.name@ #不能超过32位
+         tx-service-group: @project.name@ #也用来生成nacos中的dataId，不能超过32位
        ```
 1. 创建service模块
     1. 添加依赖
@@ -217,8 +217,8 @@
          profiles:
            active: common,default
        seata:
-         application-id: @project.name@
-         tx-service-group: @project.name@ #也用来生成nacos中的dataId
+         application-id: @project.name@ # 不能超过32位
+         tx-service-group: @project.name@ #也用来生成nacos中的dataId，不能超过32位
        ```  
 #### todo
 1. ~~url白名单~~ 20200610       
