@@ -47,6 +47,12 @@
             <groupId>com.easyray</groupId>
             <artifactId>easyray-framework-core-auth</artifactId>
             <version>1.0.0</version>
+            <exclusions>
+                <exclusion>
+                    <artifactId>seata-spring-boot-starter</artifactId>
+                    <groupId>io.seata</groupId>
+                </exclusion>
+            </exclusions>
         </dependency>
 
         <dependency>
