@@ -18,16 +18,16 @@ import java.util.List;
 
 /**
  * {@link ServiceImpl}
- * @param <M>
- * @param <T>
+ * @param <Mapper>
+ * @param <Entity>
  */
 @SuppressWarnings("unchecked")
-public abstract class EasyrayServiceImpl<M extends EasyrayBaseMapper<T>, T> implements IEasyrayService<T> {
+public abstract class EasyrayServiceImpl<Mapper extends EasyrayBaseMapper<Entity>, Entity> implements IEasyrayService<Entity> {
 
     @Autowired
-    protected M baseMapper;
+    protected Mapper baseMapper;
 
-    public M getBaseMapper() {
+    public Mapper getBaseMapper() {
         return baseMapper;
     }
 
@@ -39,12 +39,12 @@ public abstract class EasyrayServiceImpl<M extends EasyrayBaseMapper<T>, T> impl
      * @param userId
      * @return
      */
-    public List<T> filterFindBy(AbstractWrapper queryWrapper, long tenantId, long userId) {
+    public List<Entity> filterFindBy(AbstractWrapper queryWrapper, long tenantId, long userId) {
         return getBaseMapper().filterFindByQuery(queryWrapper, tenantId, userId);
     }
 
-    public T findOneByQueryAndTenantId(AbstractWrapper queryWrapper, Long tenantId) throws EntityNotExistException {
-        T entity = fetchOneByQueryAndTenantId(queryWrapper, tenantId);
+    public Entity findOneByQueryAndTenantId(AbstractWrapper queryWrapper, Long tenantId) throws EntityNotExistException {
+        Entity entity = fetchOneByQueryAndTenantId(queryWrapper, tenantId);
         if (entity == null) {
             ParameterizedType pt = (ParameterizedType) this.getClass().getGenericSuperclass();
             // 获取第一个类型参数的真实类型
@@ -54,15 +54,15 @@ public abstract class EasyrayServiceImpl<M extends EasyrayBaseMapper<T>, T> impl
         return entity;
     }
 
-    public T fetchOneByQueryAndTenantId(AbstractWrapper queryWrapper, Long tenantId) {
+    public Entity fetchOneByQueryAndTenantId(AbstractWrapper queryWrapper, Long tenantId) {
         return getBaseMapper().fetchOneByQueryAndTenantId(queryWrapper, tenantId);
     }
 
-    public T findOneByQuery(AbstractWrapper queryWrapper) throws EntityNotExistException {
+    public Entity findOneByQuery(AbstractWrapper queryWrapper) throws EntityNotExistException {
         return findOneByQueryAndTenantId(queryWrapper, null);
     }
 
-    public T fetchOneByQuery(AbstractWrapper queryWrapper) {
+    public Entity fetchOneByQuery(AbstractWrapper queryWrapper) {
         return fetchOneByQueryAndTenantId(queryWrapper, null);
     }
 

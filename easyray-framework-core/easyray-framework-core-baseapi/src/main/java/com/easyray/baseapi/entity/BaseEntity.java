@@ -13,11 +13,7 @@ import static com.wyy.actable.constants.MySqlDataType.*;
  * @Date: 20-1-26
  * @Author: wyy
  */
-
-/**
- * @param <T> 主键类型
- */
-public abstract class BaseEntity<T> extends PrimeKeyEntity<T> {
+public abstract class BaseEntity<ID> extends PrimeKeyEntity<ID> {
     @Column(name = ColumnNameConstant.user_id, type = BIGINT, length = 20, nullable = false)
     @TableField(fill = FieldFill.INSERT)
     private long userId;
@@ -45,7 +41,7 @@ public abstract class BaseEntity<T> extends PrimeKeyEntity<T> {
     public BaseEntity() {
     }
 
-    public BaseEntity(T id) {
+    public BaseEntity(ID id) {
         super(id);
     }
 
@@ -65,7 +61,7 @@ public abstract class BaseEntity<T> extends PrimeKeyEntity<T> {
         return modifiedUserId;
     }
 
-    public BaseEntity<T> setModifiedUserId(long modifiedUserId) {
+    public BaseEntity<ID> setModifiedUserId(long modifiedUserId) {
         this.modifiedUserId = modifiedUserId;
         return this;
     }
@@ -74,7 +70,7 @@ public abstract class BaseEntity<T> extends PrimeKeyEntity<T> {
         return modifiedUserFullName;
     }
 
-    public BaseEntity<T> setModifiedUserFullName(String modifiedUserFullName) {
+    public BaseEntity<ID> setModifiedUserFullName(String modifiedUserFullName) {
         this.modifiedUserFullName = modifiedUserFullName;
         return this;
     }

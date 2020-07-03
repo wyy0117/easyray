@@ -8,11 +8,11 @@ import com.wyy.actable.constants.MySqlDataType;
  * @Date: 2020/7/1
  * @Author: wyy
  */
-public class TenantTreeEntity<T> extends TreeEntity<T> {
+public class TenantTreeEntity<ID> extends TreeEntity<ID> {
     @Column(name = ColumnNameConstant.tenant_id, type = MySqlDataType.BIGINT, length = 10, nullable = false, defaultValue = "0")
     private long tenantId = 0;
 
-    public TenantTreeEntity(T id) {
+    public TenantTreeEntity(ID id) {
         super(id);
     }
 
@@ -30,7 +30,7 @@ public class TenantTreeEntity<T> extends TreeEntity<T> {
         return tenantId;
     }
 
-    public TenantTreeEntity<T> setTenantId(long tenantId) {
+    public TenantTreeEntity<ID> setTenantId(long tenantId) {
         this.tenantId = tenantId;
         return this;
     }

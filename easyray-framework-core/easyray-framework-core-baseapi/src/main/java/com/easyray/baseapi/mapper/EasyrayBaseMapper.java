@@ -13,7 +13,7 @@ import java.util.List;
  * @Date: 20-2-13
  * @Author: wyy
  */
-public interface EasyrayBaseMapper<T> extends BaseMapper<T> {
+public interface EasyrayBaseMapper<Entity> extends BaseMapper<Entity> {
 
     /**
      * 使用sql注入，{@link com.easyray.baseapi.sqlinject.FilterFindByQuery}
@@ -23,7 +23,7 @@ public interface EasyrayBaseMapper<T> extends BaseMapper<T> {
      * @param userId
      * @return
      */
-    List<T> filterFindByQuery(@Param(Constants.WRAPPER) AbstractWrapper queryWrapper, long tenantId, long userId);
+    List<Entity> filterFindByQuery(@Param(Constants.WRAPPER) AbstractWrapper queryWrapper, long tenantId, long userId);
 
     /**
      * 使用sql注入，{@link com.easyray.baseapi.sqlinject.FilterFindByQuery}
@@ -34,7 +34,7 @@ public interface EasyrayBaseMapper<T> extends BaseMapper<T> {
      * @param userId
      * @return
      */
-    IPage<T> filterFindByQuery(IPage<T> page, @Param(Constants.WRAPPER) AbstractWrapper queryWrapper, long tenantId, long userId);
+    IPage<Entity> filterFindByQuery(IPage<Entity> page, @Param(Constants.WRAPPER) AbstractWrapper queryWrapper, long tenantId, long userId);
 
 
     /**
@@ -44,10 +44,10 @@ public interface EasyrayBaseMapper<T> extends BaseMapper<T> {
      * @param tenantId
      * @return
      */
-    T fetchOneByQueryAndTenantId(@Param(Constants.WRAPPER) AbstractWrapper queryWrapper, Long tenantId);
+    Entity fetchOneByQueryAndTenantId(@Param(Constants.WRAPPER) AbstractWrapper queryWrapper, Long tenantId);
 
 
-    default IPage<T> fetchByQueryAndTenantId(IPage<T> page, @Param(Constants.WRAPPER) AbstractWrapper queryWrapper, Long tenantId) {
+    default IPage<Entity> fetchByQueryAndTenantId(IPage<Entity> page, @Param(Constants.WRAPPER) AbstractWrapper queryWrapper, Long tenantId) {
 
         assert page != null;
 
@@ -57,7 +57,7 @@ public interface EasyrayBaseMapper<T> extends BaseMapper<T> {
         return fetchByQuery(page, queryWrapper);
     }
 
-    default List<T> fetchByQueryAndTenantId(@Param(Constants.WRAPPER) AbstractWrapper queryWrapper, Long tenantId) {
+    default List<Entity> fetchByQueryAndTenantId(@Param(Constants.WRAPPER) AbstractWrapper queryWrapper, Long tenantId) {
         if (tenantId != null) {
             queryWrapper.eq(ColumnNameConstant.tenant_id, tenantId);
         }
@@ -71,7 +71,7 @@ public interface EasyrayBaseMapper<T> extends BaseMapper<T> {
      * @param queryWrapper
      * @return
      */
-    IPage<T> fetchByQuery(IPage<T> page, @Param(Constants.WRAPPER) AbstractWrapper queryWrapper);
+    IPage<Entity> fetchByQuery(IPage<Entity> page, @Param(Constants.WRAPPER) AbstractWrapper queryWrapper);
 
     /**
      * sql注入 {@link com.easyray.baseapi.sqlinject.FetchByQuery}
@@ -79,6 +79,6 @@ public interface EasyrayBaseMapper<T> extends BaseMapper<T> {
      * @param queryWrapper
      * @return
      */
-    List<T> fetchByQuery(@Param(Constants.WRAPPER) AbstractWrapper queryWrapper);
+    List<Entity> fetchByQuery(@Param(Constants.WRAPPER) AbstractWrapper queryWrapper);
 
 }

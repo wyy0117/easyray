@@ -12,9 +12,9 @@ import java.util.List;
 /**
  * service接口的基类,需要检查权限
  */
-public interface BaseProvider<T> extends BaseLocalProvider<T> {
+public interface BaseProvider<Entity> extends BaseLocalProvider<Entity> {
 
-    default List<T> filterFindBy(AbstractWrapper queryWrapper, long tenantId, long userId) {
+    default List<Entity> filterFindBy(AbstractWrapper queryWrapper, long tenantId, long userId) {
         return getBaseMapper().filterFindByQuery(queryWrapper, tenantId, userId);
 
     }

@@ -11,10 +11,10 @@ import java.lang.reflect.Method;
  * @Date: 20-2-22
  * @Author: wyy
  */
-public abstract class CheckPermissionAspect<C extends BaseCheckerPermission> {
+public abstract class CheckPermissionAspect<BaseCheckPermission extends BaseCheckerPermission> {
 
 
-    public abstract C getCheckPermission();
+    public abstract BaseCheckPermission getCheckPermission();
 
     //    @Pointcut("target(com.easyray.baseapi.provider.BaseProvider)")
     public abstract void pointcut();
@@ -26,7 +26,7 @@ public abstract class CheckPermissionAspect<C extends BaseCheckerPermission> {
         String s = joinPoint.getSignature().toLongString();
         String substring = s.substring(s.indexOf("(") + 1, s.indexOf(")"));
 
-        C checkPermission = getCheckPermission();
+        BaseCheckPermission checkPermission = getCheckPermission();
         Method method = ReflectUtil.getMethod(checkPermission.getClass(), methodName, substring.split(","));
         method.invoke(checkPermission, args);
     }

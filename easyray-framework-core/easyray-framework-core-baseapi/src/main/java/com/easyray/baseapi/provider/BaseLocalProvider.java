@@ -10,8 +10,8 @@ import com.easyray.baseapi.service.IEasyrayService;
 /**
  * localService接口的基类
  *
- * @param <T> 实体的类型
+ * @param <Entity> 实体的类型
  */
-public interface BaseLocalProvider<T> extends IEasyrayService<T> {
+public interface BaseLocalProvider<Entity> extends IEasyrayService<Entity> {
 
 }

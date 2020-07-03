@@ -1,21 +1,17 @@
 package com.easyray.baseapi.entity;
 
-/**
- * @Date: 20-1-26
- * @Author: wyy
- */
-
 import com.easyray.baseapi.constant.ColumnNameConstant;
 import com.wyy.actable.annotation.Column;
 import com.wyy.actable.constants.MySqlDataType;
 
 /**
- * @param <T> 主键类型
+ * @Date: 20-1-26
+ * @Author: wyy
  */
-public abstract class TreeEntity<T> extends BaseEntity<T> {
+public abstract class TreeEntity<ID> extends BaseEntity<ID> {
 
     @Column(name = ColumnNameConstant.parent_id, type = MySqlDataType.BIGINT, length = 10, nullable = false)
-    private T parentId;
+    private ID parentId;
 
     @Column(name = ColumnNameConstant.tree_path, type = MySqlDataType.VARCHAR, length = 75, nullable = false)
     private String treePath;
@@ -23,7 +19,7 @@ public abstract class TreeEntity<T> extends BaseEntity<T> {
     public TreeEntity() {
     }
 
-    public TreeEntity(T id) {
+    public TreeEntity(ID id) {
         super(id);
     }
 
@@ -35,11 +31,11 @@ public abstract class TreeEntity<T> extends BaseEntity<T> {
                 "} " + super.toString();
     }
 
-    public T getParentId() {
+    public ID getParentId() {
         return parentId;
     }
 
-    public TreeEntity<T> setParentId(T parentId) {
+    public TreeEntity<ID> setParentId(ID parentId) {
         this.parentId = parentId;
         return this;
     }
@@ -48,7 +44,7 @@ public abstract class TreeEntity<T> extends BaseEntity<T> {
         return treePath;
     }
 
-    public TreeEntity<T> setTreePath(String treePath) {
+    public TreeEntity<ID> setTreePath(String treePath) {
         this.treePath = treePath;
         return this;
     }

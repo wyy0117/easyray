@@ -23,14 +23,14 @@ import java.util.List;
 
 /**
  * {@link com.baomidou.mybatisplus.extension.service.IService}
- * @param <T>
+ * @param <Entity>
  */
 @Transactional
-public interface IEasyrayService<T> {
+public interface IEasyrayService<Entity> {
 
-    EasyrayBaseMapper<T> getBaseMapper();
+    EasyrayBaseMapper<Entity> getBaseMapper();
 
-    default void add(T entity) throws EasyrayAbstractException {
+    default void add(Entity entity) throws EasyrayAbstractException {
         boolean result = SqlHelper.retBool(getBaseMapper().insert(entity));
         if (!result) {
             throw new EntityAddFailedException(entity);
@@ -45,7 +45,7 @@ public interface IEasyrayService<T> {
         }
     }
 
-    default void delete(Wrapper<T> queryWrapper) throws EntityDeleteFailedException {
+    default void delete(Wrapper<Entity> queryWrapper) throws EntityDeleteFailedException {
         boolean result = SqlHelper.retBool(getBaseMapper().delete(queryWrapper));
         if (!result) {
             Class<?> superClassGenericType = ReflectionKit.getSuperClassGenericType(getClass(), 0);
@@ -69,14 +69,14 @@ public interface IEasyrayService<T> {
 
     }
 
-    default void update(T entity) throws EntityUpdateFailedException {
+    default void update(Entity entity) throws EntityUpdateFailedException {
         boolean result = SqlHelper.retBool(getBaseMapper().updateById(entity));
         if (!result) {
             throw new EntityUpdateFailedException(entity);
         }
     }
 
-    default List<T> list(Wrapper<T> queryWrapper) {
+    default List<Entity> list(Wrapper<Entity> queryWrapper) {
         return getBaseMapper().selectList(queryWrapper);
     }
 
@@ -94,7 +94,7 @@ public interface IEasyrayService<T> {
      *
      * @param queryWrapper 实体对象封装操作类 {@link com.baomidou.mybatisplus.core.conditions.query.QueryWrapper}
      */
-    default int count(Wrapper<T> queryWrapper) {
+    default int count(Wrapper<Entity> queryWrapper) {
         return SqlHelper.retCount(getBaseMapper().selectCount(queryWrapper));
     }
 
@@ -103,7 +103,7 @@ public interface IEasyrayService<T> {
      *
      * @see Wrappers#emptyWrapper()
      */
-    default List<T> list() {
+    default List<Entity> list() {
         return list(Wrappers.emptyWrapper());
     }
 
