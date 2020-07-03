@@ -1,7 +1,7 @@
 package com.easyray.documentprovider.provider.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.easyray.baseapi.provider.EasyrayServiceImpl;
+import com.easyray.baseapi.provider.EasyrayTreeServiceImpl;
 import com.easyray.common.exception.EntityDeleteFailedException;
 import com.easyray.documentapi.entity.DFile;
 import com.easyray.documentapi.entity.DFolder;
@@ -22,7 +22,7 @@ import java.util.List;
  */
 @DubboService
 @Service
-public class DFolderLocalProviderImpl extends EasyrayServiceImpl<DFolderMapper, DFolder> implements DFolderLocalProvider {
+public class DFolderLocalProviderImpl extends EasyrayTreeServiceImpl<DFolderMapper, DFolder> implements DFolderLocalProvider {
 
 
     @Autowired
@@ -38,11 +38,11 @@ public class DFolderLocalProviderImpl extends EasyrayServiceImpl<DFolderMapper, 
     @Override
     public void delete(Serializable id) throws EntityDeleteFailedException {
         dFileLocalProvider.delete(new QueryWrapper<DFile>().lambda().eq(DFile::getFolderId, id));
+        super.delete(id);
         List<DFolder> subFolderList = getSubFolderList(id);
         for (DFolder dFolder : subFolderList) {
             delete(dFolder.getId());
         }
-        delete(id);
     }
 
     @Override
