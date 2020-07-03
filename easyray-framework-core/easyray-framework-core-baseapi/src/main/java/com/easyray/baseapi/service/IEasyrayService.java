@@ -20,6 +20,11 @@ import java.util.List;
  * @Date: 2020/7/1
  * @Author: wyy
  */
+
+/**
+ * {@link com.baomidou.mybatisplus.extension.service.IService}
+ * @param <T>
+ */
 @Transactional
 public interface IEasyrayService<T> {
 

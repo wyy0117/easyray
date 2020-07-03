@@ -1,6 +1,7 @@
 package com.easyray.baseapi.provider;
 
 import com.baomidou.mybatisplus.core.conditions.AbstractWrapper;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.easyray.baseapi.mapper.EasyrayBaseMapper;
 import com.easyray.baseapi.service.IEasyrayService;
 import com.easyray.common.exception.EntityNotExistException;
@@ -13,6 +14,12 @@ import java.util.List;
 /**
  * @Date: 20-2-12
  * @Author: wyy
+ */
+
+/**
+ * {@link ServiceImpl}
+ * @param <M>
+ * @param <T>
  */
 @SuppressWarnings("unchecked")
 public abstract class EasyrayServiceImpl<M extends EasyrayBaseMapper<T>, T> implements IEasyrayService<T> {
