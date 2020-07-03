@@ -1,4 +1,4 @@
-package com.easyray.auth.error;
+package com.easyray.login.error;
 
 import com.easyray.common.exception.filter.ICustomErrorCode;
 
