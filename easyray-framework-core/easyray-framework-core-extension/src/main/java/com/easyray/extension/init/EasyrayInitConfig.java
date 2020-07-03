@@ -8,6 +8,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Configuration;
 
@@ -21,6 +22,7 @@ import java.util.Map;
  * @Author: wyy
  */
 @Configuration
+@ConditionalOnClass(value = {IEasyrayInit.class})//只有有初始化任务的时候才做初始化
 public class EasyrayInitConfig implements ApplicationRunner {
     private Logger log = LoggerFactory.getLogger(EasyrayInitConfig.class);
 
