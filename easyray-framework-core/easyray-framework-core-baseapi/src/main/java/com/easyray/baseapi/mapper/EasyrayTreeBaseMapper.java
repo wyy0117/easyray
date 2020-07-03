@@ -24,11 +24,11 @@ public interface EasyrayTreeBaseMapper<Entity extends TreeEntity<? extends Seria
     }
 
     default List<Entity> subNode(Entity entity) {
-        return selectList(new QueryWrapper<Entity>().lambda().eq(Entity::getParentId, entity.getId()));
+        return selectList(new QueryWrapper<Entity>().lambda().eq(e -> e.getParentId(), entity.getId()));
     }
 
     default IPage<Entity> subNode(IPage<Entity> page, Entity entity) {
-        return selectPage(page, new QueryWrapper<Entity>().lambda().eq(Entity::getParentId, entity.getId()));
+        return selectPage(page, new QueryWrapper<Entity>().lambda().eq(e -> e.getParentId(), entity.getId()));
     }
 
 }
