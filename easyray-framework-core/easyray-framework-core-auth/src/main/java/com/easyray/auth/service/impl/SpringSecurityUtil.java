@@ -1,6 +1,5 @@
 package com.easyray.auth.service.impl;
 
-import com.alibaba.dubbo.rpc.RpcContext;
 import com.easyray.auth.entity.UserDetailsImpl;
 import com.easyray.baseapi.constant.FieldNameConstant;
 import com.easyray.coreapi.entity.User;
@@ -8,6 +7,7 @@ import com.easyray.coreapi.service.UserLocalProvider;
 import com.google.gson.Gson;
 import org.apache.commons.collections4.map.PassiveExpiringMap;
 import org.apache.dubbo.config.annotation.DubboReference;
+import org.apache.dubbo.rpc.RpcContext;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
